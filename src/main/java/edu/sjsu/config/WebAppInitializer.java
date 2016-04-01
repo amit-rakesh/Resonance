@@ -5,26 +5,24 @@ import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatche
 import edu.sjsu.config.RootConfig;
 import edu.sjsu.config.WebConfig;
 
-public class WebAppInitializer extends AbstractAnnotationConfigDispatcherServletInitializer{
-	
+public class WebAppInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
+
 	@Override
 	protected Class<?>[] getRootConfigClasses() {
 		// TODO Auto-generated method stub
-		return new Class<?>[] {RootConfig.class};
+		return new Class<?>[] { RootConfig.class };
 	}
 
 	@Override
 	protected Class<?>[] getServletConfigClasses() {
 		// TODO Auto-generated method stub
-		return new Class<?>[] {WebConfig.class};
+		return new Class<?>[] { WebConfig.class };
 	}
 
 	@Override
 	protected String[] getServletMappings() {
 		// TODO Auto-generated method stub
-		return new String[] {"/"};
+		return new String[] { "/" };
 	}
-	
-	
 
 }
