@@ -212,6 +212,14 @@
 			<version>4.7</version>
 			<scope>test</scope>
 		</dependency>
+		
+		       <!-- Java Mail -->
+        <dependency>
+            <groupId>javax.mail</groupId>
+            <artifactId>mail</artifactId>
+            <version>1.5.0-b01</version>
+        </dependency>
+        
 	</dependencies>
 	<build>
 		<plugins>
