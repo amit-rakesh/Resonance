@@ -6,8 +6,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import edu.sjsu.helpers.BadRequestException;
 import edu.sjsu.helpers.EmailNotification;
@@ -31,8 +33,9 @@ public class UserController {
 	EmailNotification emailNotification;
 
 	@RequestMapping(value = "/signup", method = RequestMethod.POST, produces = "application/json")
-	public ResponseEntity<User> createUser(@Valid @RequestBody User user, BindingResult result, HttpServletResponse response) {
+	public ModelAndView createUser(@Valid @ModelAttribute("user") User user, BindingResult result, HttpServletResponse response) {
 
+		System.out.println("In controller");
 		User userob = null;
 		
 	    //this call validated that email is not already in use
@@ -54,7 +57,8 @@ public class UserController {
 		emailNotification.sendEmailonSignUp(user.getEmail(), user.getName(),tokenString);
 		userob.setPassword(null);
         userob.setToken(null);
-		return new ResponseEntity<User>(userob, HttpStatus.CREATED);
+		//return new ResponseEntity<User>(userob, HttpStatus.CREATED);
+        return new ModelAndView("login");
 	}
 	
     @RequestMapping(value = "/verify/{email}/{token}", method = RequestMethod.GET, produces = "application/json")
@@ -78,17 +82,19 @@ public class UserController {
     }
    
     
-    @RequestMapping(value = "/login", method = RequestMethod.POST, produces = "application/json")
-    @ResponseBody
-    public ResponseEntity<User> validateUser(@Valid @RequestBody User tmpUser, BindingResult result, HttpServletResponse response) {
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    public ModelAndView validateUser(@Valid @ModelAttribute("user") User tmpUser, BindingResult result, HttpServletResponse response, Model model) {
 
+    
     	System.out.println("Email : "+tmpUser.getEmail());
         User user = userService.getUserByEmail(tmpUser.getEmail());
         String savedPass = user.getPassword();
         String enteredPass = Utility.passwordEncrypter(tmpUser.getPassword());
-
+        
+        
         if(!user.isVerified()){
-            throw new BadRequestException("Please verify your email address");
+            
+        	throw new BadRequestException("Please verify your email address");
         }
 
         //compare given password with the actual password
@@ -96,12 +102,16 @@ public class UserController {
             if (savedPass.equals(enteredPass)) {
              
                 user.setPassword(null);
-                return new ResponseEntity<User>(user, HttpStatus.OK);
+                return new ModelAndView("dashboard"); 
             } else {
-                throw new BadRequestException("Incorrect Password");
+            	throw new BadRequestException("Incorrect Password");
             }
         } else {
-            throw new BadRequestException("User not found.");
+        	throw new BadRequestException("User not found.");
         }
+        
+    
     }
+    
+ 
 }
