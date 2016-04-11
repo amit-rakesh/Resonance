@@ -32,6 +32,18 @@ public abstract class Utility {
 
         return generatedDigest;
     }
+    
+    public static Integer sessionTokenGenerator()
+    {
+        DateTime dt = new DateTime();
+        Integer year = dt.getYear();
+        Integer month = dt.getMonthOfYear();
+        Integer day = dt.getDayOfYear();
+        Integer hour = dt.getHourOfDay();
+        Integer milli = dt.getMillisOfDay();
+        Integer id = 999 + year + month + day + hour + milli;
+        return id;
+    }
 
     public static String verificationTokenGenerator(String email)
     {
