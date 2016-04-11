@@ -36,6 +36,8 @@ public class UserController {
 	public ModelAndView createUser(@Valid @ModelAttribute("user") User user, BindingResult result, HttpServletResponse response) {
 
 		System.out.println("In controller");
+		System.out.println("Name : "+user.getName() );
+		
 		User userob = null;
 		
 	    //this call validated that email is not already in use

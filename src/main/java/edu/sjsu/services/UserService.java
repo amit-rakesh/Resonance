@@ -8,6 +8,6 @@ public interface UserService {
 
 	public User create(User user);
 	public void isEmailAvailable(String email);
-
+	public User getUserById(long userid);
 	public User getUserByEmail(String email);
 }

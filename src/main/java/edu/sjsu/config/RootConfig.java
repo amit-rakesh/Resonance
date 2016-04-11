@@ -12,6 +12,11 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import edu.sjsu.helpers.EmailNotification;
+import edu.sjsu.helpers.S3Connector;
+import edu.sjsu.services.SongService;
+import edu.sjsu.services.SongServiceImpl;
+import edu.sjsu.services.UserService;
+import edu.sjsu.services.UserServiceImpl;
 
 @Configuration
 @ComponentScan(basePackages = { "edu.sjsu" }, excludeFilters = {
@@ -22,6 +27,17 @@ public class RootConfig {
     @Bean
     public EmailNotification getEmailNotification(){
         return new EmailNotification();
+    }
+    
+    @Bean
+    public SongService getsongservice(){
+        return new SongServiceImpl();
+    }
+    
+
+    @Bean
+    public S3Connector getS3Connector(){
+        return new S3Connector();
     }
 
 }
