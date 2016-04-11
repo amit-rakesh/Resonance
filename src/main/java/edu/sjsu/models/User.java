@@ -43,6 +43,10 @@ public class User {
 	private String state;
 
 	@JsonProperty
+	@Column(name = "sessionid")
+	private Long sessionid;
+
+	@JsonProperty
 	@Column(name = "token")
 	private String token;
 
@@ -129,6 +133,14 @@ public class User {
 		this.state = state;
 	}
 
+	public Long getSessionid() {
+		return sessionid;
+	}
+
+	public void setSessionid(Long sessionid) {
+		this.sessionid = sessionid;
+	}
+
 	public void setToken(String token) {
 		this.token = token;
 	}
@@ -143,6 +155,13 @@ public class User {
 
 	public Boolean isVerified() {
 		return verified;
+	}
+
+	@Override
+	public String toString() {
+		return "{" + " \"userid\": " + "\"" + userid + "\"" + ", \"name\": " + "\"" + name + "\"" + ", \"email\": "
+				+ "\"" + email + "\"" + ", \"country\": " + "\"" + country + "\"" + ", \"state\": " + "\"" + state
+				+ "\"" + ", \"sessionid\": " + "\"" + sessionid + "\"" + '}';
 	}
 
 }

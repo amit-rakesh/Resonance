@@ -20,28 +20,29 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableTransactionManagement
 public class JpaConfig {
 
-/*	@Bean
-	public DataSource dataSource() {
+	/*
+	 * @Bean public DataSource dataSource() {
+	 * 
+	 * EmbeddedDatabaseBuilder builder = new EmbeddedDatabaseBuilder(); return
+	 * builder.setType(EmbeddedDatabaseType.HSQL).build(); }
+	 */
 
-		EmbeddedDatabaseBuilder builder = new EmbeddedDatabaseBuilder();
-		return builder.setType(EmbeddedDatabaseType.HSQL).build();
-	}*/
-	
 	@Bean
-	   public DataSource dataSource(){
-	      DriverManagerDataSource dataSource = new DriverManagerDataSource();
-	      dataSource.setDriverClassName("com.mysql.jdbc.Driver");
-	      dataSource.setUrl("jdbc:mysql://resonance.cv1rftkeaopd.us-west-1.rds.amazonaws.com:3306/resonance");
-	      dataSource.setUsername( "root" );
-	      dataSource.setPassword( "rootroot" );
-	      return dataSource;
-	   }
+	public DataSource dataSource() {
+		DriverManagerDataSource dataSource = new DriverManagerDataSource();
+		dataSource.setDriverClassName("com.mysql.jdbc.Driver");
+		dataSource.setUrl("jdbc:mysql://resonance.cv1rftkeaopd.us-west-1.rds.amazonaws.com:3306/resonance");
+		dataSource.setUsername("root");
+		dataSource.setPassword("rootroot");
+		return dataSource;
+	}
 
 	@Bean
 	public EntityManagerFactory entityManagerFactory() {
 
 		HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
 		vendorAdapter.setGenerateDdl(true);
+		vendorAdapter.setShowSql(true);
 
 		LocalContainerEntityManagerFactoryBean factory = new LocalContainerEntityManagerFactoryBean();
 		factory.setJpaVendorAdapter(vendorAdapter);

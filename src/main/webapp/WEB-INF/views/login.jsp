@@ -12,8 +12,7 @@
 <body>
 
 	<h1>Login</h1>
-
-
+<c:out value="${error}"></c:out>
 <form:form method="post" action = "/resonance/user/login" modelAttribute = "user" enctype="application/json">
 
 Email: <form:input path="email" type="text" name="email"/><br>
