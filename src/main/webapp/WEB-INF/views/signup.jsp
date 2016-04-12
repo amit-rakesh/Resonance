@@ -86,8 +86,8 @@ function registeruser(){
 			</div>
 		</c:if>
 		<h2 class="form-signin-heading">Please Sign Up</h2>
-        <label for="inputEmail" class="sr-only">App Username</label>
-        <form:input type="text" path="name" id="name" class="form-control" placeholder="App Username" data-validate="validate(required)" />
+			<label for="inputEmail" class="sr-only">App Username</label>
+			<form:input type="text" path="name" id="name" class="form-control" placeholder="App Username" data-validate="validate(required)" />
         <label for="inputPassword" class="sr-only">App Password</label>
         <form:input type="password" path="password" id="password" class="form-control" placeholder="App Password" data-validate="validate(required)"/>
         <input type="password"  id="confirmpass" class="form-control" placeholder="Confirm Password" data-validate="validate(required)"/>

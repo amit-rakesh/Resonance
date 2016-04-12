@@ -26,42 +26,37 @@ public class UserServiceImpl implements UserService {
 		return user;
 	}
 
-	
-	
-    @Override
-    public void isEmailAvailable(String email){
-    	
-        User user = userDao.getUserByEmail(email);
-        
-        if(user!=null){
-            throw new BadRequestException("Email already in use");
-        }
-    }
-    
-    @Override
-    public User getUserByEmail(String email){
+	@Override
+	public void isEmailAvailable(String email) {
 
-    	 	
-    	User user = userDao.getUserByEmail(email);
-        if(user==null){
-            throw new BadRequestException("Email not registered");
-        }
-        else{
-            return user;
-        }
-    }
-    
-    @Override
-    public User getUserById(long userid) {
-        User user = userDao.findOne(userid);
-        return user;
-    }
+		User user = userDao.getUserByEmail(email);
+
+		if (user != null) {
+			throw new BadRequestException("Email already in use");
+		}
+	}
+
+	@Override
+	public User getUserByEmail(String email) {
+
+		User user = userDao.getUserByEmail(email);
+		if (user == null) {
+			throw new BadRequestException("Email not registered");
+		} else {
+			return user;
+		}
+	}
+
+	@Override
+	public User getUserById(long userid) {
+		User user = userDao.findOne(userid);
+		return user;
+	}
 
 	@Override
 	public User findUserById(long id) {
 		User user = userDao.findOne(id);
 		return user;
 	}
-
 
 }

@@ -1,6 +1,5 @@
 package edu.sjsu.controllers;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.ComponentScan;
@@ -32,72 +31,70 @@ import javax.validation.Valid;
  */
 
 @RestController
-//@EnableAutoConfiguration
+// @EnableAutoConfiguration
 @ComponentScan
 @Component("SongController")
 @RequestMapping("/song")
 public class SongController {
 
-    @Autowired
-    private SongService songService;
+	@Autowired
+	private SongService songService;
 
-    @Autowired
-    private UserService userService;
+	@Autowired
+	private UserService userService;
 
-    @Autowired
-    private S3Connector s3Connector;
-    //=================================================
-    //          Upload a new song
-    //=================================================
-    @RequestMapping(value = "/upload", method = RequestMethod.POST, produces = "application/json")
-    public ModelAndView createSong(@Valid @ModelAttribute("song") Song song, BindingResult result, HttpServletResponse response) {
+	@Autowired
+	private S3Connector s3Connector;
 
-        System.out.println("UserID : "+ song.getUploadedByUserId());
-        System.out.println("Path : "+ song.getSongPath());
-        
-        if (song.getSongTitle() == null )
-            throw new BadRequestException("Song title required.");
-        
-        if (song.getUploadedByUserId()==null)
-            throw new BadRequestException("User Id is required.");
-        if (song.getSongPath()==null)
-            throw new BadRequestException("Path is required.");
+	// =================================================
+	// Upload a new song
+	// =================================================
+	@RequestMapping(value = "/upload", method = RequestMethod.POST, produces = "application/json")
+	public ModelAndView createSong(@Valid @ModelAttribute("song") Song song, BindingResult result,
+			HttpServletResponse response) {
 
+		System.out.println("UserID : " + song.getUploadedByUserId());
+		System.out.println("Path : " + song.getSongPath());
 
-        if(userService.getUserById(Long.parseLong(song.getUploadedByUserId()))==null){
-            throw new BadRequestException("Invalid user");
-        }
-        Song songObj = null;
+		if (song.getSongTitle() == null)
+			throw new BadRequestException("Song title required.");
 
-        long unixTime = System.currentTimeMillis() / 1000L;
-   	 	System.out.println(unixTime); 
-   	 	
-        try {
-            songObj = new Song(song.getSongTitle(),song.getUploadedByUserId(),song.getSongPath(),unixTime);
-            System.out.println("Harkirat : "+song.getSongId());
-        } catch (Exception e) {
-           
-        }
+		if (song.getUploadedByUserId() == null)
+			throw new BadRequestException("User Id is required.");
+		if (song.getSongPath() == null)
+			throw new BadRequestException("Path is required.");
 
-        System.out.println("Harkirat : "+songObj.getSongPath());
-        songService.create(songObj);
-        String key= songObj.getSongTitle()+songObj.getSongId();
-        s3Connector.uploadFile(key,songObj.getSongPath());
-        return new ModelAndView("dashboard");
-    }
-    
-    
-    //=================================================
-    //          Upload a new song
-    //=================================================
-    @RequestMapping(value = "/get10LatestSongs", method = RequestMethod.GET, produces = "application/json")
-    public ResponseEntity<ArrayList<Song>>  get10LatestSongs() {
+		if (userService.getUserById(Long.parseLong(song.getUploadedByUserId())) == null) {
+			throw new BadRequestException("Invalid user");
+		}
+		Song songObj = null;
 
-    	ArrayList<Song> latestsongs = songService.getLatestSongs();
-    	
- 
-    	return new ResponseEntity<ArrayList<Song>>(latestsongs, HttpStatus.OK);
-    	
-    }
+		long unixTime = System.currentTimeMillis() / 1000L;
+		System.out.println(unixTime);
+
+		try {
+			songObj = new Song(song.getSongTitle(), song.getUploadedByUserId(), song.getSongPath(), unixTime);
+			System.out.println("Harkirat : " + song.getSongId());
+		} catch (Exception e) {
+
+		}
+
+		System.out.println("Harkirat : " + songObj.getSongPath());
+		songService.create(songObj);
+		String key = songObj.getSongTitle() + songObj.getSongId();
+		s3Connector.uploadFile(key, songObj.getSongPath());
+		return new ModelAndView("dashboard");
+	}
+
+	// =================================================
+	// Upload a new song
+	// =================================================
+	@RequestMapping(value = "/get10LatestSongs", method = RequestMethod.GET, produces = "application/json")
+	public ResponseEntity<ArrayList<Song>> get10LatestSongs() {
+
+		ArrayList<Song> latestsongs = songService.getLatestSongs();
+
+		return new ResponseEntity<ArrayList<Song>>(latestsongs, HttpStatus.OK);
+
+	}
 }
-

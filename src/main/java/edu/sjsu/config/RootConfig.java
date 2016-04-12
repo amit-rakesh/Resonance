@@ -25,23 +25,20 @@ import edu.sjsu.services.UserServiceImpl;
 @Import(JpaConfig.class)
 public class RootConfig {
 
-	
-    @Bean
-    public EmailNotification getEmailNotification(){
-        return new EmailNotification();
-    }
-    
-    @Bean
-    public SongService getsongservice(){
-        return new SongServiceImpl();
-    }
-    
+	@Bean
+	public EmailNotification getEmailNotification() {
+		return new EmailNotification();
+	}
 
-    @Bean
-    public S3Connector getS3Connector(){
-        return new S3Connector();
-    }
+	@Bean
+	public SongService getsongservice() {
+		return new SongServiceImpl();
+	}
 
+	@Bean
+	public S3Connector getS3Connector() {
+		return new S3Connector();
+	}
 
 	@Bean
 	public TilesConfigurer tilesConfigurer() {
