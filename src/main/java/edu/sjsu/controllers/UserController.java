@@ -39,6 +39,8 @@ public class UserController {
 			HttpServletResponse response) {
 
 		System.out.println("In controller");
+		System.out.println("Name : " + user.getName());
+
 		User userob = null;
 
 		// this call validated that email is not already in use

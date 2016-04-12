@@ -10,6 +10,8 @@ public interface UserService {
 
 	public void isEmailAvailable(String email);
 
+	public User getUserById(long userid);
+
 	public User getUserByEmail(String email);
 
 	public User findUserById(long id);
