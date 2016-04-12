@@ -21,12 +21,11 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public User create(User user) {
 
-		
 		userDao.save(user);
 
-		
 		return user;
 	}
+
 	
 	
     @Override
@@ -57,5 +56,12 @@ public class UserServiceImpl implements UserService {
         User user = userDao.findOne(userid);
         return user;
     }
+
+	@Override
+	public User findUserById(long id) {
+		User user = userDao.findOne(id);
+		return user;
+	}
+
 
 }

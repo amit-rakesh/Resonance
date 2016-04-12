@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Import;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.view.tiles3.TilesConfigurer;
 
 import edu.sjsu.helpers.EmailNotification;
 import edu.sjsu.helpers.S3Connector;
@@ -23,6 +24,7 @@ import edu.sjsu.services.UserServiceImpl;
 		@Filter(type = FilterType.ANNOTATION, value = EnableWebMvc.class) })
 @Import(JpaConfig.class)
 public class RootConfig {
+
 	
     @Bean
     public EmailNotification getEmailNotification(){
@@ -39,5 +41,14 @@ public class RootConfig {
     public S3Connector getS3Connector(){
         return new S3Connector();
     }
+
+
+	@Bean
+	public TilesConfigurer tilesConfigurer() {
+		TilesConfigurer tiles = new TilesConfigurer();
+		tiles.setDefinitions(new String[] { "WEB-INF/**/tiles.xml" });
+		tiles.setCheckRefresh(true);
+		return tiles;
+	}
 
 }

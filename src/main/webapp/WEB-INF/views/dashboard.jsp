@@ -1,3 +1,4 @@
+
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
@@ -54,6 +55,13 @@ document.getElementById('abc').style.display = "none";
 <!-- Display Popup Button -->
 <h1>Click Button To upload</h1>
 <button id="popup" onclick="div_show()">Upload</button>
+
+<h1>Your Profile</h1>
+<c:out value="${user.name}" /><br/>
+<c:out value="${user.country}" />
+<c:out value="${user.state}" />
+<a href="<c:url value="/song/id" />">Song</a>
 </body>
 <!-- Body Ends Here -->
 </html>
+

@@ -6,8 +6,14 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
+import org.springframework.web.servlet.view.tiles3.TilesViewResolver;
+
+import edu.sjsu.interceptor.LoginInterceptor;
 
 @Configuration
 @EnableWebMvc
@@ -20,13 +26,43 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 		resolver.setPrefix("/WEB-INF/views/");
 		resolver.setSuffix(".jsp");
 		resolver.setExposeContextBeansAsAttributes(true);
+		resolver.setOrder(2);
 		resolver.setViewClass(org.springframework.web.servlet.view.JstlView.class);
 		return resolver;
+	}
+
+	@Bean
+	public TilesViewResolver tilesViewResolver() {
+		TilesViewResolver tileResolver = new TilesViewResolver();
+		tileResolver.setOrder(1);
+		return tileResolver;
+	}
+
+	@Bean
+	public LoginInterceptor loginInterceptor() {
+		return new LoginInterceptor();
+	}
+
+	@Bean
+	public RequestMappingHandlerAdapter requestMappingHandlerAdapter() {
+
+		RequestMappingHandlerAdapter rmha = new RequestMappingHandlerAdapter();
+		// rmha.setCacheSecondsForSessionAttributeHandlers(0);
+		rmha.setCacheSeconds(0);
+
+		return rmha;
 	}
 
 	@Override
 	public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
 		configurer.enable();
+	}
+
+	@Override
+	public void addInterceptors(InterceptorRegistry registry) {
+		LoginInterceptor loginInterceptor = loginInterceptor();
+		registry.addInterceptor(loginInterceptor).addPathPatterns("/song/*");
+
 	}
 
 }
