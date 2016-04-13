@@ -1,4 +1,6 @@
 # Resonance
+
+[![Join the chat at https://gitter.im/amit-rakesh/Resonance](https://badges.gitter.im/amit-rakesh/Resonance.svg)](https://gitter.im/amit-rakesh/Resonance?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 Music Web Application
 
 ####Instructions to setup git repository.
