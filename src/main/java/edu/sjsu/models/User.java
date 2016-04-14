@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import static javax.persistence.FetchType.LAZY;
 
 @Entity
 @Table(name = "users")
@@ -53,6 +54,11 @@ public class User {
 	@JsonProperty
 	@Column(name = "verified")
 	private Boolean verified;
+	
+	
+	@Basic(fetch=LAZY)
+	@Column(name = "UserPicture")
+	private byte[] userPicture;
 
 	// Constructors
 	public User() {
@@ -69,15 +75,15 @@ public class User {
 
 	public User(@JsonProperty String name, @JsonProperty String email, @JsonProperty String password,
 			@JsonProperty String country, @JsonProperty String state, @JsonProperty String token,
-			@JsonProperty boolean verified) {
+			@JsonProperty boolean verified, @JsonProperty byte[] userPicture) {
 		this.name = name;
 		this.email = email;
 		this.password = password;
 		this.country = country;
 		this.state = state;
-
 		this.token = token;
 		this.verified = verified;
+		this.userPicture = userPicture;
 	}
 
 	// setters and getters
@@ -156,6 +162,15 @@ public class User {
 	public Boolean isVerified() {
 		return verified;
 	}
+	
+	public byte[] getUserPicture() {
+		return userPicture;
+	}
+
+	public void setUserPicture(byte[] userPicture) {
+		this.userPicture = userPicture;
+	}
+
 
 	@Override
 	public String toString() {

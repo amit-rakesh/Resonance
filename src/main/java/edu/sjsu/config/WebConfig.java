@@ -5,13 +5,13 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.web.multipart.support.StandardServletMultipartResolver;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter;
-import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.tiles3.TilesViewResolver;
 
@@ -63,9 +63,17 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
 		LoginInterceptor loginInterceptor = loginInterceptor();
-		registry.addInterceptor(loginInterceptor).addPathPatterns("/song/667878");
+
+		registry.addInterceptor(loginInterceptor).addPathPatterns("/song/*");
+		registry.addInterceptor(loginInterceptor).addPathPatterns("/image");
+
 
 	}
+	
+	 @Bean(name = "multipartResolver")
+	    public StandardServletMultipartResolver resolver() {
+	        return new StandardServletMultipartResolver();
+	    }
 
 	@Bean
 	public StringHttpMessageConverter getStringHttpMessageConverter(){
