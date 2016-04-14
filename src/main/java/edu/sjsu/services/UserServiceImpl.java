@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import edu.sjsu.helpers.BadRequestException;
+import edu.sjsu.models.Follow;
+import edu.sjsu.models.FollowDao;
 import edu.sjsu.models.User;
 import edu.sjsu.models.UserDao;
 
@@ -17,6 +19,9 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	UserDao userDao;
+	
+	@Autowired
+	FollowDao followDao;
 
 	@Override
 	public User create(User user) {
@@ -58,5 +63,18 @@ public class UserServiceImpl implements UserService {
 		User user = userDao.findOne(id);
 		return user;
 	}
+	
+	@Override
+	public void addFollower(Follow follow){
+		followDao.save(follow);
+	}
 
+	@Override
+	public ArrayList<Follow> userFollowingMe(long id)
+	{
+		ArrayList<Follow> myFollowers = followDao.getUsersFollowingMe(id);
+		
+		
+		return myFollowers;
+	}
 }
