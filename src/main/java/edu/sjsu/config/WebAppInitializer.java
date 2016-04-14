@@ -1,5 +1,8 @@
 package edu.sjsu.config;
 
+import javax.servlet.MultipartConfigElement;
+import javax.servlet.ServletRegistration;
+
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 import edu.sjsu.config.RootConfig;
@@ -24,5 +27,15 @@ public class WebAppInitializer extends AbstractAnnotationConfigDispatcherServlet
 		// TODO Auto-generated method stub
 		return new String[] { "/" };
 	}
+	
+	@Override
+    protected void customizeRegistration(ServletRegistration.Dynamic registration) {
+        registration.setMultipartConfig(getMultipartConfigElement());
+    }
+ 
+    private MultipartConfigElement getMultipartConfigElement() {
+        MultipartConfigElement multipartConfigElement = new MultipartConfigElement("");
+        return multipartConfigElement;
+    }
 
 }
