@@ -44,6 +44,10 @@ public class Song {
     @JsonProperty
     @Column(name = "date")
     private long date;
+    
+    @JsonProperty
+    @Column(name = "playingUrl")
+    private String playingUrl;
 
     
     public Song() {
@@ -121,5 +125,16 @@ public class Song {
     public void setUploadedByUserId(String uploadedByUserId) {
         this.uploadedByUserId = uploadedByUserId;
     }
+
+	public String getPlayingUrl() {
+		return playingUrl;
+	}
+
+	@Column(name = "date", unique = false, nullable = true)
+	public void setPlayingUrl(String playingUrl) {
+		this.playingUrl = playingUrl;
+	}
+	
+	
 }
 

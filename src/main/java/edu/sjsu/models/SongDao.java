@@ -11,6 +11,6 @@ import org.springframework.data.repository.CrudRepository;
 public interface SongDao extends CrudRepository<Song, Long> {
 
 
-	@Query(value="SELECT * FROM songs Order By  date DESC LIMIT 0, 3",nativeQuery = true)
+	@Query(value="SELECT * FROM songs Order By  date DESC LIMIT 0, 10",nativeQuery = true)
     ArrayList<Song> getLatestSongs();
 }

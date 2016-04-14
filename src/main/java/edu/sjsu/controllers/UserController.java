@@ -1,14 +1,24 @@
 package edu.sjsu.controllers;
 
+import java.io.IOException;
+import java.util.ArrayList;
+
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -16,16 +26,10 @@ import edu.sjsu.helpers.BadRequestException;
 import edu.sjsu.helpers.CookieManager;
 import edu.sjsu.helpers.EmailNotification;
 import edu.sjsu.helpers.Utility;
+import edu.sjsu.models.Follow;
 import edu.sjsu.models.Song;
 import edu.sjsu.models.User;
 import edu.sjsu.services.UserService;
-
-import java.io.IOException;
-
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.validation.Valid;
 
 @Controller
 @ComponentScan
@@ -157,6 +161,45 @@ public class UserController {
 		response.addCookie(cookie1);
 		return "home";
 	}
+	
+	@RequestMapping(value = "/{user1}/follow/{user2}", method = RequestMethod.POST)
+	public void followUser(@PathVariable(value = "user1") long user1Id, @PathVariable(value = "user2") long user2Id, Model model) {
+		
+		System.out.println("User1 : "+user1Id);
+		System.out.println("User2 : "+user2Id);
+		
+		
+		Follow followObj = new Follow(user1Id,user2Id);
+		userService.addFollower(followObj);
+	}
+	
+	@RequestMapping(value = "/{id}/myFollowers", method = RequestMethod.GET )
+	public String peopleFollowingMe(@PathVariable long id, Model model) {
+		
+		ArrayList<Follow> myFollowers = userService.userFollowingMe(id);
+
+		ArrayList<User> peopleFollowingMe = new ArrayList<User>();
+		
+		for(int i=0;i<myFollowers.size();i++){
+			peopleFollowingMe.add(userService.getUserById(myFollowers.get(i).getUser1Id()));
+			
+		}
+		
+		
+		
+		model.addAttribute("users", peopleFollowingMe );
+		return "Myfriends";
+
+	}
+	
+/*	@RequestMapping(value = "/Myfriends", method = RequestMethod.GET)
+	public String dashboard(Locale locale, Model model) {
+		
+		
+		//model.addAttribute("users", new ArrayList<User>() );
+		
+		return "Myfriends";
+	}*/
 
 	/*********** edit profile **********/
 
