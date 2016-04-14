@@ -14,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 import edu.sjsu.helpers.BadRequestException;
 import edu.sjsu.helpers.EmailNotification;
 import edu.sjsu.helpers.Utility;
+import edu.sjsu.models.Song;
 import edu.sjsu.models.User;
 import edu.sjsu.services.UserService;
 
@@ -133,6 +134,7 @@ public class UserController {
 	public String showUserDashboard(@PathVariable long id, Model model) {
 		User user = userService.findUserById(id);
 		model.addAttribute(user);
+		model.addAttribute(new Song());
 		return "dashboard";
 
 	}
