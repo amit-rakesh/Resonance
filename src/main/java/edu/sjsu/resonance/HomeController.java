@@ -51,7 +51,8 @@ public class HomeController {
 		model.addAttribute("serverTime", formattedDate);
 		model.addAttribute("user", new User());
 
-		return "signup";
+		//return "signup";
+		return "signup2";
 	}
 
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
