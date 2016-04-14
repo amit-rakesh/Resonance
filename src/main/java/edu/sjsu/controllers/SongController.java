@@ -6,6 +6,8 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -30,7 +32,7 @@ import javax.validation.Valid;
  * Created by harkirat singh on 3/9/2016.
  */
 
-@RestController
+@Controller
 // @EnableAutoConfiguration
 @ComponentScan
 @Component("SongController")
@@ -82,19 +84,22 @@ public class SongController {
 		System.out.println("Harkirat : " + songObj.getSongPath());
 		songService.create(songObj);
 		String key = songObj.getSongTitle() + songObj.getSongId();
-		s3Connector.uploadFile(key, songObj.getSongPath());
+		String url = s3Connector.uploadFile(key, songObj.getSongPath());
+		songObj.setPlayingUrl(url);
+		songService.create(songObj);
 		return new ModelAndView("dashboard");
 	}
 
 	// =================================================
-	// Upload a new song
+	// Get Latest 10 songs
 	// =================================================
-	@RequestMapping(value = "/get10LatestSongs", method = RequestMethod.GET, produces = "application/json")
-	public ResponseEntity<ArrayList<Song>> get10LatestSongs() {
+	@RequestMapping(value = "/get10LatestSongs", method = RequestMethod.GET)
+	public String get10LatestSongs(Model model) {
 
 		ArrayList<Song> latestsongs = songService.getLatestSongs();
 
-		return new ResponseEntity<ArrayList<Song>>(latestsongs, HttpStatus.OK);
+		model.addAttribute("songs", latestsongs );
+		return "latestSongs";
 
 	}
 }

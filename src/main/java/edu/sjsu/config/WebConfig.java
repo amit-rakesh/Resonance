@@ -3,6 +3,8 @@ package edu.sjsu.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.converter.StringHttpMessageConverter;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -61,8 +63,20 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
 		LoginInterceptor loginInterceptor = loginInterceptor();
-		registry.addInterceptor(loginInterceptor).addPathPatterns("/song/*");
+		registry.addInterceptor(loginInterceptor).addPathPatterns("/song/667878");
 
 	}
 
+	@Bean
+	public StringHttpMessageConverter getStringHttpMessageConverter(){
+		
+		return new StringHttpMessageConverter();
+	}
+	
+	@Bean
+	public MappingJackson2HttpMessageConverter getMappingJackson2HttpMessageConverter(){
+		
+		return new MappingJackson2HttpMessageConverter();
+	}
+	
 }

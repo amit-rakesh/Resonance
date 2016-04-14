@@ -14,8 +14,15 @@ import org.springframework.web.servlet.ModelAndView;
 import edu.sjsu.helpers.BadRequestException;
 import edu.sjsu.helpers.EmailNotification;
 import edu.sjsu.helpers.Utility;
+import edu.sjsu.models.Follow;
+import edu.sjsu.models.Song;
 import edu.sjsu.models.User;
 import edu.sjsu.services.UserService;
+
+import java.text.DateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -133,6 +140,7 @@ public class UserController {
 	public String showUserDashboard(@PathVariable long id, Model model) {
 		User user = userService.findUserById(id);
 		model.addAttribute(user);
+		model.addAttribute(new Song());
 		return "dashboard";
 
 	}
@@ -146,5 +154,44 @@ public class UserController {
 		response.addCookie(cookie1);
 		return "home";
 	}
+	
+	@RequestMapping(value = "/{user1}/follow/{user2}", method = RequestMethod.POST)
+	public void followUser(@PathVariable(value = "user1") long user1Id, @PathVariable(value = "user2") long user2Id, Model model) {
+		
+		System.out.println("User1 : "+user1Id);
+		System.out.println("User2 : "+user2Id);
+		
+		
+		Follow followObj = new Follow(user1Id,user2Id);
+		userService.addFollower(followObj);
+	}
+	
+	@RequestMapping(value = "/{id}/myFollowers", method = RequestMethod.GET )
+	public String peopleFollowingMe(@PathVariable long id, Model model) {
+		
+		ArrayList<Follow> myFollowers = userService.userFollowingMe(id);
+
+		ArrayList<User> peopleFollowingMe = new ArrayList<User>();
+		
+		for(int i=0;i<myFollowers.size();i++){
+			peopleFollowingMe.add(userService.getUserById(myFollowers.get(i).getUser1Id()));
+			
+		}
+		
+		
+		
+		model.addAttribute("users", peopleFollowingMe );
+		return "Myfriends";
+
+	}
+	
+/*	@RequestMapping(value = "/Myfriends", method = RequestMethod.GET)
+	public String dashboard(Locale locale, Model model) {
+		
+		
+		//model.addAttribute("users", new ArrayList<User>() );
+		
+		return "Myfriends";
+	}*/
 
 }
