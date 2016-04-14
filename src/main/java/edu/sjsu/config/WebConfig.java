@@ -3,6 +3,8 @@ package edu.sjsu.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
+import org.springframework.web.multipart.support.StandardServletMultipartResolver;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -62,7 +64,13 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 	public void addInterceptors(InterceptorRegistry registry) {
 		LoginInterceptor loginInterceptor = loginInterceptor();
 		registry.addInterceptor(loginInterceptor).addPathPatterns("/song/*");
+		registry.addInterceptor(loginInterceptor).addPathPatterns("/image");
 
 	}
+	
+	 @Bean(name = "multipartResolver")
+	    public StandardServletMultipartResolver resolver() {
+	        return new StandardServletMultipartResolver();
+	    }
 
 }

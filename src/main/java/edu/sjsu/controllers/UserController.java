@@ -9,14 +9,18 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import edu.sjsu.helpers.BadRequestException;
+import edu.sjsu.helpers.CookieManager;
 import edu.sjsu.helpers.EmailNotification;
 import edu.sjsu.helpers.Utility;
 import edu.sjsu.models.Song;
 import edu.sjsu.models.User;
 import edu.sjsu.services.UserService;
+
+import java.io.IOException;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -28,6 +32,9 @@ import javax.validation.Valid;
 @Component("UserController")
 @RequestMapping("/user")
 public class UserController {
+	
+	@Autowired
+	private CookieManager cookieManager;
 
 	@Autowired
 	private UserService userService;
@@ -52,7 +59,7 @@ public class UserController {
 
 		try {
 			userob = new User(user.getName(), user.getEmail(), encryptPass, user.getCountry(), user.getState(),
-					tokenString, false);
+					tokenString, false, null);
 
 		} catch (Exception e) {
 
@@ -139,6 +146,8 @@ public class UserController {
 
 	}
 
+	/******** Logout ********/
+
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)
 	// @ResponseBody
 	private String logout(HttpServletRequest request, HttpServletResponse response) {
@@ -148,5 +157,31 @@ public class UserController {
 		response.addCookie(cookie1);
 		return "home";
 	}
+
+	/*********** edit profile **********/
+
+	@RequestMapping(value = "/edit", method = RequestMethod.POST)
+	public void uploadPicture(@ModelAttribute("user") User user, BindingResult result, HttpServletRequest request,
+			@RequestParam("file") MultipartFile file,	HttpServletResponse response) {
+		System.out.println(user.getUserid() +"------"+ user.getName());
+		//long id  = user.getUserid();
+		
+		User userOb = cookieManager.getCurrentUser();
+		try {
+			userOb.setUserPicture(file.getBytes());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		userService.create(userOb);
+		
+	}
+	
+	@RequestMapping(value = "/edit", method = RequestMethod.GET)
+	public String showUploadForm(Model model){
+		model.addAttribute(new User());
+		return "upload";
+	}
+	
 
 }
