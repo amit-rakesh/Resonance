@@ -6,6 +6,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -30,7 +31,7 @@ import javax.validation.Valid;
  * Created by harkirat singh on 3/9/2016.
  */
 
-@RestController
+@Controller
 // @EnableAutoConfiguration
 @ComponentScan
 @Component("SongController")

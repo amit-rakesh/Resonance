@@ -30,7 +30,7 @@ public class LoginInterceptor implements HandlerInterceptor {
 		if (cookies != null) {
 			for (i = 0; i < cookies.length; i++) {
 				System.out.println(" key: " + cookies[i].getName() + ", value: " + cookies[i].getValue());
-				if (cookies[i].getName().equals("tagit")) {
+				if (cookies[i].getName().equals("resonance")) {
 					User cookieUserObj = mapper.readValue(cookies[i].getValue(), User.class);
 
 					userid = cookieUserObj.getUserid();
