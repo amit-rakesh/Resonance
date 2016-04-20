@@ -7,18 +7,61 @@ pageEncoding="ISO-8859-1" %>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>Friends</title>
 </head>
 <body>
-<h1>Your Friends</h1>
+
+<div>
+<h1>People Following You</h1>
+  
+  	<table width="59%" border="1">
+
+<tr> 
+  	<td> 
+  Person Name
+   </td>
+  
+ </tr>
+  
   
 <c:forEach items="${users}" var="user">
 
-  <c:out value= "${'hello'}" />
+  <tr> 
+  	<td> 
+  <c:out value= "${user.name}" />
+   </td>
   
-  <c:out value= "${user.name}" /><br>
-  
+  </tr>
 </c:forEach>
+</table>
 
+</div>
+
+
+<div>
+<h1>People You Follow</h1>
+  
+  	<table width="59%" border="1">
+
+<tr> 
+  	<td> 
+  Person Name
+   </td>
+  
+ </tr>
+  
+  
+<c:forEach items="${usersIFollow}" var="user">
+
+  <tr> 
+  	<td> 
+  <c:out value= "${user.name}" />
+   </td>
+  
+  </tr>
+</c:forEach>
+</table>
+
+</div>
 </body>
 </html>

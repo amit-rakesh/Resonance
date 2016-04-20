@@ -17,8 +17,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import edu.sjsu.helpers.BadRequestException;
+import edu.sjsu.helpers.CookieManager;
 import edu.sjsu.helpers.S3Connector;
 import edu.sjsu.models.Song;
+import edu.sjsu.models.User;
 import edu.sjsu.services.SongService;
 import edu.sjsu.services.UserService;
 
@@ -41,6 +43,10 @@ public class SongController {
 
 	@Autowired
 	private S3Connector s3Connector;
+	
+	@Autowired
+	private CookieManager cookieManager;
+
 
 	// =================================================
 	// Upload a new song
@@ -90,9 +96,15 @@ public class SongController {
 	@RequestMapping(value = "/get10LatestSongs", method = RequestMethod.GET)
 	public String get10LatestSongs(Model model) {
 
+		User userOb = cookieManager.getCurrentUser();
+		System.out.println(userOb.getEmail());
 		ArrayList<Song> latestsongs = songService.getLatestSongs();
 
+		ArrayList<Song> uploadedByMe = songService.songsUploadedByMe(userOb.getUserid());
+		System.out.println(uploadedByMe.size());
 		model.addAttribute("songs", latestsongs );
+		model.addAttribute("mysongs", uploadedByMe );
+		
 		return "latestSongs";
 
 	}
