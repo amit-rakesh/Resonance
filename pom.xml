@@ -273,6 +273,37 @@
 	<version>1.5.4</version>
 </dependency>
 
+<!-- Json dependency -->
+    <dependency>
+        <groupId>org.codehaus.jackson</groupId>
+        <artifactId>jackson-mapper-asl</artifactId>
+        <version>1.9.13</version>
+    </dependency>
+    <dependency>
+        <groupId>com.fasterxml.jackson.core</groupId>
+        <artifactId>jackson-core</artifactId>
+        <version>2.4.1</version>
+    </dependency>
+    <dependency>
+        <groupId>com.fasterxml.jackson.core</groupId>
+        <artifactId>jackson-databind</artifactId>
+        <version>2.4.3</version>
+    </dependency>
+    
+    <dependency>
+    <groupId>com.fasterxml.jackson.jaxrs</groupId>
+    <artifactId>jackson-jaxrs-base</artifactId>
+    <version>2.4.4</version>
+</dependency>
+    <!-- Json dependency -->
+
+<dependency>  
+    <groupId>javax</groupId>    
+    <artifactId>javaee-web-api</artifactId>    
+    <version>7.0</version> <!-- Put here the version of your Java EE app, in my case 7.0 -->
+    <scope>provided</scope>
+</dependency>
+
 	</dependencies>
 	<build>
 		<plugins>

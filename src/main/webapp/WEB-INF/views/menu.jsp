@@ -6,7 +6,8 @@
 
 
 <ul>
-    <li>User Profile</li>
-    <li>Albums</li>
-    <li>Artists</li>
+    <li><a href="<c:url value="" /> "> User Profile </a></li>
+    <li><a href="<c:url value="/song/get10LatestSongs" /> ">Songs</a></li>
+    <li><a href="<c:url value="/user/myFriends" /> ">Friends</a></li>
+    <li><a href="<c:url value="/user/search" /> ">Search</a></li>
 </ul>

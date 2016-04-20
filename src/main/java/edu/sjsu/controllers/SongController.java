@@ -1,31 +1,28 @@
 package edu.sjsu.controllers;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.ModelAndView;
-
-import edu.sjsu.helpers.BadRequestException;
-import edu.sjsu.helpers.S3Connector;
-import edu.sjsu.models.Song;
-import edu.sjsu.services.SongService;
-import edu.sjsu.services.UserService;
-
-import java.sql.Timestamp;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
+
+import edu.sjsu.helpers.BadRequestException;
+import edu.sjsu.helpers.CookieManager;
+import edu.sjsu.helpers.S3Connector;
+import edu.sjsu.models.Song;
+import edu.sjsu.models.User;
+import edu.sjsu.services.SongService;
+import edu.sjsu.services.UserService;
 
 /**
  * Created by harkirat singh on 3/9/2016.
@@ -46,6 +43,10 @@ public class SongController {
 
 	@Autowired
 	private S3Connector s3Connector;
+	
+	@Autowired
+	private CookieManager cookieManager;
+
 
 	// =================================================
 	// Upload a new song
@@ -83,19 +84,28 @@ public class SongController {
 		System.out.println("Harkirat : " + songObj.getSongPath());
 		songService.create(songObj);
 		String key = songObj.getSongTitle() + songObj.getSongId();
-		s3Connector.uploadFile(key, songObj.getSongPath());
+		String url = s3Connector.uploadFile(key, songObj.getSongPath());
+		songObj.setPlayingUrl(url);
+		songService.create(songObj);
 		return new ModelAndView("dashboard");
 	}
 
 	// =================================================
-	// Upload a new song
+	// Get Latest 10 songs
 	// =================================================
-	@RequestMapping(value = "/get10LatestSongs", method = RequestMethod.GET, produces = "application/json")
-	public ResponseEntity<ArrayList<Song>> get10LatestSongs() {
+	@RequestMapping(value = "/get10LatestSongs", method = RequestMethod.GET)
+	public String get10LatestSongs(Model model) {
 
+		User userOb = cookieManager.getCurrentUser();
+		System.out.println(userOb.getEmail());
 		ArrayList<Song> latestsongs = songService.getLatestSongs();
 
-		return new ResponseEntity<ArrayList<Song>>(latestsongs, HttpStatus.OK);
+		ArrayList<Song> uploadedByMe = songService.songsUploadedByMe(userOb.getUserid());
+		System.out.println(uploadedByMe.size());
+		model.addAttribute("songs", latestsongs );
+		model.addAttribute("mysongs", uploadedByMe );
+		
+		return "latestSongs";
 
 	}
 }
