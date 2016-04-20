@@ -77,4 +77,20 @@ public class UserServiceImpl implements UserService {
 		
 		return myFollowers;
 	}
+	
+	@Override
+	public ArrayList<Follow> usersIFollow(long id){
+		
+		ArrayList<Follow> iFollow = followDao.getUsersIFollow(id);
+		
+		
+		return iFollow;
+	}
+	
+	@Override
+	public ArrayList<User> searchUsers(String searchString){
+		ArrayList<User> searchResultUsers = userDao.SearchUserName(searchString);
+		System.out.println("Count of results : "+searchResultUsers.size());
+		return searchResultUsers;
+	}
 }

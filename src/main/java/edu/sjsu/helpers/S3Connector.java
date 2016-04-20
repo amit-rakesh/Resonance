@@ -24,6 +24,7 @@ public class S3Connector {
 		String url=null;
 		
 		try {
+			
 			System.out.println("Uploading a new object to S3 from a file\n");
 			File file = new File(uploadFilePath);
 			s3client.putObject(new PutObjectRequest(bucketName, fileName, file));

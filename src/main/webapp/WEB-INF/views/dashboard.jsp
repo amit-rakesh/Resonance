@@ -57,6 +57,9 @@
 		</div>
 		<!-- Popup Div Ends Here -->
 	</div>
+	
+
+
 	<!-- Display Popup Button -->
 	<h1>Click Button To upload</h1>
 	<button id="popup" onclick="div_show()">Upload</button>
@@ -67,6 +70,8 @@
 	<c:out value="${user.country}" />
 	<c:out value="${user.state}" />
 	<a href="<c:url value="/song/id" />">Song</a>
+	
+	
 </body>
 <!-- Body Ends Here -->
 </html>
