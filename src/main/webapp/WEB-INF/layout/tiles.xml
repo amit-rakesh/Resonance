@@ -32,5 +32,10 @@
 		<put-attribute name="body" value="/WEB-INF/views/search.jsp" />
 	</definition>
 	
+		<definition name="otherUserProfile" extends="base">
+		<put-attribute name="title" value="otherUserProfile" />  
+		<put-attribute name="body" value="/WEB-INF/views/otherUserProfile.jsp" />
+	</definition>
+	
 	
 </tiles-definitions>
