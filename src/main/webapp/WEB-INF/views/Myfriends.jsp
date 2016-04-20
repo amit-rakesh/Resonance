@@ -28,7 +28,9 @@ pageEncoding="ISO-8859-1" %>
 
   <tr> 
   	<td> 
-  <c:out value= "${user.name}" />
+  	<a href="<c:url value="/user/otherUser/${user.userid}" /> "><c:out value= "${user.name}" /></a>
+  	
+ 
    </td>
   
   </tr>
@@ -55,7 +57,7 @@ pageEncoding="ISO-8859-1" %>
 
   <tr> 
   	<td> 
-  <c:out value= "${user.name}" />
+  <a href="<c:url value="/user/otherUser/${user.userid}" /> "><c:out value= "${user.name}" /></a>
    </td>
   
   </tr>

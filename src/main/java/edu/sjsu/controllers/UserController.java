@@ -314,6 +314,18 @@ public class UserController {
 		System.out.println(a.toString());
 		return new ResponseEntity<String>(a.toString(),HttpStatus.OK);
 	} 
+	
+	
+	@RequestMapping(value = "/otherUser/{id}", method = RequestMethod.GET)
+	public String showOtherUserDashboard(@PathVariable long id, Model model) {
+		User user = userService.findUserById(id);
+		
+		ArrayList<Song> uploadedByMe = songService.songsUploadedByMe(user.getUserid()); 
+		model.addAttribute(user);
+		model.addAttribute("songList",uploadedByMe);
+		return "otherUserProfile";
+
+	}
 
 
 }
