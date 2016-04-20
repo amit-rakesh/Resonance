@@ -1,6 +1,8 @@
 
 package edu.sjsu.config;
 
+import java.util.Properties;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.ComponentScan.Filter;
@@ -10,6 +12,8 @@ import org.springframework.context.annotation.Import;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.handler.SimpleMappingExceptionResolver;
+import org.springframework.web.servlet.mvc.multiaction.NoSuchRequestHandlingMethodException;
 import org.springframework.web.servlet.view.tiles3.TilesConfigurer;
 
 import edu.sjsu.helpers.EmailNotification;
@@ -47,5 +51,7 @@ public class RootConfig {
 		tiles.setCheckRefresh(true);
 		return tiles;
 	}
+	
+	
 
 }

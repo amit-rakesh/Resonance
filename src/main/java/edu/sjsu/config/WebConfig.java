@@ -1,15 +1,21 @@
 package edu.sjsu.config;
 
+import java.util.List;
+import java.util.Properties;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.multipart.support.StandardServletMultipartResolver;
+import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.handler.AbstractHandlerExceptionResolver;
+import org.springframework.web.servlet.handler.SimpleMappingExceptionResolver;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
@@ -67,10 +73,28 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 		registry.addInterceptor(loginInterceptor).addPathPatterns("/image");
 
 	}
+
+	@Bean(name = "multipartResolver")
+	public StandardServletMultipartResolver resolver() {
+		return new StandardServletMultipartResolver();
+	}
+
+	@Bean
+	public SimpleMappingExceptionResolver simpleMappingExceptionResolver() {
+		SimpleMappingExceptionResolver smer = new SimpleMappingExceptionResolver();
+		Properties map = new Properties();
+		map.setProperty("NoSuchRequestHandlingMethodException", "notfound");
+		smer.setExceptionMappings(map);
+		return smer;
+
+	}
 	
-	 @Bean(name = "multipartResolver")
-	    public StandardServletMultipartResolver resolver() {
-	        return new StandardServletMultipartResolver();
-	    }
+	@Override
+	public void configureHandlerExceptionResolvers(List<HandlerExceptionResolver> exceptionResolvers){
+		for(HandlerExceptionResolver er : exceptionResolvers){
+			System.out.print("ER : " + er + " ");
+			System.out.println("ER order : " + ((AbstractHandlerExceptionResolver) er).getOrder());
+		}
+	}
 
 }
