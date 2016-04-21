@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -176,15 +177,18 @@ public class UserController {
 		return "home";
 	}
 	
-	@RequestMapping(value = "/{user1}/follow/{user2}", method = RequestMethod.POST)
-	public void followUser(@PathVariable(value = "user1") long user1Id, @PathVariable(value = "user2") long user2Id, Model model) {
+	@RequestMapping(value = "/follow/{user2}", method = RequestMethod.POST)
+	@ResponseBody
+	public String followUser(@PathVariable(value = "user2") long user2Id, Model model) {
 		
+		long user1Id = cookieManager.getCurrentUser().getUserid();
 		System.out.println("User1 : "+user1Id);
 		System.out.println("User2 : "+user2Id);
 		
 		
 		Follow followObj = new Follow(user1Id,user2Id);
 		userService.addFollower(followObj);
+		return "Hello";
 	}
 	
 	@RequestMapping(value = "/{id}/myFollowers", method = RequestMethod.GET )
