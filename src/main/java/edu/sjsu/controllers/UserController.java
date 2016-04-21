@@ -227,10 +227,22 @@ public class UserController {
 		ArrayList<User> peopleIFollow = new ArrayList<User>();
 		
 		for(int i=0;i<iFollow.size();i++){
-			peopleIFollow.add(userService.getUserById(iFollow.get(i).getUser1Id()));
+			peopleIFollow.add(userService.getUserById(iFollow.get(i).getUser2Id()));
 			
 		}
 		
+		System.out.println("Hello Harkirat : ");
+		
+		for(int i=0;i<peopleFollowingMe.size();i++){
+			System.out.println(peopleFollowingMe.get(i).getEmail());
+			
+		}
+		
+		System.out.println("Hello Harkirat : ");
+		for(int i=0;i<peopleIFollow.size();i++){
+			System.out.println(peopleIFollow.get(i).getEmail());
+			
+		}
 		model.addAttribute("usersIFollow", peopleIFollow );
 		
 		
@@ -320,7 +332,7 @@ public class UserController {
 	public String showOtherUserDashboard(@PathVariable long id, Model model) {
 		User user = userService.findUserById(id);
 		
-		ArrayList<Song> uploadedByMe = songService.songsUploadedByMe(user.getUserid()); 
+		ArrayList<Song> uploadedByMe = songService.songsUploadedByMe(id); 
 		model.addAttribute(user);
 		model.addAttribute("songList",uploadedByMe);
 		return "otherUserProfile";
