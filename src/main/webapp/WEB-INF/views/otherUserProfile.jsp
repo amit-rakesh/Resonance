@@ -158,9 +158,26 @@ $('button.followButton').hover(function(){
         $button.text('Following');
     }
 });
+
+
+function myFunction(){
+	alert("Hello");
+	var isFriend = ("${isFriend}");
+	alert(isFriend);
+	//$button = document.getElementById("followBtn");
+	if(isFriend){
+		alert("hello");
+		('#followBtn').text('Following');
+		('#followBtn').addClass('following');
+		
+	}
+}
+
 </script>
+
+
 </head>
-<body>
+<body onload="myFunction()">
 <h1>hello</h1>
 
 
@@ -204,7 +221,7 @@ $('button.followButton').hover(function(){
 </c:forEach>
 </table>
 <div class="container" id="followid">
-    <button class="btn followButton" rel="${user.userid }">Follow</button>
+    <button class="btn followButton" rel="${user.userid }" id ="followBtn">Follow</button>
 </div>
 	
 </body>
