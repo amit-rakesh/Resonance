@@ -61,6 +61,8 @@ public class UserController {
 	
 	private HashMap<Long,String> songidToSongUrlMap = new HashMap<Long,String>();
 	
+	private HashMap<Long,User> peopleIfollow = new HashMap<Long,User>();
+	
 	@RequestMapping(value = "/signup", method = RequestMethod.POST, produces = "application/json")
 	public ModelAndView createUser(@Valid @ModelAttribute("user") User user, BindingResult result,
 			HttpServletResponse response) {
@@ -145,6 +147,18 @@ public class UserController {
 					cookie1.setPath("/");
 					response.addCookie(cookie1);
 				}
+				
+				ArrayList<Follow> iFollow = userService.usersIFollow(user.getUserid());
+
+					
+				for(int i=0;i<iFollow.size();i++){
+					
+					peopleIfollow.put(iFollow.get(i).getUser2Id(), null);
+					//peopleIFollow.add(userService.getUserById(iFollow.get(i).getUser2Id()));
+					
+				}
+				
+				
 				user.setPassword(null);
 				return "redirect:/user/" + userWithSession.getUserid();
 			} else {
@@ -335,8 +349,9 @@ public class UserController {
 	@RequestMapping(value = "/otherUser/{id}", method = RequestMethod.GET)
 	public String showOtherUserDashboard(@PathVariable long id, Model model) {
 		User user = userService.findUserById(id);
-		
+		boolean isFriend = peopleIfollow.containsKey(id);
 		ArrayList<Song> uploadedByMe = songService.songsUploadedByMe(id); 
+		model.addAttribute("isFriend",isFriend);
 		model.addAttribute(user);
 		model.addAttribute("songList",uploadedByMe);
 		return "otherUserProfile";
