@@ -34,6 +34,7 @@ import edu.sjsu.helpers.CookieManager;
 import edu.sjsu.helpers.EmailNotification;
 import edu.sjsu.helpers.Utility;
 import edu.sjsu.models.Follow;
+import edu.sjsu.models.FollowDao;
 import edu.sjsu.models.Song;
 import edu.sjsu.models.User;
 import edu.sjsu.services.SongService;
@@ -56,6 +57,9 @@ public class UserController {
 
 	@Autowired
 	private SongService songService;
+	
+	@Autowired
+	private FollowDao followDao;
 	
 	private HashMap<Long,String> songidToSongTitleMap = new HashMap<Long,String>();
 	
@@ -191,6 +195,7 @@ public class UserController {
 		return "home";
 	}
 	
+	//User follow
 	@RequestMapping(value = "/follow/{user2}", method = RequestMethod.POST)
 	@ResponseBody
 	public String followUser(@PathVariable(value = "user2") long user2Id, Model model) {
@@ -204,6 +209,21 @@ public class UserController {
 		userService.addFollower(followObj);
 		return "Hello";
 	}
+	
+	//User unFollow
+		@RequestMapping(value = "/unfollow/{user2}", method = RequestMethod.POST)
+		@ResponseBody
+		public String unFollowUser(@PathVariable(value = "user2") long user2Id, Model model) {
+			
+			long user1Id = cookieManager.getCurrentUser().getUserid();
+			System.out.println("User1 : "+user1Id);
+			System.out.println("User2 : "+user2Id);
+			
+			
+			ArrayList<Follow> followObj = followDao.getFollowRecord(user1Id, user2Id);
+			userService.removeFollower(followObj);
+			return "Hello";
+		}
 	
 	@RequestMapping(value = "/{id}/myFollowers", method = RequestMethod.GET )
 	public String peopleFollowingMe(@PathVariable long id, Model model) {
