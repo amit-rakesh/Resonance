@@ -1,7 +1,11 @@
 package edu.sjsu.controllers;
 
 import java.io.IOException;
+
+import java.io.UnsupportedEncodingException;
+
 import org.springframework.http.HttpStatus;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -10,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
+import org.apache.commons.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.http.ResponseEntity;
@@ -173,10 +178,49 @@ public class UserController {
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public String showUserDashboard(@PathVariable long id, Model model) {
 		User user = userService.findUserById(id);
+		
+		
+		
 		model.addAttribute(user);
 		model.addAttribute(new Song());
+		
+		User userOb = cookieManager.getCurrentUser();
+		byte[] userImage = userOb.getUserPicture();
+
+		byte[] encodeBase64 = Base64.encodeBase64(userImage);
+		String base64Encoded = "";
+		try {
+			base64Encoded = new String(encodeBase64, "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		model.addAttribute("userimage", base64Encoded);
+		
+		
 		return "dashboard";
 
+	}
+	
+	@RequestMapping(value="/getDashboard", method = RequestMethod.GET)
+	private String getDashboard(Model model){
+		User user = cookieManager.getCurrentUser();
+		model.addAttribute("user", user);
+		
+		byte[] userImage = user.getUserPicture();
+
+		byte[] encodeBase64 = Base64.encodeBase64(userImage);
+		String base64Encoded = "";
+		try {
+			base64Encoded = new String(encodeBase64, "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		model.addAttribute("userimage", base64Encoded);
+		
+		
+		return "dashboard";
 	}
 
 	/******** Logout ********/

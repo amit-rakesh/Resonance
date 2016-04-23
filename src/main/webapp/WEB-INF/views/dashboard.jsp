@@ -12,66 +12,135 @@
 
 <title>Popup contact form</title>
 
-<link href="resources/css/elements.css" rel="stylesheet">
+<link href="<c:url value="resources/css/elements.css" />"
+	rel="stylesheet">
+<link href="<c:url value = "resources/css/style.css" />"
+	rel="stylesheet">
+<link href="<c:url value="resources/css/bootstrap.css" />"
+	rel="stylesheet">
+<link href="<c:url value="resources/css/bootstrap.min.css" />"
+	rel="stylesheet">
+<link href="<c:url value="resources/css/sidebar.css" />"
+	rel="stylesheet">
 
-<script>
-	//Validating Empty Field
-	function check_empty() {
-		if (document.getElementById('name').value == ""
-				|| document.getElementById('email').value == ""
-				|| document.getElementById('msg').value == "") {
-			alert("Fill All Fields !");
-		} else {
-			document.getElementById('form').submit();
-			alert("Form Submitted Successfully...");
-		}
-	}
-	//Function To Display Popup
-	function div_show() {
-		document.getElementById('abc').style.display = "block";
-	}
-	//Function to Hide Popup
-	function div_hide() {
-		document.getElementById('abc').style.display = "none";
-	}
-</script>
 </head>
 <!-- Body Starts Here -->
-<body id="body" style="overflow: hidden;">
-	<div id="abc">
-		<!-- Popup Div Starts Here -->
-		<div id="popupContact">
-			<!-- Contact Us Form -->
-			<form:form action="/resonance/song/upload" id="form" method="post"
-				name="form" modelAttribute="song" enctype="application/json">
-				<img id="close" src="images/3.png" onclick="div_hide()">
-				<h2>Upload</h2>
-				<hr>
-				<form:input path="songTitle" id="title" name="title" type="text" />
-				<form:input path="uploadedByUserId" id="user" name="user"
-					type="text" />
+<body>
 
-				<form:input path="songPath" type="file" />
-				<button type="submit" id="submit">submit</button>
-			</form:form>
+
+	<div class="panel panel-info">
+		<div class="panel-heading">
+			<h3 class="panel-title"><c:out value="${user.name}" /></h3>
 		</div>
-		<!-- Popup Div Ends Here -->
+		<div class="panel-body">
+			<div class="row">
+				<div class="col-md-3 col-lg-3 " align="center">
+					<img alt="User Pic"
+						src="data:image/jpeg;base64,${userimage}"
+						class="img-circle img-responsive">
+				</div>
+
+				
+				<div class=" col-md-9 col-lg-9 ">
+					<table class="table table-user-information">
+						<tbody>
+							<tr>
+								<td>email</td>
+								<td><c:out value="${user.email}" /></td>
+							</tr>
+							<tr>
+								<td>State</td>
+								<td><c:out value="${user.state}" /></td>
+							</tr>
+							<tr>
+								<td>Country</td>
+								<td><c:out value="${user.country}" /></td>
+							</tr>
+						</tbody>
+					</table>
+
+					
+				</div>
+			</div>
+		</div>
+
+
 	</div>
-	
+<!-- old dashboard 
+	<div>
+		<br>
+		<h1>Here's something about you</h1>
+
+		<img alt="Generic placeholder thumbnail"
+			src="data:image/jpeg;base64,${userimage}"
+			class="img-circle center-block" height="200" width="200" />
 
 
-	<!-- Display Popup Button -->
-	<h1>Click Button To upload</h1>
-	<button id="popup" onclick="div_show()">Upload</button>
+		<h1>
+			Well, Hello
+			<c:out value="${user.name}" />
+		</h1>
+		<br />
 
-	<h1>Your Profile</h1>
-	<c:out value="${user.name}" />
-	<br />
-	<c:out value="${user.country}" />
-	<c:out value="${user.state}" />
-	<a href="<c:url value="/song/id" />">Song</a>
-	
-	
+		<h2>
+			I've heard you are from
+			<c:out value="${user.state}" />
+
+			<c:out value="${user.country}" />
+		</h2>
+
+
+		<div class="row">
+			<div class="col-xs-5 col-sm-12">
+				<h3>General Information</h3>
+
+				<ul class="profile-details">
+					<li>
+						<div>
+							<i class="fa fa-briefcase"></i> position
+						</div> CEO
+					</li>
+					<li>
+						<div>
+							<i class="fa fa-building-o"></i> company
+						</div> creativeLabs
+					</li>
+				</ul>
+
+				<h3>Contact Information</h3>
+
+				<ul class="profile-details">
+					<li>
+						<div>
+							<i class="fa fa-phone"></i> phone
+						</div> +48 123 456 789
+					</li>
+					<li>
+						<div>
+							<i class="fa fa-tablet"></i> mobile phone
+						</div> +48 123 456 789
+					</li>
+					<li>
+						<div>
+							<i class="fa fa-envelope"></i> e-mail
+						</div> lukasz@bootstrapmaster.com
+					</li>
+					<li>
+						<div>
+							<i class="fa fa-map-marker"></i> address
+						</div> Konopnickiej 42<br /> 43-190 Mikolow<br /> Slask, Poland
+					</li>
+				</ul>
+			</div>
+		</div>
+		/row
+	</div>
+
+
+
+old dashboard end
+-->
+
 </body>
 <!-- Body Ends Here -->
 </html>

@@ -17,7 +17,7 @@
 <link rel="stylesheet"
 	href="<c:url value='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700|Lato:400,100,300,700,900'/>"
 	type='text/css'>
->
+
 
 <link rel="stylesheet"
 	href="<c:url value="/resources/css/animatelogin.css" />">

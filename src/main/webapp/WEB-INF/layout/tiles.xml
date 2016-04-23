@@ -12,10 +12,22 @@
 		<put-attribute name="footer" value="/WEB-INF/views/footer.jsp" />
 	</definition>
 
+
 	<definition name="dashboard" extends="base">
 		<put-attribute name="title" value="Dashboard" />  
 		<put-attribute name="body" value="/WEB-INF/views/dashboard.jsp" />
+
 	</definition>
+
+<definition name="latestSongs" extends="base">
+<put-attribute name="title" value="Songs" />  
+<put-attribute name="body" value="/WEB-INF/views/latestSongs.jsp" />
+</definition>
+
+<definition name="uploadSong" extends="base">
+<put-attribute name="title" value="Songs" />  
+<put-attribute name="body" value="/WEB-INF/views/uploadSong.jsp" />
+</definition>
 	
 	<definition name="latestSongs" extends="base">
 		<put-attribute name="title" value="Songs" />  
