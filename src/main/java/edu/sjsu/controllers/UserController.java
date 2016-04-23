@@ -1,6 +1,7 @@
 package edu.sjsu.controllers;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 
 import javax.servlet.http.Cookie;
@@ -8,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
+import org.apache.commons.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Component;
@@ -144,8 +146,26 @@ public class UserController {
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public String showUserDashboard(@PathVariable long id, Model model) {
 		User user = userService.findUserById(id);
+		
+		
+		
 		model.addAttribute(user);
 		model.addAttribute(new Song());
+		
+		User userOb = cookieManager.getCurrentUser();
+		byte[] userImage = userOb.getUserPicture();
+
+		byte[] encodeBase64 = Base64.encodeBase64(userImage);
+		String base64Encoded = "";
+		try {
+			base64Encoded = new String(encodeBase64, "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		model.addAttribute("userimage", base64Encoded);
+		
+		
 		return "dashboard";
 
 	}

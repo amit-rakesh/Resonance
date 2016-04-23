@@ -32,7 +32,7 @@ public class Song {
     @NotNull
     @JsonProperty
     @Column(name = "userid")
-    private String uploadedByUserId;
+    private Long uploadedByUserId;
     
     @NotNull
     @JsonProperty
@@ -57,19 +57,19 @@ public class Song {
         this.songId=songId;
     }
 
-    public Song(@JsonProperty String songTitle, @JsonProperty String uploadedByUserId) {
+    public Song(@JsonProperty String songTitle, @JsonProperty long uploadedByUserId) {
         this.songTitle = songTitle;
        
         this.uploadedByUserId=uploadedByUserId;
     }
 
-    public Song(@JsonProperty String songTitle, @JsonProperty String uploadedByUserId,@JsonProperty String songPath) {
+    public Song(@JsonProperty String songTitle, @JsonProperty long uploadedByUserId,@JsonProperty String songPath) {
         this.songTitle = songTitle;
         this.songPath=songPath;
         this.uploadedByUserId=uploadedByUserId;
     }
     
-    public Song(@JsonProperty String songTitle, @JsonProperty String uploadedByUserId,@JsonProperty String songPath, @JsonProperty long date) {
+    public Song(@JsonProperty String songTitle, @JsonProperty long uploadedByUserId,@JsonProperty String songPath, @JsonProperty long date) {
         this.songTitle = songTitle;
         this.songPath=songPath;
         this.uploadedByUserId=uploadedByUserId;
@@ -94,7 +94,7 @@ public class Song {
     }
 
   
-    public String getUploadedByUserId() {
+    public long getUploadedByUserId() {
         return uploadedByUserId;
     }
 
@@ -122,7 +122,7 @@ public class Song {
 	}
 
 	@Column(name = "userid", unique = false, nullable = false)
-    public void setUploadedByUserId(String uploadedByUserId) {
+    public void setUploadedByUserId(long uploadedByUserId) {
         this.uploadedByUserId = uploadedByUserId;
     }
 
