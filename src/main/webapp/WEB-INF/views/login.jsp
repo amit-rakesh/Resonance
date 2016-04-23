@@ -49,7 +49,9 @@
 				<label>Email</label> <br />
 				<form:input path="email" type="text" name="email" />
 				<br /> <label for="password">Password</label> <br />
+
 				<form:input path="password" type="password" name="pass" />
+s
 				<br />
 				<button type="submit">Sign In</button>
 				<br /> <a href="#"><p class="small">Forgot your password?</p></a>
