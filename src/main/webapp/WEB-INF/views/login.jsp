@@ -17,7 +17,7 @@
 <link rel="stylesheet"
 	href="<c:url value='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700|Lato:400,100,300,700,900'/>"
 	type='text/css'>
->
+
 
 <link rel="stylesheet"
 	href="<c:url value="/resources/css/animatelogin.css" />">
@@ -49,7 +49,9 @@
 				<label>Email</label> <br />
 				<form:input path="email" type="text" name="email" />
 				<br /> <label for="password">Password</label> <br />
-				<form:input path="password" type="text" name="pass" />
+
+				<form:input path="password" type="password" name="pass" />
+s
 				<br />
 				<button type="submit">Sign In</button>
 				<br /> <a href="#"><p class="small">Forgot your password?</p></a>
