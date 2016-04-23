@@ -201,6 +201,27 @@ public class UserController {
 		return "dashboard";
 
 	}
+	
+	@RequestMapping(value="/getDashboard", method = RequestMethod.GET)
+	private String getDashboard(Model model){
+		User user = cookieManager.getCurrentUser();
+		model.addAttribute("user", user);
+		
+		byte[] userImage = user.getUserPicture();
+
+		byte[] encodeBase64 = Base64.encodeBase64(userImage);
+		String base64Encoded = "";
+		try {
+			base64Encoded = new String(encodeBase64, "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		model.addAttribute("userimage", base64Encoded);
+		
+		
+		return "dashboard";
+	}
 
 	/******** Logout ********/
 
