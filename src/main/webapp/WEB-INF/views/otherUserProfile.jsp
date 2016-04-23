@@ -4,8 +4,8 @@
     <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
     
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
+<!-- html>
+<head-->
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>User Info</title>
 <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
@@ -146,17 +146,22 @@ $('body').on('click', 'button.followButton' ,function(e){
     }
 });
 
-$('button.followButton').hover(function(){
+$('body').on('mouseenter', 'button.followButton', function(){
      $button = $(this);
     if($button.hasClass('following')){
         $button.addClass('unfollow');
         $button.text('Unfollow');
     }
-}, function(){
-    if($button.hasClass('following')){
-        $button.removeClass('unfollow');
-        $button.text('Following');
-    }
+
+});
+
+$('body').on('mouseleave', 'button.followButton', function(){
+     $button = $(this);
+     if($button.hasClass('following')){
+         $button.removeClass('unfollow');
+         $button.text('Following');
+     }
+
 });
 
 
@@ -164,19 +169,20 @@ function myFunction(){
 	alert("Hello");
 	var isFriend = ("${isFriend}");
 	alert(isFriend);
-	//$button = document.getElementById("followBtn");
 	if(isFriend){
 		alert("hello");
-		('#followBtn').text('Following');
-		('#followBtn').addClass('following');
+		$("button").text('Following');
+		$("button").addClass('following');
 		
 	}
 }
 
 </script>
-
-
 </head>
+
+<div class="container" id="followid">
+    <button class="btn followButton" rel="${user.userid }" id ="followBtn">Follow</button>
+</div>
 <body onload="myFunction()">
 <h1>hello</h1>
 
@@ -220,9 +226,7 @@ function myFunction(){
   </tr>
 </c:forEach>
 </table>
-<div class="container" id="followid">
-    <button class="btn followButton" rel="${user.userid }" id ="followBtn">Follow</button>
-</div>
+
 	
-</body>
-</html>
+<!-- /body>
+</html -->
