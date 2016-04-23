@@ -22,4 +22,8 @@ public interface UserService {
 	public void addFollower(Follow follow);
 
 	public ArrayList<Follow> userFollowingMe(long id);
+	
+	public ArrayList<Follow> usersIFollow(long id);
+	
+	public ArrayList<User> searchUsers(String searchString);
 }
