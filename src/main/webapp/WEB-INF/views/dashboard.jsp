@@ -135,10 +135,28 @@
 		</div>
 		/row
 	</div>
+<<<<<<< HEAD
 
 
 old dashboard end
 -->
+=======
+	
+
+
+	<!-- Display Popup Button -->
+	<h1>Click Button To upload</h1>
+	<button id="popup" onclick="div_show()">Upload</button>
+
+	<h1>Your Profile</h1>
+	<c:out value="${user.name}" />
+	<br />
+	<c:out value="${user.country}" />
+	<c:out value="${user.state}" />
+	<a href="<c:url value="/song/id" />">Song</a>
+	
+	
+>>>>>>> master
 </body>
 <!-- Body Ends Here -->
 </html>

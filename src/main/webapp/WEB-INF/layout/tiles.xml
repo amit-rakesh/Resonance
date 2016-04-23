@@ -12,9 +12,11 @@
 		<put-attribute name="footer" value="/WEB-INF/views/footer.jsp" />
 	</definition>
 
-	 <definition name="dashboard" extends="base">
-	<put-attribute name="title" value="Dashboard" />  
-	<put-attribute name="body" value="/WEB-INF/views/dashboard.jsp" />
+
+	<definition name="dashboard" extends="base">
+		<put-attribute name="title" value="Dashboard" />  
+		<put-attribute name="body" value="/WEB-INF/views/dashboard.jsp" />
+
 	</definition>
 
 <definition name="latestSongs" extends="base">
@@ -27,7 +29,25 @@
 <put-attribute name="body" value="/WEB-INF/views/uploadSong.jsp" />
 </definition>
 	
-	<!-- definition name="personList" extends="base">
-		<put-attribute name="body" value="/WEB-INF/views/personList.jsp" />
-	</definition -->
+	<definition name="latestSongs" extends="base">
+		<put-attribute name="title" value="Songs" />  
+		<put-attribute name="body" value="/WEB-INF/views/latestSongs.jsp" />
+	</definition>
+	
+	<definition name="Myfriends" extends="base">
+		<put-attribute name="title" value="Friends" />  
+		<put-attribute name="body" value="/WEB-INF/views/Myfriends.jsp" />
+	</definition>
+	
+		<definition name="search" extends="base">
+		<put-attribute name="title" value="search" />  
+		<put-attribute name="body" value="/WEB-INF/views/search.jsp" />
+	</definition>
+	
+		<definition name="otherUserProfile" extends="base">
+		<put-attribute name="title" value="otherUserProfile" />  
+		<put-attribute name="body" value="/WEB-INF/views/otherUserProfile.jsp" />
+	</definition>
+	
+	
 </tiles-definitions>

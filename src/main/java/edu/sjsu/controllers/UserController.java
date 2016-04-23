@@ -1,8 +1,13 @@
 package edu.sjsu.controllers;
 
 import java.io.IOException;
+
 import java.io.UnsupportedEncodingException;
+
+import org.springframework.http.HttpStatus;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -12,6 +17,7 @@ import javax.validation.Valid;
 import org.apache.commons.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,8 +27,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.amazonaws.util.json.JSONArray;
+import com.amazonaws.util.json.JSONObject;
 
 import edu.sjsu.helpers.BadRequestException;
 import edu.sjsu.helpers.CookieManager;
@@ -31,6 +41,7 @@ import edu.sjsu.helpers.Utility;
 import edu.sjsu.models.Follow;
 import edu.sjsu.models.Song;
 import edu.sjsu.models.User;
+import edu.sjsu.services.SongService;
 import edu.sjsu.services.UserService;
 
 @Controller
@@ -48,6 +59,15 @@ public class UserController {
 	@Autowired
 	EmailNotification emailNotification;
 
+	@Autowired
+	private SongService songService;
+	
+	private HashMap<Long,String> songidToSongTitleMap = new HashMap<Long,String>();
+	
+	private HashMap<Long,String> songidToSongUrlMap = new HashMap<Long,String>();
+	
+	private HashMap<Long,User> peopleIfollow = new HashMap<Long,User>();
+	
 	@RequestMapping(value = "/signup", method = RequestMethod.POST, produces = "application/json")
 	public ModelAndView createUser(@Valid @ModelAttribute("user") User user, BindingResult result,
 			HttpServletResponse response) {
@@ -132,6 +152,18 @@ public class UserController {
 					cookie1.setPath("/");
 					response.addCookie(cookie1);
 				}
+				
+				ArrayList<Follow> iFollow = userService.usersIFollow(user.getUserid());
+
+					
+				for(int i=0;i<iFollow.size();i++){
+					
+					peopleIfollow.put(iFollow.get(i).getUser2Id(), null);
+					//peopleIFollow.add(userService.getUserById(iFollow.get(i).getUser2Id()));
+					
+				}
+				
+				
 				user.setPassword(null);
 				return "redirect:/user/" + userWithSession.getUserid();
 			} else {
@@ -182,15 +214,18 @@ public class UserController {
 		return "home";
 	}
 	
-	@RequestMapping(value = "/{user1}/follow/{user2}", method = RequestMethod.POST)
-	public void followUser(@PathVariable(value = "user1") long user1Id, @PathVariable(value = "user2") long user2Id, Model model) {
+	@RequestMapping(value = "/follow/{user2}", method = RequestMethod.POST)
+	@ResponseBody
+	public String followUser(@PathVariable(value = "user2") long user2Id, Model model) {
 		
+		long user1Id = cookieManager.getCurrentUser().getUserid();
 		System.out.println("User1 : "+user1Id);
 		System.out.println("User2 : "+user2Id);
 		
 		
 		Follow followObj = new Follow(user1Id,user2Id);
 		userService.addFollower(followObj);
+		return "Hello";
 	}
 	
 	@RequestMapping(value = "/{id}/myFollowers", method = RequestMethod.GET )
@@ -212,14 +247,51 @@ public class UserController {
 
 	}
 	
-/*	@RequestMapping(value = "/Myfriends", method = RequestMethod.GET)
-	public String dashboard(Locale locale, Model model) {
+	@RequestMapping(value = "/myFriends", method = RequestMethod.GET )
+	public String getMyFriends( Model model) {
+		
+		User userOb = cookieManager.getCurrentUser();
+		ArrayList<Follow> myFollowers = userService.userFollowingMe(userOb.getUserid());
+
+		ArrayList<User> peopleFollowingMe = new ArrayList<User>();
+		
+		for(int i=0;i<myFollowers.size();i++){
+			peopleFollowingMe.add(userService.getUserById(myFollowers.get(i).getUser1Id()));
+			
+		}
+		
+		model.addAttribute("users", peopleFollowingMe );
 		
 		
-		//model.addAttribute("users", new ArrayList<User>() );
+		ArrayList<Follow> iFollow = userService.usersIFollow(userOb.getUserid());
+
+		ArrayList<User> peopleIFollow = new ArrayList<User>();
+		
+		for(int i=0;i<iFollow.size();i++){
+			peopleIFollow.add(userService.getUserById(iFollow.get(i).getUser2Id()));
+			
+		}
+		
+		System.out.println("Hello Harkirat : ");
+		
+		for(int i=0;i<peopleFollowingMe.size();i++){
+			System.out.println(peopleFollowingMe.get(i).getEmail());
+			
+		}
+		
+		System.out.println("Hello Harkirat : ");
+		for(int i=0;i<peopleIFollow.size();i++){
+			System.out.println(peopleIFollow.get(i).getEmail());
+			
+		}
+		model.addAttribute("usersIFollow", peopleIFollow );
+		
 		
 		return "Myfriends";
-	}*/
+
+	}
+	
+
 
 	/*********** edit profile **********/
 
@@ -246,5 +318,68 @@ public class UserController {
 		return "upload";
 	}
 	
+
+	//search
+	@RequestMapping(value = "/search", method = RequestMethod.GET)
+	public String fetchAllData( Model model) {
+		
+		ArrayList<Song> songs = songService.getAllSongs();
+		
+		System.out.println(songs.size());
+		for(int i = 0; i<songs.size();i++){
+			
+			songidToSongTitleMap.put(songs.get(i).getSongId(), songs.get(i).getSongTitle());
+			songidToSongUrlMap.put(songs.get(i).getSongId(), songs.get(i).getPlayingUrl());
+		}
+		System.out.println("Size : "+songidToSongTitleMap.size());
+		return "search";
+	}
+
+	@RequestMapping(value = "/getSearchResults", method = RequestMethod.GET ,produces = "application/json")
+	public ResponseEntity<String> searchSong(@RequestParam("data") String data, Model model) {
+		
+		JSONArray a = new JSONArray();
+		for(long key : songidToSongTitleMap.keySet()){
+			
+			
+		
+			if(songidToSongTitleMap.get(key).contains(data))
+			{
+				System.out.println("yes");
+				//String returnObj = "title :" + allSongs.get(key);
+				JSONObject o = new JSONObject();
+				System.out.println(songidToSongTitleMap.get(key));
+				try{
+					o.put("title", songidToSongTitleMap.get(key));
+					o.put("url", songidToSongUrlMap.get(key));
+			
+					
+					a.put(o);
+				}catch(Exception e){
+				
+				}
+				
+			//return allSongs.get(data);
+			}
+		
+			
+		}
+		System.out.println(a.toString());
+		return new ResponseEntity<String>(a.toString(),HttpStatus.OK);
+	} 
+	
+	
+	@RequestMapping(value = "/otherUser/{id}", method = RequestMethod.GET)
+	public String showOtherUserDashboard(@PathVariable long id, Model model) {
+		User user = userService.findUserById(id);
+		boolean isFriend = peopleIfollow.containsKey(id);
+		ArrayList<Song> uploadedByMe = songService.songsUploadedByMe(id); 
+		model.addAttribute("isFriend",isFriend);
+		model.addAttribute(user);
+		model.addAttribute("songList",uploadedByMe);
+		return "otherUserProfile";
+
+	}
+
 
 }

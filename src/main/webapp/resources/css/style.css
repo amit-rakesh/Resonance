@@ -23,14 +23,17 @@ body {
 	float: left;
 	width: 17%;
 	height: 84%;
+
 }
 
 .body {
+
 	float: right;
 	
 	width: 83%;
 	height: auto;
 	padding-top: 65px;
+
 }
 
 

@@ -43,7 +43,7 @@ public class Song {
    
     @JsonProperty
     @Column(name = "date")
-    private long date;
+    private Long date;
     
     @JsonProperty
     @Column(name = "playingUrl")
@@ -130,7 +130,7 @@ public class Song {
 		return playingUrl;
 	}
 
-	@Column(name = "date", unique = false, nullable = true)
+	@Column(name = "playingUrl", unique = false, nullable = true)
 	public void setPlayingUrl(String playingUrl) {
 		this.playingUrl = playingUrl;
 	}

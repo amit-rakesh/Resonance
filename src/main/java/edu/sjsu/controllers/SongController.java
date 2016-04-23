@@ -47,6 +47,10 @@ public class SongController {
 
 	@Autowired
 	private S3Connector s3Connector;
+	
+	@Autowired
+	private CookieManager cookieManager;
+
 
 	// =================================================
 	// Upload a new song
@@ -108,9 +112,15 @@ public class SongController {
 	@RequestMapping(value = "/get10LatestSongs", method = RequestMethod.GET)
 	public String get10LatestSongs(Model model) {
 
+		User userOb = cookieManager.getCurrentUser();
+		System.out.println(userOb.getEmail());
 		ArrayList<Song> latestsongs = songService.getLatestSongs();
 
+		ArrayList<Song> uploadedByMe = songService.songsUploadedByMe(userOb.getUserid());
+		System.out.println(uploadedByMe.size());
 		model.addAttribute("songs", latestsongs );
+		model.addAttribute("mysongs", uploadedByMe );
+		
 		return "latestSongs";
 
 	}
