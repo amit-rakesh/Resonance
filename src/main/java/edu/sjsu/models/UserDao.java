@@ -17,5 +17,8 @@ public interface UserDao extends CrudRepository<User, Long> {
 	
 	@Query(value = "select * from users where name LIKE %?1%", nativeQuery = true)
 	ArrayList<User> SearchUserName(String string);
+	
+	@Query(value = "select * from users", nativeQuery = true)
+	ArrayList<User> getAllUsers();
 
 }

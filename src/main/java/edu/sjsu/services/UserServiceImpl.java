@@ -100,4 +100,9 @@ public class UserServiceImpl implements UserService {
 			followDao.delete(f);
 		}
 	}
+	
+	@Override
+	public ArrayList<User> getAllUsers(){
+		return userDao.getAllUsers();
+	}
 }

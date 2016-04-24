@@ -117,14 +117,24 @@ button.followButton.unfollow{
 </style>
 <script>
 $('body').on('click', 'button.followButton' ,function(e){
-	alert(e);
+	//alert(e);
 	var userid = "${user.userid}";	
-	alert(userid);
+	//alert(userid);
     e.preventDefault();
     $button = $(this);
     if($button.hasClass('following')){
         
         //$.ajax(); Do Unfollow
+        
+        $.ajax({ 
+		   type: "POST",
+		   url: "http://localhost:8080/resonance/user/unfollow/" + userid,
+		   success: function(res){  
+			   		       
+		      //alert("sucess");
+		   	}
+		});
+        
         
         $button.removeClass('following');
         $button.removeClass('unfollow');
@@ -137,7 +147,7 @@ $('body').on('click', 'button.followButton' ,function(e){
 		   url: "http://localhost:8080/resonance/user/follow/" + userid,
 		   success: function(res){  
 			   		       
-		      alert("sucess");
+		      //alert("sucess");
 		   	}
 		});
         
@@ -166,13 +176,16 @@ $('body').on('mouseleave', 'button.followButton', function(){
 
 
 function myFunction(){
-	alert("Hello");
+	//alert("Hello");
 	var isFriend = ("${isFriend}");
-	alert(isFriend);
-	if(isFriend){
-		alert("hello");
+	//alert(isFriend);
+	if(isFriend===true){
+		//alert("hello");
 		$("button").text('Following');
 		$("button").addClass('following');
+		
+	}
+	else{
 		
 	}
 }

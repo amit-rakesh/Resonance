@@ -67,6 +67,10 @@ public class UserController {
 	
 	private HashMap<Long,User> peopleIfollow = new HashMap<Long,User>();
 	
+	private HashMap<Long,String> useridTouserNameMap = new HashMap<Long,String>();
+	
+	//private HashMap<Long,User> useridTouserObjMap = new HashMap<Long,User>();
+	
 	@RequestMapping(value = "/signup", method = RequestMethod.POST, produces = "application/json")
 	public ModelAndView createUser(@Valid @ModelAttribute("user") User user, BindingResult result,
 			HttpServletResponse response) {
@@ -153,10 +157,10 @@ public class UserController {
 				}
 				
 				ArrayList<Follow> iFollow = userService.usersIFollow(user.getUserid());
-
-					
+				System.out.println("Number of people i follow :" + iFollow.size());		
+					peopleIfollow.clear();
 				for(int i=0;i<iFollow.size();i++){
-					
+			
 					peopleIfollow.put(iFollow.get(i).getUser2Id(), null);
 					//peopleIFollow.add(userService.getUserById(iFollow.get(i).getUser2Id()));
 					
@@ -204,7 +208,7 @@ public class UserController {
 		System.out.println("User1 : "+user1Id);
 		System.out.println("User2 : "+user2Id);
 		
-		
+		peopleIfollow.put(user2Id, null);
 		Follow followObj = new Follow(user1Id,user2Id);
 		userService.addFollower(followObj);
 		return "Hello";
@@ -221,7 +225,9 @@ public class UserController {
 			
 			
 			ArrayList<Follow> followObj = followDao.getFollowRecord(user1Id, user2Id);
+			peopleIfollow.remove(user2Id);
 			userService.removeFollower(followObj);
+			
 			return "Hello";
 		}
 	
@@ -322,11 +328,18 @@ public class UserController {
 		
 		ArrayList<Song> songs = songService.getAllSongs();
 		
+		ArrayList<User> users = userService.getAllUsers();
 		System.out.println(songs.size());
 		for(int i = 0; i<songs.size();i++){
 			
 			songidToSongTitleMap.put(songs.get(i).getSongId(), songs.get(i).getSongTitle());
 			songidToSongUrlMap.put(songs.get(i).getSongId(), songs.get(i).getPlayingUrl());
+		}
+		
+		
+		for(int i = 0; i<users.size();i++){
+			
+			useridTouserNameMap.put(users.get(i).getUserid(), users.get(i).getName());
 		}
 		System.out.println("Size : "+songidToSongTitleMap.size());
 		return "search";
@@ -365,11 +378,39 @@ public class UserController {
 		return new ResponseEntity<String>(a.toString(),HttpStatus.OK);
 	} 
 	
+	@RequestMapping(value = "/getSearchResultUsers", method = RequestMethod.GET ,produces = "application/json")
+	public ResponseEntity<String> searchUser(@RequestParam("data") String data, Model model) {
+		
+		JSONArray a = new JSONArray();
+		
+		for(long userId : useridTouserNameMap.keySet()){
+			if(useridTouserNameMap.get(userId).contains(data)){
+				System.out.println("yes");
+				
+				JSONObject o = new JSONObject();
+				
+				try{
+					o.put("id", userId);
+					o.put("name", useridTouserNameMap.get(userId));
+			
+					
+					a.put(o);
+				}catch(Exception e){
+				
+				}
+			}
+		}
+		
+		System.out.println(a.toString());	
+		return new ResponseEntity<String>(a.toString(),HttpStatus.OK);
+	} 
+	
 	
 	@RequestMapping(value = "/otherUser/{id}", method = RequestMethod.GET)
 	public String showOtherUserDashboard(@PathVariable long id, Model model) {
 		User user = userService.findUserById(id);
 		boolean isFriend = peopleIfollow.containsKey(id);
+		System.out.println(isFriend);
 		ArrayList<Song> uploadedByMe = songService.songsUploadedByMe(id); 
 		model.addAttribute("isFriend",isFriend);
 		model.addAttribute(user);

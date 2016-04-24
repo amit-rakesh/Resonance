@@ -28,4 +28,6 @@ public interface UserService {
 	public ArrayList<Follow> usersIFollow(long id);
 	
 	public ArrayList<User> searchUsers(String searchString);
+	
+	public ArrayList<User> getAllUsers();
 }
