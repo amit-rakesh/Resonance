@@ -14,7 +14,8 @@
 	href="<c:url value="/resources/css/bootstrap.css" />">
 <link rel="stylesheet"
 	href="<c:url value="/resources/css/bootstrap.min.css" />">
-<script src="resource/js/bootstrap.min.js"></script>
+<script src="<c:url value="resource/js/bootstrap.min.js"/>"></script>
+
 </head>
 <body>
 	<nav class="navbar navbar-inverse navbar-fixed-top">

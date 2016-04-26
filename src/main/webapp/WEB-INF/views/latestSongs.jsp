@@ -23,11 +23,11 @@
 	<div class="container-fluid">
 		<div class="col-md-4 col-sm-4 col-xs-4">
 			<button type="button" class="btn btn-info" name="select" id="1"
-				value="1" onclick="myFunctionLatest();">Latest Song</button>
+				value="1" >Latest Song</button>
 		</div>
 		<div class="col-md-4 col-sm-4 col-xs-4">
 			<button type="button" class="btn btn-info" name="select" id="2"
-				value="2" onclick="myFunctionUpload();">My Uploads</button>
+				value="2">My Uploads</button>
 		</div>
 	</div>
 	<div class="panel panel-info" id="latestsongs" style="display: none;">
@@ -43,7 +43,7 @@
 								<td>Song Title</td>
 								<td>Uploaded By</td>
 								<td>Play Song</td>
-								<td>Like</td>
+								
 							</tr>
 							<c:forEach items="${songs}" var="song">
 								<tr>
@@ -75,7 +75,7 @@
 							<tr>
 								<td>Song Title</td>
 								<td>Play Song</td>
-								<td>Like</td>
+								
 							</tr>
 							<c:forEach items="${mysongs}" var="song">
 								<tr>
@@ -94,4 +94,5 @@
 
 </body>
 <script src="<c:url value="/resources/js/script.js" />"></script>
+<script src="<c:url value="/resources/js/audioTag.js" />"></script>
 </html>

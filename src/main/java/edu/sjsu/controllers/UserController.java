@@ -173,7 +173,7 @@ public class UserController {
 					//peopleIFollow.add(userService.getUserById(iFollow.get(i).getUser2Id()));
 					
 				}
-				
+		
 				
 				user.setPassword(null);
 				return "redirect:/user/" + userWithSession.getUserid();
@@ -254,8 +254,9 @@ public class UserController {
 		long user1Id = cookieManager.getCurrentUser().getUserid();
 		System.out.println("User1 : "+user1Id);
 		System.out.println("User2 : "+user2Id);
-		
+		System.out.println(peopleIfollow.size());	
 		peopleIfollow.put(user2Id, null);
+		System.out.println(peopleIfollow.size());
 		Follow followObj = new Follow(user1Id,user2Id);
 		userService.addFollower(followObj);
 		return "Hello";
@@ -393,14 +394,16 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "/getSearchResults", method = RequestMethod.GET ,produces = "application/json")
-	public ResponseEntity<String> searchSong(@RequestParam("data") String data, Model model) {
-		
+	public ResponseEntity<String> searchSong(@RequestParam("data") String originalData, Model model) {
+	System.out.println("original :" + originalData);	
+		String data = originalData.toLowerCase();
+		System.out.println("data :" + data);
 		JSONArray a = new JSONArray();
 		for(long key : songidToSongTitleMap.keySet()){
 			
 			
 		
-			if(songidToSongTitleMap.get(key).contains(data))
+			if(songidToSongTitleMap.get(key).toLowerCase().contains(data))
 			{
 				System.out.println("yes");
 				//String returnObj = "title :" + allSongs.get(key);
@@ -426,12 +429,15 @@ public class UserController {
 	} 
 	
 	@RequestMapping(value = "/getSearchResultUsers", method = RequestMethod.GET ,produces = "application/json")
-	public ResponseEntity<String> searchUser(@RequestParam("data") String data, Model model) {
+	public ResponseEntity<String> searchUser(@RequestParam("data") String originalData, Model model) {
 		
+		System.out.println("original :" + originalData);	
+		String data = originalData.toLowerCase();
+		System.out.println("data :" + data);
 		JSONArray a = new JSONArray();
 		
 		for(long userId : useridTouserNameMap.keySet()){
-			if(useridTouserNameMap.get(userId).contains(data)){
+			if(useridTouserNameMap.get(userId).toLowerCase().contains(data)){
 				System.out.println("yes");
 				
 				JSONObject o = new JSONObject();

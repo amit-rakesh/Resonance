@@ -10,6 +10,9 @@
 <title>Search</title>
 <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
 <script rel="javascript" type="text/javascript" href="js/jquery-1.11.3.min.js"></script>
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
 <script>
 
 function myFunction(){
@@ -85,6 +88,21 @@ function myFunction(){
 	 
 	
 }
+
+$("table td").on("click",function(){
+	
+
+	
+    $("audio").on("play", function() {
+        $("audio").not(this).each(function(index, audio) {
+            audio.pause();
+        });
+    });
+}
+
+);	
+
+
 </script>
 </head>
 <body>
@@ -96,8 +114,8 @@ function myFunction(){
 <label id="note"></label>
 <br><br>
 
-<input type="radio" name="select" id="1" value="1"  onclick="myFunc();">Songs</input>
-<input type="radio"  name="select" id="2" value="2" onclick="myFunc();">People</input>
+<input type="radio" name="select" id="1" value="1" >Songs</input>
+<input type="radio"  name="select" id="2" value="2" >People</input>
 <br><br>
 <button onclick="myFunction();">search</button>
 
@@ -119,4 +137,5 @@ function myFunction(){
 
 
 </body>
+<script src="<c:url value="/resources/js/audioTag.js" />"></script>
 </html>

@@ -195,7 +195,7 @@ function myFunction(){
 	//alert("Hello");
 	var isFriend = ("${isFriend}");
 	//alert(isFriend);
-	if(isFriend===true){
+	if(isFriend=="true"){
 		//alert("hello");
 		$("button").text('Following');
 		$("button").addClass('following');

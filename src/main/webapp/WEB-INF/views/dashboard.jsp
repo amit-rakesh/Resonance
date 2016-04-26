@@ -56,6 +56,14 @@
 								<td>Country</td>
 								<td><c:out value="${user.country}" /></td>
 							</tr>
+							<tr>
+								<td>Age</td>
+								<td><c:out value="${user.age}" /></td>
+							</tr>
+							<tr>
+								<td>Sex</td>
+								<td><c:out value="${user.sex}" /></td>
+							</tr>
 						</tbody>
 					</table>
 
