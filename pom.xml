@@ -47,7 +47,14 @@
 			<artifactId>tiles-extras</artifactId>
 			<version>3.0.5</version>
 		</dependency >
-
+		
+		<!-- Apache mahout -->
+		
+		<dependency>
+    		<groupId>org.apache.mahout</groupId>
+    		<artifactId>mahout-mr</artifactId>
+    		<version>0.10.0</version>
+		</dependency>
 
 		<!-- AspectJ -->
 		<dependency>
