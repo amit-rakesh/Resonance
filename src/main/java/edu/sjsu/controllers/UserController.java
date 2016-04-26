@@ -3,11 +3,14 @@ package edu.sjsu.controllers;
 import java.io.IOException;
 
 import java.io.UnsupportedEncodingException;
+import java.text.DateFormat;
 
 import org.springframework.http.HttpStatus;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -461,6 +464,16 @@ public class UserController {
 		model.addAttribute("songList",uploadedByMe);
 		return "otherUserProfile";
 
+	}
+	
+	
+	@RequestMapping(value = "/editInfo", method = RequestMethod.GET)
+	public String dashboard(Locale locale, Model model) {
+		
+		User user= cookieManager.getCurrentUser();
+		model.addAttribute("user", user );
+		
+		return "editinfo";
 	}
 
 

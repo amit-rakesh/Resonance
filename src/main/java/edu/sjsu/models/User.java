@@ -6,6 +6,8 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import static javax.persistence.FetchType.LAZY;
 
+import java.sql.Date;
+
 @Entity
 @Table(name = "users")
 public class User {
@@ -60,6 +62,15 @@ public class User {
 	@Column(name = "UserPicture")
 	private byte[] userPicture;
 
+	@JsonProperty
+	@Column(name = "age")
+	private Integer age;
+	
+	@JsonProperty
+	@Column(name = "sex")
+	private String sex;
+	
+	
 	// Constructors
 	public User() {
 	}
@@ -84,6 +95,21 @@ public class User {
 		this.token = token;
 		this.verified = verified;
 		this.userPicture = userPicture;
+	}
+	
+	public User(@JsonProperty String name, @JsonProperty String email, @JsonProperty String password,
+			@JsonProperty String country, @JsonProperty String state, @JsonProperty String token,
+			@JsonProperty boolean verified, @JsonProperty byte[] userPicture,@JsonProperty int age, @JsonProperty String sex) {
+		this.name = name;
+		this.email = email;
+		this.password = password;
+		this.country = country;
+		this.state = state;
+		this.token = token;
+		this.verified = verified;
+		this.userPicture = userPicture;
+		this.age=age;
+		this.sex=sex;
 	}
 
 	// setters and getters
@@ -171,6 +197,24 @@ public class User {
 		this.userPicture = userPicture;
 	}
 
+	
+	@Column(name = "age", unique = false, nullable = true)
+	public Integer getAge() {
+		return age;
+	}
+
+	public void setAge(Integer age) {
+		this.age = age;
+	}
+
+	@Column(name = "sex", unique = false, nullable = true)
+	public String getSex() {
+		return sex;
+	}
+
+	public void setSex(String sex) {
+		this.sex = sex;
+	}
 
 	@Override
 	public String toString() {

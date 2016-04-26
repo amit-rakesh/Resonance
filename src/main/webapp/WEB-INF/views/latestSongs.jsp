@@ -8,22 +8,17 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>PlayLists</title>
+<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+<script rel="javascript" type="text/javascript" href="js/jquery-1.11.3.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+
 <script>
-	function myFunctionLatest() {
-
-		//document.getElementById('selection').style.display = 'none';
-		document.getElementById('latestsongs').style.display = 'block';
-		document.getElementById('uploadedByMe').style.display = 'none';
-	}
-	function myFunctionUpload() {
-		//document.getElementById('selection').style.display = 'none';
-		document.getElementById('latestsongs').style.display = 'none';
-		document.getElementById('uploadedByMe').style.display = 'block';
-
-	}
+	
 </script>
 </head>
 <body>
+
 
 	<div class="container-fluid">
 		<div class="col-md-4 col-sm-4 col-xs-4">
@@ -67,6 +62,7 @@
 	</div>
 
 
+
 	<div class="panel panel-info" id="uploadedByMe" style="display: none;">
 		<div class="panel-heading">
 			<h3 class="panel-title">My Uploads</h3>
@@ -95,5 +91,7 @@
 			</div>
 		</div>
 	</div>
+
 </body>
+<script src="<c:url value="/resources/js/script.js" />"></script>
 </html>
