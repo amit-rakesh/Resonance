@@ -20,10 +20,14 @@ public interface UserService {
 	public User findUserById(long id);
 	
 	public void addFollower(Follow follow);
+	
+	public void removeFollower(ArrayList<Follow> follow);
 
 	public ArrayList<Follow> userFollowingMe(long id);
 	
 	public ArrayList<Follow> usersIFollow(long id);
 	
 	public ArrayList<User> searchUsers(String searchString);
+	
+	public ArrayList<User> getAllUsers();
 }

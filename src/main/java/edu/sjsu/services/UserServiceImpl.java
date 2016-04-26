@@ -93,4 +93,16 @@ public class UserServiceImpl implements UserService {
 		System.out.println("Count of results : "+searchResultUsers.size());
 		return searchResultUsers;
 	}
+	
+	@Override
+	public void removeFollower(ArrayList<Follow> follow){
+		for(Follow f : follow){
+			followDao.delete(f);
+		}
+	}
+	
+	@Override
+	public ArrayList<User> getAllUsers(){
+		return userDao.getAllUsers();
+	}
 }

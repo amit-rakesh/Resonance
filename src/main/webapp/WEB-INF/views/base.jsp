@@ -14,21 +14,20 @@
 	href="<c:url value="/resources/css/bootstrap.css" />">
 <link rel="stylesheet"
 	href="<c:url value="/resources/css/bootstrap.min.css" />">
-<script src="resource/js/bootstrap.min.js"></script>
+<script src="<c:url value="resource/js/bootstrap.min.js"/>"></script>
+
 </head>
 <body>
-	<div class="header">
+	<nav class="navbar navbar-inverse navbar-fixed-top">
 		<tiles:insertAttribute name="header" />
-	</div>
-	<div class="menu">
-		<tiles:insertAttribute name="menu" />
-	</div>
+	</nav>
+
 	<div class="body">
 		<tiles:insertAttribute name="body" />
 	</div>
-	<div class="footer">
+	<nav class="navbar navbar-inverse navbar-fixed-bottom">
 		<tiles:insertAttribute name="footer" />
-	</div>
+	</nav>
 
 
 

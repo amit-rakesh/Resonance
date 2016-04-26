@@ -37,7 +37,7 @@
 				<div class="col-md-3 col-lg-3 " align="center">
 					<img alt="User Pic"
 						src="data:image/jpeg;base64,${userimage}"
-						class="img-circle img-responsive">
+						class="img-responsive">
 				</div>
 
 				
@@ -55,6 +55,14 @@
 							<tr>
 								<td>Country</td>
 								<td><c:out value="${user.country}" /></td>
+							</tr>
+							<tr>
+								<td>Age</td>
+								<td><c:out value="${user.age}" /></td>
+							</tr>
+							<tr>
+								<td>Sex</td>
+								<td><c:out value="${user.sex}" /></td>
 							</tr>
 						</tbody>
 					</table>

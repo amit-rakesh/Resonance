@@ -1,8 +1,8 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" 
-pageEncoding="ISO-8859-1" %> 
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
 
-   <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-    
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -11,59 +11,60 @@ pageEncoding="ISO-8859-1" %>
 </head>
 <body>
 
-<div>
-<h1>People Following You</h1>
-  
-  	<table width="59%" border="1">
+	<div class="conatiner">
 
-<tr> 
-  	<td> 
-  Person Name
-   </td>
-  
- </tr>
-  
-  
-<c:forEach items="${users}" var="user">
+		<div class="row">
+			<div class="panel panel-info">
+				<div class=" col-md-6 col-lg-6 col-sm-6">
+					<div class="panel-heading">
+						<h3 class="panel-title">Followers</h3>
+					</div>
+					<table class="table table-user-information">
+						<tbody>
+							<c:forEach items="${users}" var="user">
 
-  <tr> 
-  	<td> 
-  	<a href="<c:url value="/user/otherUser/${user.userid}" /> "><c:out value= "${user.name}" /></a>
-  	
- 
-   </td>
-  
-  </tr>
-</c:forEach>
-</table>
+								<tr>
+									<td><a
+										href="<c:url value="/user/otherUser/${user.userid}" /> "><c:out
+												value="${user.name}" /></a></td>
 
-</div>
+								</tr>
+							</c:forEach>
+
+						</tbody>
+					</table>
+				</div>
+
+				<div class="col-md-6 col-lg-6 col-sm-6">
+					<div class="panel-heading">
+						<h3 class="panel-title">Following</h3>
+
+					</div>
+					<table class="table table-user-information">
+						<tbody>
+							<c:forEach items="${usersIFollow}" var="user">
+
+								<tr>
+									<td><a
+										href="<c:url value="/user/otherUser/${user.userid}" /> "><c:out
+												value="${user.name}" /></a></td>
+
+								</tr>
+							</c:forEach>
+						</tbody>
+
+					</table>
+
+				</div>
+			</div>
+		</div>
+	</div>
 
 
-<div>
-<h1>People You Follow</h1>
-  
-  	<table width="59%" border="1">
 
-<tr> 
-  	<td> 
-  Person Name
-   </td>
-  
- </tr>
-  
-  
-<c:forEach items="${usersIFollow}" var="user">
 
-  <tr> 
-  	<td> 
-  <a href="<c:url value="/user/otherUser/${user.userid}" /> "><c:out value= "${user.name}" /></a>
-   </td>
-  
-  </tr>
-</c:forEach>
-</table>
 
-</div>
+
+
 </body>
 </html>
