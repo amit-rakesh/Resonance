@@ -43,5 +43,11 @@ public class SongServiceImpl implements SongService{
     	System.out.println(songs.size());
     	return songs;
     }
+    
+    @Override
+    public Song findSongById(long id){
+    	Song song = songDao.findOne(id);
+    	return song;
+    }
 
 }

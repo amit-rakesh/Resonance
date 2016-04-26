@@ -10,4 +10,5 @@ public interface SongService {
     public ArrayList<Song> getLatestSongs();
     public ArrayList<Song> songsUploadedByMe(long id);
     public ArrayList<Song> getAllSongs();
+    public Song findSongById(long id);
 }
