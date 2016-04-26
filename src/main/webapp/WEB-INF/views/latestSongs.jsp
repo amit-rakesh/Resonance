@@ -8,26 +8,14 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>PlayLists</title>
+<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+<script rel="javascript" type="text/javascript" href="js/jquery-1.11.3.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+
 <script>
 
-function myFunc(){
 
-	
-	
-	if(document.getElementById("1").checked){
-		
-		//document.getElementById('selection').style.display = 'none';
-		document.getElementById('latestsongs').style.display = 'block';
-		document.getElementById('uploadedByMe').style.display = 'none';
-	}
-	else if(document.getElementById("2").checked){
-		//document.getElementById('selection').style.display = 'none';
-		document.getElementById('latestsongs').style.display = 'none';
-		document.getElementById('uploadedByMe').style.display = 'block';
-	}
-	
-	
-}
 
 </script>
 </head>
@@ -35,9 +23,11 @@ function myFunc(){
 
 <div id ="selection">
 
-<input type="radio" name="select" id="1" value="1"  onclick="myFunc();">Latest Songs</input>
+<!-- <input type="radio" name="select" id="1" value="1"  onclick="myFunc();">Latest Songs</input>
 <input type="radio"  name="select" id="2" value="2" onclick="myFunc();">Uploaded By Me</input>
-
+ -->
+ <input type="radio" name="select" id="1" value="1" >Latest Songs</input>
+<input type="radio"  name="select" id="2" value="2" >Uploaded By Me</input>
 </div>
 
 <div id="latestsongs" style="display: none;">
@@ -55,9 +45,7 @@ function myFunc(){
   <td>
   Play Song
   </td>
-  <td>
-  Like
-  </td>
+  
   </tr>
   
   
@@ -108,13 +96,17 @@ function myFunc(){
    </td>
    
   <td>
+  <div class="audio">
   <audio controls>
   	<source src="<c:url value ="${song.playingUrl}" /> " type="audio/mpeg">
   </audio>
+  </div>
   </td>
   </tr>
 </c:forEach>
 </table>
 </div>
+
 </body>
+<script src="<c:url value="/resources/js/script.js" />"></script>
 </html>
