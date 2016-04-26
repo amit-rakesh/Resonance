@@ -19,24 +19,25 @@
 </head>
 <!-- Body Starts Here -->
 <body>
-		<div class="uploadSongHead">
-			<h1>UPLOAD</h1>	
-		</div>
-		<div class="uploadSongForm">
-	
-			<form:form action="/resonance/song/upload" id="form" method="post"
-				name="form" modelAttribute="song" enctype="application/json">
-				
-				<br>
-				
-				<form:input path="songTitle" placeholder="songTitle" id="title" name="title" type="text" />
-				<br>
+	<div class="uploadSongHead">
+		<h1>UPLOAD</h1>
+	</div>
+	<div class="uploadSongForm">
+		<form:form action="/resonance/song/upload" id="form" method="post"
+			name="form" modelAttribute="song" enctype="application/json">
+			<fieldset class="form-group">
+				<label for="formGroupExampleInput">Song Title</label>
+				<form:input path="songTitle" type="text" class="form-control"
+					id="formGroupExampleInput" placeholder="Example input" />
+			</fieldset>
+			<fieldset class="form-group">
+				<label for="formGroupExampleInput2">File </label>
 				<form:input path="songPath" type="file" />
-				<br>
-				<button type="submit" id="submit">submit</button>
-			</form:form>
-		</div>
-	
+			</fieldset>
+			<button type="submit" class="btn btn-inverse">Submit</button>
+		</form:form>
+	</div>
+
 </body>
 <!-- Body Ends Here -->
 </html>

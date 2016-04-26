@@ -21,6 +21,7 @@ import edu.sjsu.helpers.CookieManager;
 import edu.sjsu.helpers.S3Connector;
 import edu.sjsu.models.Song;
 import edu.sjsu.models.User;
+import edu.sjsu.recommendation.RecommendedSongs;
 import edu.sjsu.services.SongService;
 import edu.sjsu.services.UserService;
 
@@ -115,11 +116,16 @@ public class SongController {
 		User userOb = cookieManager.getCurrentUser();
 		System.out.println(userOb.getEmail());
 		ArrayList<Song> latestsongs = songService.getLatestSongs();
-
+/*		ArrayList<Song> recommendedSongs = new RecommendedSongs().getRecommendedSongs(userOb.getUserid(), 10);
+			
+			for(Song song: recommendedSongs){
+				System.out.println(song.getSongId());
+			}*/
 		ArrayList<Song> uploadedByMe = songService.songsUploadedByMe(userOb.getUserid());
 		System.out.println(uploadedByMe.size());
 		model.addAttribute("songs", latestsongs );
 		model.addAttribute("mysongs", uploadedByMe );
+		//model.addAttribute("recommendedsongs", recommendedSongs);
 		
 		return "latestSongs";
 

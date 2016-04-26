@@ -4,26 +4,23 @@
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
+<div class="container-fluid">
+	<div class="navbar-header">
+		<a class="navbar-brand" href="<c:url value="/user/getDashboard" />">Resonance</a>
+	</div>
+	<ul class="nav navbar-nav navbar-left">
 
+		<li><a href="<c:url value="/user/getDashboard" />">User
+				Profile</a></li>
+		<li><a href="<c:url value="/song/get10LatestSongs" />">Albums</a></li>
+		<li><a href="<c:url value="/song/getUploadSong" />">Upload</a></li>
+		<li><a href="<c:url value="/user/myFriends" /> ">Friends</a></li>
+		<li><a href="<c:url value="/user/search" /> ">Search</a></li>
+	
+	</ul>
+	<ul class="nav navbar-nav navbar-right">
+		<li><a href="<c:url value="/user/logout" />">Logout</a></li>
+	</ul>
+</div>
 
-<ul class="nav navbar-nav navbar-left">
-	<li>
-		<!-- <a href="#">Home</a> -->
-	</li>
-	<li>
-		<!-- <a href="#about">About</a> -->
-	</li>
-	<li>
-		<!-- <a href="#contact">Contact</a> -->
-	</li>
-	<li></li>
-	<li style="text-align: center; padding-left: 40%; color: black"><h3>RESONANCE</h3></li>
-</ul>
-
-<ul class="nav navbar-nav navbar-right">
-	<!--  <li><a href="../navbar/">Default</a></li>
-            <li><a href="../navbar-static-top/">Static top</a></li>
-             -->
-	<li><a href="<c:url value="/user/logout" />" >Logout</a></li>
-</ul>
 

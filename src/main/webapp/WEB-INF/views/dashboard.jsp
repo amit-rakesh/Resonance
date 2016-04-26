@@ -37,7 +37,7 @@
 				<div class="col-md-3 col-lg-3 " align="center">
 					<img alt="User Pic"
 						src="data:image/jpeg;base64,${userimage}"
-						class="img-circle img-responsive">
+						class="img-responsive">
 				</div>
 
 				
