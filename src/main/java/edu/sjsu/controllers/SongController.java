@@ -116,16 +116,16 @@ public class SongController {
 		User userOb = cookieManager.getCurrentUser();
 		System.out.println(userOb.getEmail());
 		ArrayList<Song> latestsongs = songService.getLatestSongs();
-		ArrayList<Song> recommendedSongs = new RecommendedSongs().getRecommendedSongs(userOb.getUserid(), 10);
+/*		ArrayList<Song> recommendedSongs = new RecommendedSongs().getRecommendedSongs(userOb.getUserid(), 10);
 			
 			for(Song song: recommendedSongs){
 				System.out.println(song.getSongId());
-			}
+			}*/
 		ArrayList<Song> uploadedByMe = songService.songsUploadedByMe(userOb.getUserid());
 		System.out.println(uploadedByMe.size());
 		model.addAttribute("songs", latestsongs );
 		model.addAttribute("mysongs", uploadedByMe );
-		model.addAttribute("recommendedsongs", recommendedSongs);
+		//model.addAttribute("recommendedsongs", recommendedSongs);
 		
 		return "latestSongs";
 

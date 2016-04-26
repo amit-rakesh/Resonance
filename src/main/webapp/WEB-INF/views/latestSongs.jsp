@@ -26,14 +26,14 @@
 <body>
 
 	<div class="container-fluid">
-	<div class ="col-md-4 col-sm-4 col-xs-4">
-		<button type="button" class="btn btn-info" name="select" id="1"
-			value="1" onclick="myFunctionLatest();">Latest Song</button>
-			</div>
-			<div class="col-md-4 col-sm-4 col-xs-4">
-		<button type="button" class="btn btn-info" name="select" id="2"
-			value="2" onclick="myFunctionUpload();">My Uploads</button>
-			</div>
+		<div class="col-md-4 col-sm-4 col-xs-4">
+			<button type="button" class="btn btn-info" name="select" id="1"
+				value="1" onclick="myFunctionLatest();">Latest Song</button>
+		</div>
+		<div class="col-md-4 col-sm-4 col-xs-4">
+			<button type="button" class="btn btn-info" name="select" id="2"
+				value="2" onclick="myFunctionUpload();">My Uploads</button>
+		</div>
 	</div>
 	<div class="panel panel-info" id="latestsongs" style="display: none;">
 		<div class="panel-heading">
