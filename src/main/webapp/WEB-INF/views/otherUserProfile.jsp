@@ -218,6 +218,8 @@ function myFunction(){
 			<div class="col-lg-3 col-md-3 col-sm-3">
 				<h4>
 					<c:out value="${user.name}" />
+					<c:out value="${user.email}" />
+					
 				</h4>
 			</div>
 			<div class="col-lg-3 col-md-3 col-sm-3">

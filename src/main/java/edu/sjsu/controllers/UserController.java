@@ -347,26 +347,80 @@ public class UserController {
 	/*********** edit profile **********/
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST)
-	public void uploadPicture(@ModelAttribute("user") User user, BindingResult result, HttpServletRequest request,
-			@RequestParam("file") MultipartFile file,	HttpServletResponse response) {
+	public String uploadPicture(@ModelAttribute("user") User user, BindingResult result, HttpServletRequest request,
+			@RequestParam("file") MultipartFile file,	HttpServletResponse response, Model model) {
 		System.out.println(user.getUserid() +"------"+ user.getName());
 		//long id  = user.getUserid();
 		
 		User userOb = cookieManager.getCurrentUser();
 		try {
+			if(file.getBytes()!=null){
 			userOb.setUserPicture(file.getBytes());
+			}
+			if(user.getName()!=null){
+			userOb.setName(user.getName());
+			}
+			if(user.getEmail()!=null){
+			userOb.setEmail(user.getEmail());
+			}
+			if(user.getState()!=null){
+			userOb.setState(user.getState());
+			}
+			if(user.getCountry()!=null){
+			userOb.setCountry(user.getCountry());
+			}
+			if(user.getAge()!=null){
+			userOb.setAge(user.getAge());
+			}
+			if(user.getSex()!=null){
+			userOb.setSex(user.getSex());
+			}
+			
+			System.out.println(""+ userOb.getName()+"" +userOb.getEmail()+""+userOb.getState()+""+userOb.getCountry()+""+userOb.getAge()+""+userOb.getSex());
+			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		userService.create(userOb);
-		
+		byte[] userImage = userOb.getUserPicture();
+
+		byte[] encodeBase64 = Base64.encodeBase64(userImage);
+		String base64Encoded = "";
+		try {
+			base64Encoded = new String(encodeBase64, "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		model.addAttribute("userimage", base64Encoded);
+		return "dashboard";
 	}
 	
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
 	public String showUploadForm(Model model){
 		model.addAttribute(new User());
 		return "upload";
+	}
+	/*  Edit Information Page */
+	@RequestMapping(value = "/editInformation", method = RequestMethod.GET)
+	public String showEditForm(Model model){
+		
+		User user= cookieManager.getCurrentUser();
+		
+		byte[] userImage = user.getUserPicture();
+
+		byte[] encodeBase64 = Base64.encodeBase64(userImage);
+		String base64Encoded = "";
+		try {
+			base64Encoded = new String(encodeBase64, "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		model.addAttribute("userimage", base64Encoded);
+		model.addAttribute("user", user );
+		return "editInfo";
 	}
 	
 

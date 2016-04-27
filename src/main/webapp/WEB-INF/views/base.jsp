@@ -5,6 +5,7 @@
 
 <html>
 <head>
+<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
 <link rel="stylesheet" href="<c:url value="/resources/css/style.css" />">
 <link rel="stylesheet"
 	href="<c:url value="/resources/css/sidebar.css" />">
@@ -15,6 +16,7 @@
 <link rel="stylesheet"
 	href="<c:url value="/resources/css/bootstrap.min.css" />">
 <script src="<c:url value="resource/js/bootstrap.min.js"/>"></script>
+
 
 </head>
 <body>
