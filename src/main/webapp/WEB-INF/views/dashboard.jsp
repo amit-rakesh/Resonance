@@ -30,17 +30,18 @@
 
 	<div class="panel panel-info">
 		<div class="panel-heading">
-			<h3 class="panel-title"><c:out value="${user.name}" /></h3>
+			<h3 class="panel-title">
+				<c:out value="${user.name}" />
+			</h3>
 		</div>
 		<div class="panel-body">
 			<div class="row">
 				<div class="col-md-3 col-lg-3 " align="center">
-					<img alt="User Pic"
-						src="data:image/jpeg;base64,${userimage}"
+					<img alt="User Pic" src="data:image/jpeg;base64,${userimage}"
 						class="img-responsive">
 				</div>
 
-				
+
 				<div class=" col-md-9 col-lg-9 ">
 					<table class="table table-user-information">
 						<tbody>
@@ -67,14 +68,14 @@
 						</tbody>
 					</table>
 
-					
+
 				</div>
 			</div>
 		</div>
 
 
 	</div>
-<!-- old dashboard 
+	<!-- old dashboard 
 	<div>
 		<br>
 		<h1>Here's something about you</h1>
