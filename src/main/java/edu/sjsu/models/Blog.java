@@ -52,7 +52,9 @@ public class Blog {
 	public long getBlogId() {
 		return blogId;
 	}
-
+	
+	@Id
+    @Column(name = "songid", unique = true, nullable = false)
 	public void setBlogId(long blogId) {
 		this.blogId = blogId;
 	}
