@@ -3,11 +3,14 @@ package edu.sjsu.controllers;
 import java.io.IOException;
 
 import java.io.UnsupportedEncodingException;
+import java.text.DateFormat;
 
 import org.springframework.http.HttpStatus;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -39,6 +42,7 @@ import edu.sjsu.helpers.CookieManager;
 import edu.sjsu.helpers.EmailNotification;
 import edu.sjsu.helpers.Utility;
 import edu.sjsu.models.Follow;
+import edu.sjsu.models.FollowDao;
 import edu.sjsu.models.Song;
 import edu.sjsu.models.User;
 import edu.sjsu.services.SongService;
@@ -62,11 +66,18 @@ public class UserController {
 	@Autowired
 	private SongService songService;
 	
+	@Autowired
+	private FollowDao followDao;
+	
 	private HashMap<Long,String> songidToSongTitleMap = new HashMap<Long,String>();
 	
 	private HashMap<Long,String> songidToSongUrlMap = new HashMap<Long,String>();
 	
 	private HashMap<Long,User> peopleIfollow = new HashMap<Long,User>();
+	
+	private HashMap<Long,String> useridTouserNameMap = new HashMap<Long,String>();
+	
+	//private HashMap<Long,User> useridTouserObjMap = new HashMap<Long,User>();
 	
 	@RequestMapping(value = "/signup", method = RequestMethod.POST, produces = "application/json")
 	public ModelAndView createUser(@Valid @ModelAttribute("user") User user, BindingResult result,
@@ -154,15 +165,15 @@ public class UserController {
 				}
 				
 				ArrayList<Follow> iFollow = userService.usersIFollow(user.getUserid());
-
-					
+				System.out.println("Number of people i follow :" + iFollow.size());		
+					peopleIfollow.clear();
 				for(int i=0;i<iFollow.size();i++){
-					
+			
 					peopleIfollow.put(iFollow.get(i).getUser2Id(), null);
 					//peopleIFollow.add(userService.getUserById(iFollow.get(i).getUser2Id()));
 					
 				}
-				
+		
 				
 				user.setPassword(null);
 				return "redirect:/user/" + userWithSession.getUserid();
@@ -179,7 +190,7 @@ public class UserController {
 	public String showUserDashboard(@PathVariable long id, Model model) {
 		User user = userService.findUserById(id);
 		
-	System.out.println("surbhi");	
+	
 		
 		model.addAttribute(user);
 		model.addAttribute(new Song());
@@ -235,6 +246,7 @@ public class UserController {
 		return "home";
 	}
 	
+	//User follow
 	@RequestMapping(value = "/follow/{user2}", method = RequestMethod.POST)
 	@ResponseBody
 	public String followUser(@PathVariable(value = "user2") long user2Id, Model model) {
@@ -242,12 +254,30 @@ public class UserController {
 		long user1Id = cookieManager.getCurrentUser().getUserid();
 		System.out.println("User1 : "+user1Id);
 		System.out.println("User2 : "+user2Id);
-		
-		
+		System.out.println(peopleIfollow.size());	
+		peopleIfollow.put(user2Id, null);
+		System.out.println(peopleIfollow.size());
 		Follow followObj = new Follow(user1Id,user2Id);
 		userService.addFollower(followObj);
 		return "Hello";
 	}
+	
+	//User unFollow
+		@RequestMapping(value = "/unfollow/{user2}", method = RequestMethod.POST)
+		@ResponseBody
+		public String unFollowUser(@PathVariable(value = "user2") long user2Id, Model model) {
+			
+			long user1Id = cookieManager.getCurrentUser().getUserid();
+			System.out.println("User1 : "+user1Id);
+			System.out.println("User2 : "+user2Id);
+			
+			
+			ArrayList<Follow> followObj = followDao.getFollowRecord(user1Id, user2Id);
+			peopleIfollow.remove(user2Id);
+			userService.removeFollower(followObj);
+			
+			return "Hello";
+		}
 	
 	@RequestMapping(value = "/{id}/myFollowers", method = RequestMethod.GET )
 	public String peopleFollowingMe(@PathVariable long id, Model model) {
@@ -317,26 +347,81 @@ public class UserController {
 	/*********** edit profile **********/
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST)
-	public void uploadPicture(@ModelAttribute("user") User user, BindingResult result, HttpServletRequest request,
-			@RequestParam("file") MultipartFile file,	HttpServletResponse response) {
+	public String uploadPicture(@ModelAttribute("user") User user, BindingResult result, HttpServletRequest request,
+			@RequestParam("file") MultipartFile file,	HttpServletResponse response, Model model) {
 		System.out.println(user.getUserid() +"------"+ user.getName());
 		//long id  = user.getUserid();
 		
 		User userOb = cookieManager.getCurrentUser();
 		try {
+			if(!file.isEmpty()){
+				System.out.println("Harkirat how r u");
 			userOb.setUserPicture(file.getBytes());
+			}
+			if(user.getName()!=null){
+			userOb.setName(user.getName());
+			}
+			if(user.getEmail()!=null){
+			userOb.setEmail(user.getEmail());
+			}
+			if(user.getState()!=null){
+			userOb.setState(user.getState());
+			}
+			if(user.getCountry()!=null){
+			userOb.setCountry(user.getCountry());
+			}
+			if(user.getAge()!=null){
+			userOb.setAge(user.getAge());
+			}
+			if(user.getSex()!=null){
+			userOb.setSex(user.getSex());
+			}
+			
+			System.out.println(""+ userOb.getName()+"" +userOb.getEmail()+""+userOb.getState()+""+userOb.getCountry()+""+userOb.getAge()+""+userOb.getSex());
+			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		userService.create(userOb);
-		
+		byte[] userImage = userOb.getUserPicture();
+
+		byte[] encodeBase64 = Base64.encodeBase64(userImage);
+		String base64Encoded = "";
+		try {
+			base64Encoded = new String(encodeBase64, "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		model.addAttribute("userimage", base64Encoded);
+		return "dashboard";
 	}
 	
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
 	public String showUploadForm(Model model){
 		model.addAttribute(new User());
 		return "upload";
+	}
+	/*  Edit Information Page */
+	@RequestMapping(value = "/editInformation", method = RequestMethod.GET)
+	public String showEditForm(Model model){
+		
+		User user= cookieManager.getCurrentUser();
+		
+		byte[] userImage = user.getUserPicture();
+
+		byte[] encodeBase64 = Base64.encodeBase64(userImage);
+		String base64Encoded = "";
+		try {
+			base64Encoded = new String(encodeBase64, "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		model.addAttribute("userimage", base64Encoded);
+		model.addAttribute("user", user );
+		return "editInfo";
 	}
 	
 
@@ -346,25 +431,34 @@ public class UserController {
 		
 		ArrayList<Song> songs = songService.getAllSongs();
 		
+		ArrayList<User> users = userService.getAllUsers();
 		System.out.println(songs.size());
 		for(int i = 0; i<songs.size();i++){
 			
 			songidToSongTitleMap.put(songs.get(i).getSongId(), songs.get(i).getSongTitle());
 			songidToSongUrlMap.put(songs.get(i).getSongId(), songs.get(i).getPlayingUrl());
 		}
+		
+		
+		for(int i = 0; i<users.size();i++){
+			
+			useridTouserNameMap.put(users.get(i).getUserid(), users.get(i).getName());
+		}
 		System.out.println("Size : "+songidToSongTitleMap.size());
 		return "search";
 	}
 
 	@RequestMapping(value = "/getSearchResults", method = RequestMethod.GET ,produces = "application/json")
-	public ResponseEntity<String> searchSong(@RequestParam("data") String data, Model model) {
-		
+	public ResponseEntity<String> searchSong(@RequestParam("data") String originalData, Model model) {
+	System.out.println("original :" + originalData);	
+		String data = originalData.toLowerCase();
+		System.out.println("data :" + data);
 		JSONArray a = new JSONArray();
 		for(long key : songidToSongTitleMap.keySet()){
 			
 			
 		
-			if(songidToSongTitleMap.get(key).contains(data))
+			if(songidToSongTitleMap.get(key).toLowerCase().contains(data))
 			{
 				System.out.println("yes");
 				//String returnObj = "title :" + allSongs.get(key);
@@ -389,17 +483,58 @@ public class UserController {
 		return new ResponseEntity<String>(a.toString(),HttpStatus.OK);
 	} 
 	
+	@RequestMapping(value = "/getSearchResultUsers", method = RequestMethod.GET ,produces = "application/json")
+	public ResponseEntity<String> searchUser(@RequestParam("data") String originalData, Model model) {
+		
+		System.out.println("original :" + originalData);	
+		String data = originalData.toLowerCase();
+		System.out.println("data :" + data);
+		JSONArray a = new JSONArray();
+		
+		for(long userId : useridTouserNameMap.keySet()){
+			if(useridTouserNameMap.get(userId).toLowerCase().contains(data)){
+				System.out.println("yes");
+				
+				JSONObject o = new JSONObject();
+				
+				try{
+					o.put("id", userId);
+					o.put("name", useridTouserNameMap.get(userId));
+			
+					
+					a.put(o);
+				}catch(Exception e){
+				
+				}
+			}
+		}
+		
+		System.out.println(a.toString());	
+		return new ResponseEntity<String>(a.toString(),HttpStatus.OK);
+	} 
+	
 	
 	@RequestMapping(value = "/otherUser/{id}", method = RequestMethod.GET)
 	public String showOtherUserDashboard(@PathVariable long id, Model model) {
 		User user = userService.findUserById(id);
 		boolean isFriend = peopleIfollow.containsKey(id);
+		System.out.println(isFriend);
 		ArrayList<Song> uploadedByMe = songService.songsUploadedByMe(id); 
 		model.addAttribute("isFriend",isFriend);
 		model.addAttribute(user);
 		model.addAttribute("songList",uploadedByMe);
 		return "otherUserProfile";
 
+	}
+	
+	
+	@RequestMapping(value = "/editInfo", method = RequestMethod.GET)
+	public String dashboard(Locale locale, Model model) {
+		
+		User user= cookieManager.getCurrentUser();
+		model.addAttribute("user", user );
+		
+		return "editinfo";
 	}
 
 
