@@ -18,6 +18,8 @@ import org.springframework.web.servlet.view.tiles3.TilesConfigurer;
 
 import edu.sjsu.helpers.EmailNotification;
 import edu.sjsu.helpers.S3Connector;
+import edu.sjsu.services.BlogService;
+import edu.sjsu.services.BlogServiceImpl;
 import edu.sjsu.services.SongService;
 import edu.sjsu.services.SongServiceImpl;
 import edu.sjsu.services.UserService;
@@ -37,6 +39,11 @@ public class RootConfig {
 	@Bean
 	public SongService getsongservice() {
 		return new SongServiceImpl();
+	}
+	
+	@Bean
+	public BlogService getBlogservice() {
+		return new BlogServiceImpl();
 	}
 
 	@Bean
