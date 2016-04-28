@@ -9,8 +9,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>User Info</title>
 <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
-<script rel="javascript" type="text/javascript"
-	href="js/jquery-1.11.3.min.js"></script>
+<!-- <script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>  -->
 <style>
 body {
 	background: #fafafa;
@@ -208,6 +207,8 @@ function myFunction(){
 
 
 </script>
+
+<script src="<c:url value="/resources/js/audioTag.js" />"></script>
 </head>
 
 <body onload="myFunction()">

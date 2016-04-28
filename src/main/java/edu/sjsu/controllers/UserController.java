@@ -354,7 +354,8 @@ public class UserController {
 		
 		User userOb = cookieManager.getCurrentUser();
 		try {
-			if(file.getBytes()!=null){
+			if(!file.isEmpty()){
+				System.out.println("Harkirat how r u");
 			userOb.setUserPicture(file.getBytes());
 			}
 			if(user.getName()!=null){

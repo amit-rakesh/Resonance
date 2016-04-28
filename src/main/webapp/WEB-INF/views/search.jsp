@@ -8,11 +8,11 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Search</title>
-<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
-<script rel="javascript" type="text/javascript" href="js/jquery-1.11.3.min.js"></script>
 
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<!-- <script rel="javascript" type="text/javascript" href="js/jquery-1.11.3.min.js"></script> -->
 
+<script src="https://code.jquery.com/jquery-1.11.3.js"></script>
+<script src="<c:url value="/resources/js/audioTag.js" />"></script>
 <script>
 
 function myFunction(){
@@ -89,19 +89,6 @@ function myFunction(){
 	
 }
 
-$("table td").on("click",function(){
-	
-
-	
-    $("audio").on("play", function() {
-        $("audio").not(this).each(function(index, audio) {
-            audio.pause();
-        });
-    });
-}
-
-);	
-
 
 </script>
 </head>
@@ -137,5 +124,5 @@ $("table td").on("click",function(){
 
 
 </body>
-<script src="<c:url value="/resources/js/audioTag.js" />"></script>
+
 </html>

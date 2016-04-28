@@ -5,7 +5,9 @@
 
 <html>
 <head>
+
 <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+
 <link rel="stylesheet" href="<c:url value="/resources/css/style.css" />">
 <link rel="stylesheet"
 	href="<c:url value="/resources/css/sidebar.css" />">
@@ -17,17 +19,17 @@
 	href="<c:url value="/resources/css/bootstrap.min.css" />">
 <script src="<c:url value="resource/js/bootstrap.min.js"/>"></script>
 
-
 </head>
 <body>
-	<nav class="navbar navbar-inverse navbar-fixed-top">
+	<nav class="navbar navbar-inverse navbar-fixed-top" style="">
 		<tiles:insertAttribute name="header" />
 	</nav>
 
 	<div class="body">
 		<tiles:insertAttribute name="body" />
 	</div>
-	<nav class="navbar navbar-inverse navbar-fixed-bottom">
+	
+	<nav class="navbar navbar-inverse navbar-fixed-bottom" style="">
 		<tiles:insertAttribute name="footer" />
 	</nav>
 

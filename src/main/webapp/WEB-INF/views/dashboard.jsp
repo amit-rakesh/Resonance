@@ -30,6 +30,7 @@
 
 	<div class="panel panel-info">
 		<div class="panel-heading">
+
 		<div class="container-fluid">
 		<div class="row">
 			<div class="col-lg-6 col-md-6 col-sm-6">
@@ -44,16 +45,16 @@
 			</div>
 		</div>
 		</div>
+
 		</div>
 		<div class="panel-body">
 			<div class="row">
 				<div class="col-md-3 col-lg-3 " align="center">
-					<img alt="User Pic"
-						src="data:image/jpeg;base64,${userimage}"
+					<img alt="User Pic" src="data:image/jpeg;base64,${userimage}"
 						class="img-responsive">
 				</div>
 
-				
+
 				<div class=" col-md-9 col-lg-9 ">
 					<table class="table table-user-information">
 						<tbody>
@@ -80,14 +81,14 @@
 						</tbody>
 					</table>
 
-					
+
 				</div>
 			</div>
 		</div>
 
 
 	</div>
-<!-- old dashboard 
+	<!-- old dashboard 
 	<div>
 		<br>
 		<h1>Here's something about you</h1>
