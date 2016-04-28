@@ -49,6 +49,13 @@
 		<put-attribute name="body"
 			value="/WEB-INF/views/otherUserProfile.jsp" />
 	</definition>
+	
+	<definition name="editInfo" extends="base">
+		<put-attribute name="title" value="editInfo" />
+		<put-attribute name="body"
+			value="/WEB-INF/views/editInfo.jsp" />
+	</definition>
+	
 
 
 </tiles-definitions>

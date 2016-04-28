@@ -219,6 +219,8 @@ function myFunction(){
 			<div class="col-lg-3 col-md-3 col-sm-3">
 				<h4>
 					<c:out value="${user.name}" />
+					
+					
 				</h4>
 			</div>
 			<div class="col-lg-3 col-md-3 col-sm-3">
@@ -239,7 +241,7 @@ function myFunction(){
 						<tbody>
 							<tr>
 								<td>Song Title</td>
-								<td>Uploaded By</td>
+								
 								<td>Play Song</td>
 
 							</tr>
@@ -247,7 +249,7 @@ function myFunction(){
 
 								<tr>
 									<td><c:out value="${song.songTitle}" /></td>
-									<td><c:out value="${song.uploadedByUserId}" /></td>
+									
 									<td><audio controls> <source
 											src="<c:url value ="${song.playingUrl}" /> "
 											type="audio/mpeg"></audio></td>
