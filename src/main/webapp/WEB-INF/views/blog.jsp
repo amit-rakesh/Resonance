@@ -19,7 +19,7 @@
 			<tr>
 				<th>Blog Title</th>
 				<th>Uploaded By User</th>
-				<th>Blog</th>
+				<th>Blog Content</th>
 			</tr>
 			<tr>
 				<td><c:out value="${blog.blogTitle}" /></td>
