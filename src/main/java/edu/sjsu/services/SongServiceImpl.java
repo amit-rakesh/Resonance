@@ -47,6 +47,7 @@ public class SongServiceImpl implements SongService{
     @Override
     public Song findSongById(long id){
     	Song song = songDao.findOne(id);
+    	System.out.println(song.getSongTitle());
     	return song;
     }
 
