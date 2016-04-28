@@ -190,7 +190,7 @@ public class UserController {
 	public String showUserDashboard(@PathVariable long id, Model model) {
 		User user = userService.findUserById(id);
 		
-		
+	
 		
 		model.addAttribute(user);
 		model.addAttribute(new Song());
