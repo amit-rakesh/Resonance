@@ -9,7 +9,7 @@
 	<ul class="sidebar-nav">
 		<li class="sidebar-brand"><a href="#"> What do you want </a></li>
 		<li><a href="<c:url value="/user/getDashboard" />">User Profile</a></li>
-		<li><a href="<c:url value="/song/get10LatestSongs" />">Albums</a>
+		<li><a href="<c:url value="/song/get10LatestSongs" />">Songs</a>
 		</li>
 		<li><a href="<c:url value="/song/getUploadSong" />">Upload</a></li>
 		<li><a href="<c:url value="/user/myFriends" /> ">Friends</a></li>

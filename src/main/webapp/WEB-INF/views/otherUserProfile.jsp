@@ -9,8 +9,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>User Info</title>
 <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
-<script rel="javascript" type="text/javascript"
-	href="js/jquery-1.11.3.min.js"></script>
+<!-- <script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>  -->
 <style>
 body {
 	background: #fafafa;
@@ -208,6 +207,8 @@ function myFunction(){
 
 
 </script>
+
+<script src="<c:url value="/resources/js/audioTag.js" />"></script>
 </head>
 
 <body onload="myFunction()">
@@ -218,6 +219,8 @@ function myFunction(){
 			<div class="col-lg-3 col-md-3 col-sm-3">
 				<h4>
 					<c:out value="${user.name}" />
+					
+					
 				</h4>
 			</div>
 			<div class="col-lg-3 col-md-3 col-sm-3">
@@ -238,7 +241,7 @@ function myFunction(){
 						<tbody>
 							<tr>
 								<td>Song Title</td>
-								<td>Uploaded By</td>
+								
 								<td>Play Song</td>
 
 							</tr>
@@ -246,7 +249,7 @@ function myFunction(){
 
 								<tr>
 									<td><c:out value="${song.songTitle}" /></td>
-									<td><c:out value="${song.uploadedByUserId}" /></td>
+									
 									<td><audio controls> <source
 											src="<c:url value ="${song.playingUrl}" /> "
 											type="audio/mpeg"></audio></td>
