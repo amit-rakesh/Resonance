@@ -17,12 +17,11 @@
 
                     
 
-                    <link rel="stylesheet" href="<c:url value="/resources/css/lay1.css " />">
-                    <link rel="stylesheet" href="<c:url value="/resources/css/lay2.css " />">
-                    <link rel="stylesheet" href="<c:url value="/resources/css/lay3.css " />">
-                    <link rel="stylesheet" href="<c:url value="/resources/css/lay4.css " />">
-                    <link rel="stylesheet" href="<c:url value="/resources/css/lay5.css " />">
-
+                    <link rel="stylesheet" href="<c:url value='/resources/css/lay1.css ' />">
+                    <link rel="stylesheet" href="<c:url value='/resources/css/lay2.css ' />">
+                    <link rel="stylesheet" href="<c:url value='/resources/css/lay3.css ' />">
+                    <link rel="stylesheet" href="<c:url value='/resources/css/lay4.css ' />">
+                    <link rel="stylesheet" href="<c:url value='/resources/css/lay5.css ' />">
                 </head>
 
                 <body class="index">
@@ -257,7 +256,7 @@
                     <footer class="footer navbar-inverse">
                         <div class="container text-center">
                             <p class="navbar-text">Made
-                                <!--<i class="fa fa-heart"></i>-->at Resonance</p>
+                                <!--<i class="fa fa-heart"></i>-->by and for Music Lovers</p>
                         </div>
                         <div class="copyright">
                             &copy; 2016 Resonance
