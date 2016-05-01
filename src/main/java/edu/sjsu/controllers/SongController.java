@@ -120,16 +120,16 @@ public class SongController {
 		System.out.println(userOb.getEmail());
 		ArrayList<Song> latestsongs = songService.getLatestSongs();
 	
-		ArrayList<Song> recommendedSongs = rSongs.getRecommendedSongs(userOb.getUserid(), 3);
+	/*	ArrayList<Song> recommendedSongs = rSongs.getRecommendedSongs(userOb.getUserid(), 3);
 			
 			for(Song song: recommendedSongs){
 				System.out.println(song.getSongId());
-			}
+			}*/
 		ArrayList<Song> uploadedByMe = songService.songsUploadedByMe(userOb.getUserid());
 		System.out.println(uploadedByMe.size());
 		model.addAttribute("songs", latestsongs );
 		model.addAttribute("mysongs", uploadedByMe );
-		model.addAttribute("recommendedsongs", recommendedSongs);
+		//model.addAttribute("recommendedsongs", recommendedSongs);
 		
 		return "latestSongs";
 

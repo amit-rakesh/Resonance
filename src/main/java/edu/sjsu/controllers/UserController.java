@@ -7,10 +7,17 @@ import java.text.DateFormat;
 
 import org.springframework.http.HttpStatus;
 
+import java.net.*;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
+
+import java.net.InetAddress;
+import java.net.NetworkInterface;
+import java.net.SocketException;
+import java.util.Enumeration;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -40,7 +47,10 @@ import com.amazonaws.util.json.JSONObject;
 import edu.sjsu.helpers.BadRequestException;
 import edu.sjsu.helpers.CookieManager;
 import edu.sjsu.helpers.EmailNotification;
+import edu.sjsu.helpers.GetLocation;
+import edu.sjsu.helpers.ServerLocation;
 import edu.sjsu.helpers.Utility;
+import edu.sjsu.models.Event;
 import edu.sjsu.models.Follow;
 import edu.sjsu.models.FollowDao;
 import edu.sjsu.models.Song;
@@ -68,6 +78,8 @@ public class UserController {
 	
 	@Autowired
 	private FollowDao followDao;
+	
+	
 	
 	private HashMap<Long,String> songidToSongTitleMap = new HashMap<Long,String>();
 	
@@ -536,6 +548,72 @@ public class UserController {
 		
 		return "editinfo";
 	}
+	
+	@RequestMapping(value = "/createEvent", method = RequestMethod.GET)
+	public String getCreateEventPage( Model model) {
+		
+		
+		return "createEvent";
+	}
+	
+	@RequestMapping(value = "/createEvent", method = RequestMethod.POST)
+	public ResponseEntity<String> createEvent(@RequestParam("data") String originalData, Model model) {
+		
+		JSONObject jsonObj;
+		String title="";
+		String address="";
+		double latitude=0;
+		double longitude=0;
+		System.out.println("create Event : "+originalData);
+		try{
+			jsonObj = new JSONObject(originalData);
+			System.out.println(jsonObj.get("title"));
+			
+			title = jsonObj.get("title").toString();
+			address = jsonObj.get("address").toString();
+			latitude = Double.parseDouble(jsonObj.get("latitude").toString());
+			longitude = Double.parseDouble(jsonObj.get("longitude").toString());
+			System.out.println(latitude);
+			
+		}catch(Exception e){
+			
+		}
+		
+		User user= cookieManager.getCurrentUser();
+		
+		Event event = new Event(title,user.getUserid(),longitude,latitude,address);
+		
+		userService.createEvent(event);
+		
+		return new ResponseEntity<String>("Hello", HttpStatus.CREATED);
+		
+		
+	}
+	
+	
+	@RequestMapping(value = "/getNearEvents", method = RequestMethod.GET)
+	public void getNearEvents(Locale locale, Model model) {
+		
+		String ip ="";
+		try{
+			
+		URL whatismyip = new URL("http://checkip.amazonaws.com");
+		BufferedReader in = new BufferedReader(new InputStreamReader(
+		                whatismyip.openStream()));
+
+		ip = in.readLine(); //you get the IP as a String
+		System.out.println(ip);
+		
+		}catch(Exception e){
+			
+		}
+		
+		GetLocation obj = new GetLocation();
+		ServerLocation location = obj.getLocation(ip);
+		System.out.println(location);
+	
+	
+	}	
 
 
 }

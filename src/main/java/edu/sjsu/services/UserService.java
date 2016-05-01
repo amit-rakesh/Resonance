@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import org.springframework.stereotype.Component;
 
+import edu.sjsu.models.Event;
 import edu.sjsu.models.Follow;
 import edu.sjsu.models.User;
 
@@ -30,4 +31,6 @@ public interface UserService {
 	public ArrayList<User> searchUsers(String searchString);
 	
 	public ArrayList<User> getAllUsers();
+	
+	public void createEvent(Event event);
 }
