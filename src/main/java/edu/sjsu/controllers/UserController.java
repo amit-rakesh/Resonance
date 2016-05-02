@@ -612,6 +612,8 @@ public class UserController {
 		ServerLocation location = obj.getLocation(ip);
 		System.out.println(location);
 	
+		double latitude=Double.parseDouble(location.getLatitude());
+		double longitude=Double.parseDouble(location.getLongitude());
 	
 	}	
 
