@@ -1,11 +1,15 @@
 package edu.sjsu.models;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -32,7 +36,8 @@ public class Blog {
 
 	@JsonProperty
 	@Column(name = "date")
-	private Long date;
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date date;
 
 	@Column(name = "blog", columnDefinition = "TEXT")
 	private String blogContent;
@@ -41,7 +46,7 @@ public class Blog {
 
 	}
 
-	public Blog(@JsonProperty String blogTitle, @JsonProperty Long uploadedByUserId, @JsonProperty long date,
+	public Blog(@JsonProperty String blogTitle, @JsonProperty Long uploadedByUserId, @JsonProperty Date date,
 			@JsonProperty String blogContent) {
 		this.blogTitle = blogTitle;
 		this.uploadedByUserId = uploadedByUserId;
@@ -75,11 +80,11 @@ public class Blog {
 		this.uploadedByUserId = uploadedByUserId;
 	}
 
-	public Long getDate() {
+	public Date getDate() {
 		return date;
 	}
 
-	public void setDate(Long date) {
+	public void setDate(Date date) {
 		this.date = date;
 	}
 
