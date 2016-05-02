@@ -19,11 +19,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @Table(name = "rating")
 public class Rating {
 	
-	//@Id
-   // @JsonProperty
-    //@GeneratedValue(strategy = GenerationType.AUTO)
-   // @Column(name = "ratingid")
-    //private long ratingId;
+	
 	
 	@JsonProperty
 	@Column(name = "songid")
@@ -49,15 +45,6 @@ public class Rating {
 		this.rating = rating;
 	}
 
-	/*public long getRatingId() {
-		return ratingId;
-	}
-	
-	@Id
-    @Column(name = "ratingid", unique = true, nullable = false)
-	public void setRatingId(long ratingId) {
-		this.ratingId = ratingId;
-	}*/
 
 	public long getSongId() {
 		return songid;
