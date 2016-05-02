@@ -7,6 +7,9 @@ import javax.validation.constraints.NotNull;
 import static javax.persistence.FetchType.LAZY;
 
 import java.sql.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Entity
 @Table(name = "users")
@@ -73,6 +76,7 @@ public class User {
 	
 	// Constructors
 	public User() {
+		
 	}
 
 	public User(long userid) {
@@ -215,6 +219,8 @@ public class User {
 	public void setSex(String sex) {
 		this.sex = sex;
 	}
+	
+	
 
 	@Override
 	public String toString() {
