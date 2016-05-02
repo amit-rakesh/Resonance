@@ -174,7 +174,9 @@ public class SongController {
 		
 		if(userRating.containsKey(songId)){
 		Integer songRating =  userRating.get(songId);
-		return songRating.toString();
+		String responseString = "" + songId + songRating;
+		System.out.println(responseString);
+		return responseString;
 		}
 		else
 			return "0";

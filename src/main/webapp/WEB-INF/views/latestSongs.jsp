@@ -27,7 +27,7 @@ function submitRating(t, i){
 		});
 }
 
-function getsongRating(){
+function getRating(){
 		var length = ${songs.size()}
 	alert(length);
 	
@@ -38,16 +38,20 @@ function getsongRating(){
 		url : "http://localhost:8080/resonance/song/rating/" 
 				+ songid,
 		success : function(res) {
-					console.log(songid);
+					if(res === "0"){
+						console.log(res);
+					}
+					else{
+						console.log(res);
+						document.getElementById(res).checked=true;
+					}
+					
 		}
 	});
 	
 	</c:forEach>
 
 }
-
-
-	
 </script>
 </head>
 <body onLoad ="getRating()">
@@ -76,6 +80,7 @@ function getsongRating(){
 								<td>Song Title</td>
 								<td>Uploaded By</td>
 								<td>Play Song</td>
+								<td>Rating</td>
 								
 							</tr>
 							<c:forEach items="${songs}" var="song" varStatus="i">
