@@ -143,6 +143,7 @@ public class SongController {
 		model.addAttribute("mysongs", uploadedByMe );
 		//model.addAttribute("recommendedsongs", recommendedSongs);
 		
+		generateRatingHashMap();
 
 		return "latestSongs";
 
@@ -172,9 +173,11 @@ public class SongController {
 		//long currentUserId = currentUser.getUserid();
 		//ArrayList<Rating> rating = ratingService.getRatingByUserId(currentUserId);
 		
+		System.out.println(songId);
 		
 		if(userRating.containsKey(songId)){
 		Integer songRating =  userRating.get(songId);
+		System.out.println(songRating);
 		return songRating.toString();
 		}
 		else
@@ -190,6 +193,7 @@ public class SongController {
 		User currentUser = cookieManager.getCurrentUser();
 		ArrayList<Rating> rating = ratingService.getRatingByUserId(currentUser.getUserid());
 		for(Rating r : rating){
+			System.out.println("Map : "+ r.getSongId()+r.getRating());
 			userRating.put(r.getSongId(), r.getRating());
 		}
 	}

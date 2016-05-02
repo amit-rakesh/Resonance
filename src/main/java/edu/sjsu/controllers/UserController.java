@@ -57,6 +57,7 @@ import edu.sjsu.models.Song;
 import edu.sjsu.models.User;
 import edu.sjsu.services.SongService;
 import edu.sjsu.services.UserService;
+import edu.sjsu.helpers.DistanceCalculator;
 
 @Controller
 @ComponentScan
@@ -592,8 +593,12 @@ public class UserController {
 	
 	
 	@RequestMapping(value = "/getNearEvents", method = RequestMethod.GET)
-	public void getNearEvents(Locale locale, Model model) {
+	public String getNearEvents(Locale locale, Model model) {
 		
+		ArrayList<Event> allEvents = userService.getAllEvents();
+		for(Event e:allEvents){
+			System.out.println(e.getEventTitle());
+		}
 		String ip ="";
 		try{
 			
@@ -615,6 +620,19 @@ public class UserController {
 		double latitude=Double.parseDouble(location.getLatitude());
 		double longitude=Double.parseDouble(location.getLongitude());
 	
+		ArrayList<Event> eventsNearMe =new ArrayList<Event>();
+		int minDis = 50;
+		for(Event e:allEvents){
+			double distance = DistanceCalculator.distance(latitude, longitude, e.getLatitude(), e.getLongitute(), "M");
+			System.out.println(distance);
+			if(distance<minDis){
+				eventsNearMe.add(e);
+			}
+		}
+		
+		model.addAttribute("events", eventsNearMe );
+		return "EventsNearMe";
+		
 	}	
 
 

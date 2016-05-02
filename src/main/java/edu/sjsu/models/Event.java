@@ -51,6 +51,10 @@ public class Event {
 		this.address = address;
 	}
 
+	public Event() {
+		super();
+	}
+
 	public long getEventId() {
 		return eventId;
 	}

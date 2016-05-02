@@ -33,4 +33,6 @@ public interface UserService {
 	public ArrayList<User> getAllUsers();
 	
 	public void createEvent(Event event);
+	
+	public ArrayList<Event> getAllEvents();
 }

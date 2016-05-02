@@ -116,4 +116,11 @@ public class UserServiceImpl implements UserService {
 		eventDao.save(event);
 
 	}
+	
+	@Override
+	public ArrayList<Event> getAllEvents(){
+		
+		ArrayList<Event> allevents = (ArrayList<Event>) eventDao.findAll();
+		return allevents;
+	}
 }
