@@ -56,6 +56,18 @@
 			value="/WEB-INF/views/editInfo.jsp" />
 	</definition>
 	
+	<definition name="createEvent" extends="base">
+		<put-attribute name="title" value="createEvent" />
+		<put-attribute name="body"
+			value="/WEB-INF/views/createEvent.jsp" />
+	</definition>
+	
+	<definition name="EventsNearMe" extends="base">
+		<put-attribute name="title" value="EventsNearMe" />
+		<put-attribute name="body"
+			value="/WEB-INF/views/EventsNearMe.jsp" />
+	</definition>
+	
 
 
 </tiles-definitions>

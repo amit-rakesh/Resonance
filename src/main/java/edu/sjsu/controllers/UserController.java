@@ -7,10 +7,17 @@ import java.text.DateFormat;
 
 import org.springframework.http.HttpStatus;
 
+import java.net.*;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
+
+import java.net.InetAddress;
+import java.net.NetworkInterface;
+import java.net.SocketException;
+import java.util.Enumeration;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -40,13 +47,17 @@ import com.amazonaws.util.json.JSONObject;
 import edu.sjsu.helpers.BadRequestException;
 import edu.sjsu.helpers.CookieManager;
 import edu.sjsu.helpers.EmailNotification;
+import edu.sjsu.helpers.GetLocation;
+import edu.sjsu.helpers.ServerLocation;
 import edu.sjsu.helpers.Utility;
+import edu.sjsu.models.Event;
 import edu.sjsu.models.Follow;
 import edu.sjsu.models.FollowDao;
 import edu.sjsu.models.Song;
 import edu.sjsu.models.User;
 import edu.sjsu.services.SongService;
 import edu.sjsu.services.UserService;
+import edu.sjsu.helpers.DistanceCalculator;
 
 @Controller
 @ComponentScan
@@ -68,6 +79,8 @@ public class UserController {
 	
 	@Autowired
 	private FollowDao followDao;
+	
+	
 	
 	private HashMap<Long,String> songidToSongTitleMap = new HashMap<Long,String>();
 	
@@ -536,6 +549,91 @@ public class UserController {
 		
 		return "editinfo";
 	}
+	
+	@RequestMapping(value = "/createEvent", method = RequestMethod.GET)
+	public String getCreateEventPage( Model model) {
+		
+		
+		return "createEvent";
+	}
+	
+	@RequestMapping(value = "/createEvent", method = RequestMethod.POST)
+	public ResponseEntity<String> createEvent(@RequestParam("data") String originalData, Model model) {
+		
+		JSONObject jsonObj;
+		String title="";
+		String address="";
+		double latitude=0;
+		double longitude=0;
+		System.out.println("create Event : "+originalData);
+		try{
+			jsonObj = new JSONObject(originalData);
+			System.out.println(jsonObj.get("title"));
+			
+			title = jsonObj.get("title").toString();
+			address = jsonObj.get("address").toString();
+			latitude = Double.parseDouble(jsonObj.get("latitude").toString());
+			longitude = Double.parseDouble(jsonObj.get("longitude").toString());
+			System.out.println(latitude);
+			
+		}catch(Exception e){
+			
+		}
+		
+		User user= cookieManager.getCurrentUser();
+		
+		Event event = new Event(title,user.getUserid(),longitude,latitude,address);
+		
+		userService.createEvent(event);
+		
+		return new ResponseEntity<String>("Hello", HttpStatus.CREATED);
+		
+		
+	}
+	
+	
+	@RequestMapping(value = "/getNearEvents", method = RequestMethod.GET)
+	public String getNearEvents(Locale locale, Model model) {
+		
+		ArrayList<Event> allEvents = userService.getAllEvents();
+		for(Event e:allEvents){
+			System.out.println(e.getEventTitle());
+		}
+		String ip ="";
+		try{
+			
+		URL whatismyip = new URL("http://checkip.amazonaws.com");
+		BufferedReader in = new BufferedReader(new InputStreamReader(
+		                whatismyip.openStream()));
+
+		ip = in.readLine(); //you get the IP as a String
+		System.out.println(ip);
+		
+		}catch(Exception e){
+			
+		}
+		
+		GetLocation obj = new GetLocation();
+		ServerLocation location = obj.getLocation(ip);
+		System.out.println(location);
+	
+		double latitude=Double.parseDouble(location.getLatitude());
+		double longitude=Double.parseDouble(location.getLongitude());
+	
+		ArrayList<Event> eventsNearMe =new ArrayList<Event>();
+		int minDis = 50;
+		for(Event e:allEvents){
+			double distance = DistanceCalculator.distance(latitude, longitude, e.getLatitude(), e.getLongitute(), "M");
+			System.out.println(distance);
+			if(distance<minDis){
+				eventsNearMe.add(e);
+			}
+		}
+		
+		model.addAttribute("events", eventsNearMe );
+		return "EventsNearMe";
+		
+	}	
 
 
 }

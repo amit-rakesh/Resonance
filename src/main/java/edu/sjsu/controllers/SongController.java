@@ -130,17 +130,19 @@ public class SongController {
 		User userOb = cookieManager.getCurrentUser();
 		System.out.println(userOb.getEmail());
 		ArrayList<Song> latestsongs = songService.getLatestSongs();
-		
-		ArrayList<Song> recommendedSongs = rSongs.getRecommendedSongs(userOb.getUserid(), 3);
 
-		for (Song song : recommendedSongs) {
-			System.out.println(song.getSongId());
-		}
+	
+	/*	ArrayList<Song> recommendedSongs = rSongs.getRecommendedSongs(userOb.getUserid(), 3);
+			
+			for(Song song: recommendedSongs){
+				System.out.println(song.getSongId());
+			}*/
 		ArrayList<Song> uploadedByMe = songService.songsUploadedByMe(userOb.getUserid());
 		System.out.println(uploadedByMe.size());
-		model.addAttribute("songs", latestsongs);
-		model.addAttribute("mysongs", uploadedByMe);
-		model.addAttribute("recommendedsongs", recommendedSongs);
+		model.addAttribute("songs", latestsongs );
+		model.addAttribute("mysongs", uploadedByMe );
+		//model.addAttribute("recommendedsongs", recommendedSongs);
+		
 		generateRatingHashMap();
 
 		return "latestSongs";
@@ -171,12 +173,14 @@ public class SongController {
 		//long currentUserId = currentUser.getUserid();
 		//ArrayList<Rating> rating = ratingService.getRatingByUserId(currentUserId);
 		
+		System.out.println(songId);
 		
 		if(userRating.containsKey(songId)){
 		Integer songRating =  userRating.get(songId);
 		String responseString = "" + songId + songRating;
 		System.out.println(responseString);
 		return responseString;
+
 		}
 		else
 			return "0";
@@ -191,6 +195,7 @@ public class SongController {
 		User currentUser = cookieManager.getCurrentUser();
 		ArrayList<Rating> rating = ratingService.getRatingByUserId(currentUser.getUserid());
 		for(Rating r : rating){
+			System.out.println("Map : "+ r.getSongId()+r.getRating());
 			userRating.put(r.getSongId(), r.getRating());
 		}
 	}

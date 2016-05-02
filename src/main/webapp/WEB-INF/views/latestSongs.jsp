@@ -29,14 +29,16 @@ function submitRating(t, i){
 
 function getRating(){
 		var length = ${songs.size()}
-	alert(length);
-	
+	//alert("Hello"+length);
+	var songid=[];
+	var i=0;
 	<c:forEach items="${songs}" var="song" varStatus="i">
-		var songid = ${song.songId}
+		 songid[i] = ${song.songId};
+		alert("song id : "+songid[i]);
 	$.ajax({
 		type : "GET",
 		url : "http://localhost:8080/resonance/song/rating/" 
-				+ songid,
+				+ songid[i],
 		success : function(res) {
 					if(res === "0"){
 						console.log(res);
@@ -47,14 +49,17 @@ function getRating(){
 					}
 					
 		}
+	
 	});
+	
+	i++;
 	
 	</c:forEach>
 
 }
 </script>
 </head>
-<body onLoad ="getRating()">
+<body onLoad ="getsongRating()">
 
 
 	<div class="container-fluid">
