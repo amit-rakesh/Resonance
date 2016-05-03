@@ -14,11 +14,13 @@
 				<th>Blog Title</th>
 				<th>Uploaded By User</th>
 				<th>Blog Content</th>
+				<th>Written on</th>
 			</tr>
 			<tr>
 				<td><c:out value="${blog.blogTitle}" /></td>
 				<td><c:out value="${blog.uploadedByUserId}" /></td>
 				<td><c:out value="${blog.blogContent}"></c:out></td>
+				<td><c:out value="${blog.date}"></c:out></td>
 			</tr>
 	</c:forEach>
 

@@ -9,15 +9,53 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>PlayLists</title>
 <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
-<script rel="javascript" type="text/javascript" href="js/jquery-1.11.3.min.js"></script>
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 
 
-<script>
+
+<script type="text/javascript">
+
+function submitRating(t, i){
+	alert(t);
+	alert(i);
+	$.ajax({ 
+		   type: "POST",
+		   url: "http://localhost:8080/resonance/song/rating/" + t + "/" + i,
+		   success: function(res){  
+			   		       
+		      alert(res);
+		   	}
+		});
+}
+
+function getRating(){
+		var length = ${songs.size()}
+	alert(length);
+	<c:forEach items="${songs}" var="song" varStatus="i">
+		var songid = ${song.songId};
+	$.ajax({
+		type : "GET",
+		url : "http://localhost:8080/resonance/song/rating/" 
+				+ songid,
+		success : function(res) {
+					if(res === "0"){
+						console.log(res);
+					}
+					else{
+						console.log(res);
+						document.getElementById(res).checked=true;
+					}
+					
+		}
 	
+	});
+	
+	
+	</c:forEach>
+
+}
 </script>
 </head>
-<body>
+<body onLoad ="getRating()">
 
 
 	<div class="container-fluid">
@@ -47,15 +85,23 @@
 								<td>Song Title</td>
 								<td>Uploaded By</td>
 								<td>Play Song</td>
+								<td>Rating</td>
 								
 							</tr>
-							<c:forEach items="${songs}" var="song">
+							<c:forEach items="${songs}" var="song" varStatus="i">
 								<tr>
 									<td><c:out value="${song.songTitle}" /></td>
 									<td><c:out value="${song.uploadedByUserId}" /></td>
 									<td><audio controls> <source
 											src="<c:url value ="${song.playingUrl}" /> "
 											type="audio/mpeg"></audio></td>
+											<td>
+											<input type = radio id = "${song.songId}1" value="1" name= "${song.songId}" onLoad="getRating(${song.songId}, 1);" onClick = "submitRating(${song.songId}, 1);">
+											<input type = radio id = "${song.songId}2" value="2" name= "${song.songId}" onClick = "submitRating(${song.songId}, 2);">
+											<input type = radio id = "${song.songId}3" value="3" name= "${song.songId}" onClick = "submitRating(${song.songId}, 3);">
+											<input type = radio id = "${song.songId}4" value="4" name= "${song.songId}" onClick = "submitRating(${song.songId}, 4);">
+											<input type = radio id = "${song.songId}5" value="5" name= "${song.songId}" onClick = "submitRating(${song.songId}, 5);">
+											</td>
 								</tr>
 							</c:forEach>
 						</tbody>

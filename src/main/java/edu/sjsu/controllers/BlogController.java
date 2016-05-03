@@ -1,6 +1,8 @@
 package edu.sjsu.controllers;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 
 import javax.servlet.http.HttpServlet;
@@ -31,8 +33,6 @@ import edu.sjsu.services.BlogService;
 @Component("BlogController")
 @RequestMapping("/blog")
 public class BlogController {
-	
-	private static final Logger logger = LoggerFactory.getLogger(BlogController.class);
 
 	@Autowired
 	BlogService blogService;
@@ -53,7 +53,7 @@ public class BlogController {
 			HttpServletResponse response, Model model) {
 		ArrayList<Blog> blog = blogService.blogsUploadedByUserId(userid);
 		for(Blog b : blog){
-			System.out.println("" + b.getBlogTitle() + "....." + b.getUploadedByUserId() + "..." + b.getBlogContent());
+			System.out.println("" + b.getBlogTitle() + "....." + b.getUploadedByUserId() + "..." + b.getBlogContent()+ "..." + b.getDate()+ "..." + b.getDate().toString());
 		}
 		model.addAttribute("blog", blog);
 		return "blog";
@@ -62,7 +62,7 @@ public class BlogController {
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
 	public String getCreateBlog(@ModelAttribute("blog") Blog blog, BindingResult result, HttpServletRequest request,
 			HttpServletResponse response, Model model, Locale locale) {
-		logger.info("Welcome home! The client locale is {}.", locale);
+		
 		model.addAttribute("blog", new Blog());
 		return "uploadBlog";
 		
@@ -72,10 +72,11 @@ public class BlogController {
 	public String createBlog(@ModelAttribute("blog") Blog blog, BindingResult result, HttpServletRequest request,
 			HttpServletResponse response, Model model) {
 		User user = cookieManger.getCurrentUser();
-		long unixTime = System.currentTimeMillis() / 1000L;
-		System.out.println(unixTime);
+		//long unixTime = System.currentTimeMillis() / 1000L;
+		//System.out.println(unixTime);
 		Blog blogOb;
-		blogOb = new Blog(blog.getBlogTitle(), user.getUserid(), unixTime, blog.getBlogContent());
+		blogOb = new Blog(blog.getBlogTitle(), user.getUserid(), Calendar.getInstance().getTime(), blog.getBlogContent());
+		System.out.println("in create -->" + Calendar.getInstance().getTime() + "..." + Calendar.getInstance().getTime().toString());
 		blogService.create(blogOb);
 		return "redirect:/blog/" + user.getUserid();
 	}

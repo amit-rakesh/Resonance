@@ -20,6 +20,8 @@ import edu.sjsu.helpers.EmailNotification;
 import edu.sjsu.helpers.S3Connector;
 import edu.sjsu.services.BlogService;
 import edu.sjsu.services.BlogServiceImpl;
+import edu.sjsu.services.RatingService;
+import edu.sjsu.services.RatingServiceImpl;
 import edu.sjsu.services.SongService;
 import edu.sjsu.services.SongServiceImpl;
 import edu.sjsu.services.UserService;
@@ -44,6 +46,11 @@ public class RootConfig {
 	@Bean
 	public BlogService getBlogservice() {
 		return new BlogServiceImpl();
+	}
+	
+	@Bean
+	public RatingService getRatingService() {
+		return new RatingServiceImpl();
 	}
 
 	@Bean
