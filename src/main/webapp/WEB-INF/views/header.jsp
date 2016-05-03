@@ -16,6 +16,7 @@
 		<li><a href="<c:url value="/song/getUploadSong" />">Upload</a></li>
 		<li><a href="<c:url value="/user/myFriends" /> ">Friends</a></li>
 		<li><a href="<c:url value="/user/search" /> ">Search</a></li>
+		<li><a href="<c:url value="/blog/create" /> ">Blog</a></li>
 	
 	</ul>
 	<ul class="nav navbar-nav navbar-right">

@@ -29,6 +29,10 @@
 			<button type="button" class="btn btn-info" name="select" id="2"
 				value="2">My Uploads</button>
 		</div>
+		<div class="col-md-4 col-sm-4 col-xs-4">
+			<button type="button" class="btn btn-info" name="select" id="3"
+				value="3">Recommendation</button>
+		</div>
 	</div>
 	<div class="panel panel-info" id="latestsongs" style="display: none;">
 		<div class="panel-heading">
@@ -91,6 +95,43 @@
 			</div>
 		</div>
 	</div>
+
+
+
+	<div class="panel panel-info" id="recommendedsongs" style="display: none;">
+		<div class="panel-heading">
+			<h3 class="panel-title">Recommended Songs</h3>
+		</div>
+		<div class="panel-body">
+			<div class="row">
+				<div class=" col-md-12 col-lg-12 ">
+					<table class="table table-user-information">
+						<tbody>
+							<tr>
+								<td>Song Title</td>
+								<td>Play Song</td>
+								
+							</tr>
+							<c:forEach items="${recommendedsongs}" var="song">
+								<tr>
+									<td><c:out value="${song.songTitle}" /></td>
+									<td><audio controls> <source
+											src="<c:url value ="${song.playingUrl}" /> "
+											type="audio/mpeg"></audio></td>
+								</tr>
+							</c:forEach>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+
+
+
 
 </body>
 <script src="<c:url value="/resources/js/script.js" />"></script>
