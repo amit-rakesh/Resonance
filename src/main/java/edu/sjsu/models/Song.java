@@ -147,6 +147,17 @@ public class Song {
 	public void setPlayingUrl(String playingUrl) {
 		this.playingUrl = playingUrl;
 	}
+
+	public String getUploadedByUserName() {
+		return uploadedByUserName;
+	}
+
+	@Column(name = "username", unique = false, nullable = true)
+	public void setUploadedByUserName(String uploadedByUserName) {
+		this.uploadedByUserName = uploadedByUserName;
+	}
+	
+	
 	
 	
 }

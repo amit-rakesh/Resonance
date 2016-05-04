@@ -10,5 +10,7 @@ public interface RatingService {
 	public Rating create(Rating rating);
 	public Rating findRatingById(long id);
 	public ArrayList<Rating> getRatingByUserId(long userid);
+	
+	public ArrayList<Rating> getRatingForAllSongs();
 
 }

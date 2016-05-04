@@ -22,7 +22,7 @@ public class RecommendationEngine {
 		DataModel model = null;
 		try {
 			model = new FileDataModel(
-					new File("C:/Users/Amit/Desktop/CMPE_Courses/CMPE 295B/Master_Project/Resonance/Data.csv"));
+					new File("H://harkirat//Study//sem4//Project-3-31//Resonance-1//Data.csv"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

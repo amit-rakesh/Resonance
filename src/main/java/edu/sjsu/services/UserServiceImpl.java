@@ -123,4 +123,20 @@ public class UserServiceImpl implements UserService {
 		ArrayList<Event> allevents = (ArrayList<Event>) eventDao.findAll();
 		return allevents;
 	}
+	
+	@Override
+	public ArrayList<User> getTrendingUsers(){
+		ArrayList<Integer> userIds = followDao.getMostFollowedUsers();
+		
+		System.out.println("Hello Sir");
+		ArrayList<User> users = new ArrayList<User>();
+		
+		for(int i=0;i<5;i++){
+			System.out.println(userIds.get(i));
+			users.add(userDao.findOne((long)userIds.get(i)));
+			System.out.println(users.get(i).getUserid());
+		}
+		
+		return users;
+	}
 }
