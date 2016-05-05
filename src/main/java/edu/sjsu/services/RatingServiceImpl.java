@@ -29,5 +29,10 @@ public class RatingServiceImpl implements RatingService{
 		ArrayList<Rating> ratings = ratingDao.ratingsGivenByMe(userid);
 		return ratings;
 	}
+	
+	@Override
+	public ArrayList<Rating> getRatingForAllSongs(){
+		return ratingDao.getRagingForAllSongs();
+	}
 
 }

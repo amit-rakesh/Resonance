@@ -15,14 +15,13 @@
 <script type="text/javascript">
 
 function submitRating(t, i){
-	alert(t);
-	alert(i);
+	
 	$.ajax({ 
 		   type: "POST",
 		   url: "http://localhost:8080/resonance/song/rating/" + t + "/" + i,
 		   success: function(res){  
 			   		       
-		      alert(res);
+		      console.log(res);
 		   	}
 		});
 }
@@ -88,7 +87,9 @@ function getRating(){
 							<c:forEach items="${songs}" var="song" varStatus="i">
 								<tr>
 									<td><c:out value="${song.songTitle}" /></td>
-									<td><c:out value="${song.uploadedByUserId}" /></td>
+									<td><a href="<c:url value="/user/otherUser/${song.uploadedByUserId}" /> "><c:out
+												value="${song.uploadedByUserName}" /></a>
+									</td>
 									<td><audio controls> <source
 											src="<c:url value ="${song.playingUrl}" /> "
 											type="audio/mpeg"></audio></td>

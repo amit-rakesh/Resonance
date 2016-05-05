@@ -68,6 +68,12 @@
 			value="/WEB-INF/views/EventsNearMe.jsp" />
 	</definition>
 	
+	<definition name="Trending" extends="base">
+		<put-attribute name="title" value="Trending" />
+		<put-attribute name="body"
+			value="/WEB-INF/views/Trending.jsp" />
+	</definition>
+	
 
 
 </tiles-definitions>
