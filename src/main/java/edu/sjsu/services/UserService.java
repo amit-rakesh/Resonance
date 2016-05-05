@@ -35,4 +35,6 @@ public interface UserService {
 	public void createEvent(Event event);
 	
 	public ArrayList<Event> getAllEvents();
+	
+	public ArrayList<User> getTrendingUsers();
 }

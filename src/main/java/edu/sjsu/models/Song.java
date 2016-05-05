@@ -34,6 +34,11 @@ public class Song {
     @Column(name = "userid")
     private Long uploadedByUserId;
     
+
+    @JsonProperty
+    @Column(name = "username")
+    private String uploadedByUserName;
+    
     @NotNull
     @JsonProperty
     @Column(name = "path")
@@ -74,6 +79,14 @@ public class Song {
         this.songPath=songPath;
         this.uploadedByUserId=uploadedByUserId;
         this.date=date;
+    }
+    
+    public Song(@JsonProperty String songTitle, @JsonProperty long uploadedByUserId,@JsonProperty String songPath, @JsonProperty long date, @JsonProperty String uploadedByUserName) {
+        this.songTitle = songTitle;
+        this.songPath=songPath;
+        this.uploadedByUserId=uploadedByUserId;
+        this.date=date;
+        this.uploadedByUserName = uploadedByUserName;
     }
 
     public long getDate() {
@@ -134,6 +147,17 @@ public class Song {
 	public void setPlayingUrl(String playingUrl) {
 		this.playingUrl = playingUrl;
 	}
+
+	public String getUploadedByUserName() {
+		return uploadedByUserName;
+	}
+
+	@Column(name = "username", unique = false, nullable = true)
+	public void setUploadedByUserName(String uploadedByUserName) {
+		this.uploadedByUserName = uploadedByUserName;
+	}
+	
+	
 	
 	
 }

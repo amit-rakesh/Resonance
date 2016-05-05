@@ -96,10 +96,11 @@ public class SongController {
 
 		currentUser = UserCookie.getCurrentUser();
 		long userId = currentUser.getUserid();
+		String userName = currentUser.getName();
 		System.out.println("ID" + currentUser.getUserid());
 
 		try {
-			songObj = new Song(song.getSongTitle(), userId, song.getSongPath(), unixTime);
+			songObj = new Song(song.getSongTitle(), userId, song.getSongPath(), unixTime,userName);
 			System.out.println("Harkirat : " + song.getSongId());
 			System.out.println("USERID" + song.getUploadedByUserId());
 		} catch (Exception e) {
@@ -198,5 +199,8 @@ public class SongController {
 			userRating.put(r.getSongId(), r.getRating());
 		}
 	}
+	
+	
+	
 
 }
