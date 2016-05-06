@@ -55,6 +55,14 @@
     		<artifactId>mahout-mr</artifactId>
     		<version>0.10.0</version>
 		</dependency>
+		
+		<!-- Scribe Oauth java client library -->
+		
+		<dependency>
+  			<groupId>com.github.scribejava</groupId>
+  			<artifactId>scribejava-apis</artifactId>
+ 			<version>2.5.3</version> 
+		</dependency>
 
 		<!-- AspectJ -->
 		<dependency>
@@ -236,6 +244,14 @@
 			<version>4.7</version>
 			<scope>test</scope>
 		</dependency>
+		
+		<!-- gs-consumin rest -->
+		<!-- dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-web</artifactId>
+			<version>4.2.5.RELEASE</version>
+		</dependency -->
+	
 		
 		       <!-- Java Mail -->
         <dependency>

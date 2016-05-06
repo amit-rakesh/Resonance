@@ -69,7 +69,7 @@ public class SongController {
 	
 	
 
-	private HashMap<Long, Integer> userRating = new HashMap<Long, Integer>();
+	 
 
 	// =================================================
 	// Upload a new song
@@ -144,8 +144,9 @@ public class SongController {
 		model.addAttribute("mysongs", uploadedByMe );
 		model.addAttribute("recommendedsongs", recommendedSongs);
 		
-		generateRatingHashMap();
-
+		System.out.println("Generate hasmap.....");
+		
+		
 		return "latestSongs";
 
 	}
@@ -170,37 +171,33 @@ public class SongController {
 	@ResponseBody
 	public String getSongRating(@PathVariable("songid") long songId, HttpServletRequest request,
 			HttpServletResponse response) {
-
-		//long currentUserId = currentUser.getUserid();
-		//ArrayList<Rating> rating = ratingService.getRatingByUserId(currentUserId);
+		HashMap<Long, Integer> userRating = new HashMap<Long, Integer>();
 		
-		System.out.println(songId);
+		User currentUser = cookieManager.getCurrentUser();
+		System.out.println("current user id :" + currentUser.getUserid());
+		ArrayList<Rating> rating = ratingService.getRatingByUserId(currentUser.getUserid());
+		for(Rating r : rating){
+			userRating.put(r.getSongId(), r.getRating());	
+		}
+		System.out.println("Requested Song id rating: " + songId);
 		
-		if(userRating.containsKey(songId)){
-		Integer songRating =  userRating.get(songId);
-		String responseString = "" + songId + songRating;
+		if(userRating.containsKey(songId)){		
+			Integer songRating =  userRating.get(songId);
+			String responseString = "" + songId + songRating;
 		
 		return responseString;
 
 		}
 		else
 			return "0";
+	
 	}
 	
 	@RequestMapping(value = "/rating", method = RequestMethod.GET)
 	public String showRating(){
+		
 		return "rating";
 	}
-	
-	public void generateRatingHashMap(){
-		User currentUser = cookieManager.getCurrentUser();
-		ArrayList<Rating> rating = ratingService.getRatingByUserId(currentUser.getUserid());
-		for(Rating r : rating){
-			userRating.put(r.getSongId(), r.getRating());
-		}
-	}
-	
-	
-	
+
 
 }
