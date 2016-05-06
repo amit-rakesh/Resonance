@@ -56,7 +56,7 @@ public class FitBitApi {
 		ResponseEntity<String> entity = null;
 		try {
 			entity = rest.exchange(
-					"https://api.fitbit.com/1/user/-/activities/heart/date/today/1d/1min/time/" + "23:45" + "/" + "23:50"+ ".json",
+					"https://api.fitbit.com/1/user/-/activities/heart/date/today/1d/1min/time/" + "00:45" + "/" + "00:50"+ ".json",
 					HttpMethod.GET, requestEntity, String.class);
 			
 		} catch (HttpClientErrorException ce) {

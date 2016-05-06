@@ -99,7 +99,7 @@ public class FitBitConfig {
 		
 		UserFitBitConfig response = null;
 		try {
-			response = rest.postForObject(ACCESS_TOKEN_URL, requestData, UserFitBitConfig.class);
+			response = rest.postForObject(REFRESH_TOKEN_URL, requestData, UserFitBitConfig.class);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

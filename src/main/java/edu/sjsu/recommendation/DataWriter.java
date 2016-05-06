@@ -9,7 +9,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class DataWriter {
 
-	public boolean processHeartBeatData(long userId, long songId, String body)  {
+	public boolean processHeartBeatData(long userId, long songId, String body) {
 		ObjectMapper mapper = new ObjectMapper();
 		JsonNode rootNode = null;
 		try {
@@ -24,12 +24,12 @@ public class DataWriter {
 		if (dataset.isArray()) {
 			System.out.println("dataset node is an array: ");
 		}
-			JsonNode startHeartBeatNode = dataset.get(0);
-			long startHeartBeat = startHeartBeatNode.path("value").longValue();
+		JsonNode startHeartBeatNode = dataset.get(0);
+		long startHeartBeat = startHeartBeatNode.path("value").longValue();
 
-			JsonNode endHeartBeatNode = dataset.get(0);
-			long endHeartBeat = endHeartBeatNode.path("value").longValue();
-	
+		JsonNode endHeartBeatNode = dataset.get(4);
+		long endHeartBeat = endHeartBeatNode.path("value").longValue();
+
 		return writeData(userId, songId, startHeartBeat, endHeartBeat);
 	}
 
@@ -37,7 +37,7 @@ public class DataWriter {
 
 		double relaxingSong = 0;
 		boolean fileWriteDone = false;
-		
+
 		File file = new File("C:/Users/Amit/Desktop/CMPE_Courses/CMPE 295B/Master_Project/Resonance/Data1.csv");
 		File completeFile = new File(
 				"C:/Users/Amit/Desktop/CMPE_Courses/CMPE 295B/Master_Project/Resonance/CompleteFitbitData.csv");
@@ -53,8 +53,8 @@ public class DataWriter {
 				writer.write("\n");
 
 				/******
-				 * Not using right now for fitbit recommendation as it depends
-				 * only on lowering of heartbeat
+				 * Right now not using for fitbit recommendation because it
+				 * depends only on lowering of heartbeat
 				 */
 				/*
 				 * if(diff<=20) relaxingSong = 1.0; else if(diff>20 && diff<=40)
@@ -62,19 +62,20 @@ public class DataWriter {
 				 * = 3.0; else if(diff>60 && diff<=80) relaxingSong = 4.0; else
 				 * if(diff>80) relaxingSong = 5.0;
 				 */
-			} else
+			} else {
 				relaxingSong = 0;
-			
+			}
+
 			writer.flush();
 			writer.close();
-			
+
 			fileWriteDone = true;
-			
+
 		} catch (IOException e) {
-			
+
 			e.printStackTrace();
 		}
-		
+
 		try {
 			completeFile.createNewFile();
 			FileWriter writer1 = new FileWriter(completeFile, true);
@@ -85,10 +86,10 @@ public class DataWriter {
 			writer1.flush();
 			writer1.close();
 		} catch (IOException e) {
-			
+
 			e.printStackTrace();
 		}
-		
+
 		return fileWriteDone;
 
 	}
