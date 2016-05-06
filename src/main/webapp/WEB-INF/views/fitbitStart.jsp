@@ -12,5 +12,9 @@
 	<form action="/resonance/fitbit" method = "post">
 		<button type="submit"> submit</button>
 	</form>
+	
+	<form action="/resonance/heartbeat" method = "post">
+		<button type="submit"> heartbeat</button>
+	</form>
 </body>
 </html>

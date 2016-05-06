@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
@@ -32,9 +33,13 @@ import org.springframework.web.servlet.mvc.multiaction.NoSuchRequestHandlingMeth
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import edu.sjsu.exceptions.ResourceNotFoundException;
+import edu.sjsu.helpers.CookieManager;
 import edu.sjsu.helpers.FitBitApi;
+import edu.sjsu.helpers.FitBitConfig;
 import edu.sjsu.models.Song;
 import edu.sjsu.models.User;
+import edu.sjsu.models.UserFitBitConfig;
+import edu.sjsu.models.UserFitBitConfigDao;
 
 /**
  * Handles requests for the application home page.
@@ -43,6 +48,18 @@ import edu.sjsu.models.User;
 public class HomeController {
 
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
+	
+	@Autowired
+	private UserFitBitConfigDao userFitBitDao;
+	
+	@Autowired
+	private CookieManager currentUser;
+	
+	@Autowired
+	private FitBitConfig fitbitConfig;
+	
+	@Autowired
+	private FitBitApi fitbitApi;
 
 	/**
 	 * Simply selects the home view to render by returning its name.
@@ -114,8 +131,6 @@ public class HomeController {
 	
 	@RequestMapping(value = "/fitbit", method = RequestMethod.GET )
 	public String showFitBit(Model model){
-		FitBitApi fba = new FitBitApi();
-		fba.printurl();
 		return "fitbitStart";
 	}
 	
@@ -128,22 +143,23 @@ public class HomeController {
 		redirectAttributes.addAttribute("client_id", "227LXW");
 		redirectAttributes.addFlashAttribute("redirect_uri", uri);
 		redirectAttributes.addAttribute("scope", "profile heartrate");
-		//redirectAttributes.addAttribute("prompt", "login");
+		redirectAttributes.addAttribute("prompt", "consent");
 		return "redirect:https://www.fitbit.com/oauth2/authorize";
 	}
 	
 	@RequestMapping(value = "/callback", method = RequestMethod.GET )
 	public String fitbitCallback(@RequestParam("code") String code, HttpServletRequest request, Model model) throws UnsupportedEncodingException{
-		
-		
+				
 		Map<String, String> map = request.getParameterMap();
 		String str = request.getQueryString();
 		System.out.println("query String: " + str);
-		System.out.println("Map: " + map.toString());
+		System.out.println("Parameters Map: " + map.toString());
 		System.out.println("authorization code: " + code);
-		String client = "227LXW:c78815c756aefe00cb7373dea8cfbe74";
+		
+		fitbitConfig.getAccessToken(code);
+		/*String client = "227LXW:c78815c756aefe00cb7373dea8cfbe74";
 		String base64EncodedString = Base64.getEncoder().encodeToString(client.getBytes("utf-8"));
-		System.out.println("Base 64.encoded string:" + base64EncodedString);
+		System.out.println("Base 64.encoded string: " + base64EncodedString);
 		
 		RestTemplate rest = new RestTemplate();
 		MultiValueMap<String, String> headers = new LinkedMultiValueMap<String, String>();
@@ -157,16 +173,24 @@ public class HomeController {
 		
 		HttpEntity<MultiValueMap<String, String>> requestData = new HttpEntity<MultiValueMap<String, String>>(
 	            body, headers);
+		
+		UserFitBitConfig response = null;
 		try{
-		ResponseEntity<String> response = rest.exchange("https://api.fitbit.com/oauth2/token", HttpMethod.POST, requestData, String.class);
+			response = rest.postForObject("https://api.fitbit.com/oauth2/token", requestData, UserFitBitConfig.class);
 		System.out.println(response);
 		}
 		catch(Exception e){
 			e.printStackTrace();
 		}
 		
-		
-		return "fitbitStart";
-		
+		response.setApplicationUserId(currentUser.getCurrentUser().getUserid());
+		UserFitBitConfig fitbitObj = userFitBitDao.save(response);*/
+			
+		return "fitbitStart";	
+	}
+	
+	@RequestMapping(value = "/heartbeat", method = RequestMethod.POST)
+	public void getHeartBeatData(){
+		fitbitApi.getHeartBeat();
 	}
 }
