@@ -12,7 +12,7 @@ import java.util.Locale;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-
+import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,6 +28,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.mvc.multiaction.NoSuchRequestHandlingMethodException;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -40,6 +41,7 @@ import edu.sjsu.models.Song;
 import edu.sjsu.models.User;
 import edu.sjsu.models.UserFitBitConfig;
 import edu.sjsu.models.UserFitBitConfigDao;
+import edu.sjsu.recommendation.DataWriter;
 
 /**
  * Handles requests for the application home page.
@@ -155,42 +157,23 @@ public class HomeController {
 		System.out.println("query String: " + str);
 		System.out.println("Parameters Map: " + map.toString());
 		System.out.println("authorization code: " + code);
-		
+	
 		fitbitConfig.getAccessToken(code);
-		/*String client = "227LXW:c78815c756aefe00cb7373dea8cfbe74";
-		String base64EncodedString = Base64.getEncoder().encodeToString(client.getBytes("utf-8"));
-		System.out.println("Base 64.encoded string: " + base64EncodedString);
-		
-		RestTemplate rest = new RestTemplate();
-		MultiValueMap<String, String> headers = new LinkedMultiValueMap<String, String>();
-		headers.add("Authorization", "Basic " + base64EncodedString);
-		headers.add("Content-Type", "application/x-www-form-urlencoded");
-		
-		MultiValueMap<String, String> body = new LinkedMultiValueMap<String, String>();
-		body.add("code", code);
-		body.add("grant_type", "authorization_code");
-		body.add("redirect_uri", "http://localhost:8080/resonance/callback");
-		
-		HttpEntity<MultiValueMap<String, String>> requestData = new HttpEntity<MultiValueMap<String, String>>(
-	            body, headers);
-		
-		UserFitBitConfig response = null;
-		try{
-			response = rest.postForObject("https://api.fitbit.com/oauth2/token", requestData, UserFitBitConfig.class);
-		System.out.println(response);
-		}
-		catch(Exception e){
-			e.printStackTrace();
-		}
-		
-		response.setApplicationUserId(currentUser.getCurrentUser().getUserid());
-		UserFitBitConfig fitbitObj = userFitBitDao.save(response);*/
-			
 		return "fitbitStart";	
 	}
 	
-	@RequestMapping(value = "/heartbeat", method = RequestMethod.POST)
-	public void getHeartBeatData(){
-		fitbitApi.getHeartBeat();
+	@RequestMapping(value = "/heartbeat/{songid}", method = RequestMethod.GET)
+	@ResponseBody
+	public String getHeartBeatData(@PathVariable("songid") long songid, HttpServletRequest request, HttpServletResponse response){
+		long userId = currentUser.getCurrentUser().getUserid();
+		boolean fileWriteDone = false;
+		String body = fitbitApi.getHeartBeat();
+		if(body !=null){
+			DataWriter writer = new DataWriter();
+			fileWriteDone =	writer.processHeartBeatData(userId, songid, body);
+		}
+		if(fileWriteDone)
+			return "sucess";
+		return "fail";
 	}
 }

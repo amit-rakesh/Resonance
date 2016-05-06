@@ -3,6 +3,9 @@ package edu.sjsu.helpers;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URI;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -36,29 +39,35 @@ public class FitBitApi {
 	RestTemplate rest = new RestTemplate();
 
 	public String getHeartBeat() {
+		final long ONE_MINUTE_IN_MILLIS=60000;
 		String body = null;
+		SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+		String startTime = sdf.format(new Date());
+		System.out.println(startTime);
+		Calendar date = Calendar.getInstance();
+		long t= date.getTimeInMillis();
+		Date afterAddingFiveMins=new Date(t + (5 * ONE_MINUTE_IN_MILLIS));
+		String endTime = sdf.format(afterAddingFiveMins);
+		System.out.println(endTime);
+		
 		MultiValueMap<String, String> headers = new LinkedMultiValueMap<String, String>();
 		headers.add("Authorization", "Bearer " + fitbitUserConfig.getUserAccessToken());
 		HttpEntity<?> requestEntity = new HttpEntity(headers);
 		ResponseEntity<String> entity = null;
 		try {
 			entity = rest.exchange(
-					"https://api.fitbit.com/1/user/-/activities/heart/date/today/1d/1min/time/00:00/00:05.json",
+					"https://api.fitbit.com/1/user/-/activities/heart/date/today/1d/1min/time/" + "23:45" + "/" + "23:50"+ ".json",
 					HttpMethod.GET, requestEntity, String.class);
-			HttpStatus status = entity.getStatusCode();
-			System.out.println(status.name());
-			System.out.println(status.is2xxSuccessful());
-			body = entity.getBody();
-			System.out.println("entity body: " + body);
+			
 		} catch (HttpClientErrorException ce) {
 			if (ce.getStatusCode().equals(HttpStatus.UNAUTHORIZED)) {
-				body = ce.getResponseBodyAsString();
-				System.out.println("Exception Body: \n " + body);
+			String	errorBody = ce.getResponseBodyAsString();
+				System.out.println("Exception Body: \n " + errorBody);
 				ObjectMapper mapper = new ObjectMapper();
 
 				JsonNode rootNode = null;
 				try {
-					rootNode = mapper.readTree(body);
+					rootNode = mapper.readTree(errorBody);
 					System.out.println("rootNode: " + rootNode);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -80,7 +89,17 @@ public class FitBitApi {
 				ce.printStackTrace();
 			}
 		}
-
+		
+		if(entity !=null){
+			HttpStatus status = entity.getStatusCode();
+			System.out.println(status.name());
+			System.out.println(status.is2xxSuccessful());
+			body = entity.getBody();
+			System.out.println("entity body: " + body);
+			
+		}
+		
 		return body;
 	}
+	
 }
