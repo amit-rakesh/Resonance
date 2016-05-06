@@ -47,7 +47,7 @@ public class DataWriter {
 			FileWriter writer = new FileWriter(file, true);
 			if (endHeartBeat < startHeartBeat) {
 				long diff = startHeartBeat - endHeartBeat;
-
+				System.out.println("diff: " + diff + " endHeartBeat: " + endHeartBeat + "..." + "start Heartbeat: " + startHeartBeat);
 				String output = userId + "," + songId;
 				writer.write(output);
 				writer.write("\n");
