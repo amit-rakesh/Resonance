@@ -15,21 +15,21 @@
 <script type="text/javascript">
 
 function submitRating(t, i){
-	alert(t);
-	alert(i);
+	
 	$.ajax({ 
 		   type: "POST",
 		   url: "http://localhost:8080/resonance/song/rating/" + t + "/" + i,
 		   success: function(res){  
 			   		       
-		      alert(res);
+		      console.log(res);
 		   	}
 		});
 }
 
 function getRating(){
+	
 		var length = ${songs.size()}
-	alert(length);
+	
 	<c:forEach items="${songs}" var="song" varStatus="i">
 		var songid = ${song.songId};
 	$.ajax({
@@ -55,13 +55,13 @@ function getRating(){
 }
 </script>
 </head>
-<body onLoad ="getRating()">
+<body>
 
 
 	<div class="container-fluid">
 		<div class="col-md-4 col-sm-4 col-xs-4">
 			<button type="button" class="btn btn-info" name="select" id="1"
-				value="1" >Latest Song</button>
+				value="1" onclick="getRating()">Latest Song</button>
 		</div>
 		<div class="col-md-4 col-sm-4 col-xs-4">
 			<button type="button" class="btn btn-info" name="select" id="2"
@@ -91,12 +91,14 @@ function getRating(){
 							<c:forEach items="${songs}" var="song" varStatus="i">
 								<tr>
 									<td><c:out value="${song.songTitle}" /></td>
-									<td><c:out value="${song.uploadedByUserId}" /></td>
+									<td><a href="<c:url value="/user/otherUser/${song.uploadedByUserId}" /> "><c:out
+												value="${song.uploadedByUserName}" /></a>
+									</td>
 									<td><audio controls> <source
 											src="<c:url value ="${song.playingUrl}" /> "
 											type="audio/mpeg"></audio></td>
 											<td>
-											<input type = radio id = "${song.songId}1" value="1" name= "${song.songId}" onLoad="getRating(${song.songId}, 1);" onClick = "submitRating(${song.songId}, 1);">
+											<input type = radio id = "${song.songId}1" value="1" name= "${song.songId}" onClick = "submitRating(${song.songId}, 1);">
 											<input type = radio id = "${song.songId}2" value="2" name= "${song.songId}" onClick = "submitRating(${song.songId}, 2);">
 											<input type = radio id = "${song.songId}3" value="3" name= "${song.songId}" onClick = "submitRating(${song.songId}, 3);">
 											<input type = radio id = "${song.songId}4" value="4" name= "${song.songId}" onClick = "submitRating(${song.songId}, 4);">

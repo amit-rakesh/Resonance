@@ -10,10 +10,13 @@ import org.springframework.http.HttpStatus;
 import java.net.*;
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Locale;
-
+import java.util.Map;
+import java.util.Map.Entry;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.net.SocketException;
@@ -53,8 +56,10 @@ import edu.sjsu.helpers.Utility;
 import edu.sjsu.models.Event;
 import edu.sjsu.models.Follow;
 import edu.sjsu.models.FollowDao;
+import edu.sjsu.models.Rating;
 import edu.sjsu.models.Song;
 import edu.sjsu.models.User;
+import edu.sjsu.services.RatingService;
 import edu.sjsu.services.SongService;
 import edu.sjsu.services.UserService;
 import edu.sjsu.helpers.DistanceCalculator;
@@ -80,7 +85,8 @@ public class UserController {
 	@Autowired
 	private FollowDao followDao;
 	
-	
+	@Autowired
+	private RatingService ratingService;
 	
 	private HashMap<Long,String> songidToSongTitleMap = new HashMap<Long,String>();
 	
@@ -212,12 +218,18 @@ public class UserController {
 		byte[] userImage = userOb.getUserPicture();
 
 		byte[] encodeBase64 = Base64.encodeBase64(userImage);
+		
+		
 		String base64Encoded = "";
+		if(encodeBase64 != null){
+
 		try {
 			base64Encoded = new String(encodeBase64, "UTF-8");
 		} catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+
+		}
 		}
 		model.addAttribute("userimage", base64Encoded);
 		
@@ -235,11 +247,16 @@ public class UserController {
 
 		byte[] encodeBase64 = Base64.encodeBase64(userImage);
 		String base64Encoded = "";
+
+		
+		if(encodeBase64 !=null){
 		try {
 			base64Encoded = new String(encodeBase64, "UTF-8");
 		} catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+
+		}
 		}
 		model.addAttribute("userimage", base64Encoded);
 		
@@ -426,11 +443,15 @@ public class UserController {
 
 		byte[] encodeBase64 = Base64.encodeBase64(userImage);
 		String base64Encoded = "";
+
+		if(encodeBase64 !=null){
 		try {
 			base64Encoded = new String(encodeBase64, "UTF-8");
 		} catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+
+		}
 		}
 		model.addAttribute("userimage", base64Encoded);
 		model.addAttribute("user", user );
@@ -529,6 +550,24 @@ public class UserController {
 	
 	@RequestMapping(value = "/otherUser/{id}", method = RequestMethod.GET)
 	public String showOtherUserDashboard(@PathVariable long id, Model model) {
+		
+		User currentUser=cookieManager.getCurrentUser();
+		long currentUserId = currentUser.getUserid();
+		if(id==currentUserId){
+			byte[] userImage = currentUser.getUserPicture();
+
+			byte[] encodeBase64 = Base64.encodeBase64(userImage);
+			String base64Encoded = "";
+			try {
+				base64Encoded = new String(encodeBase64, "UTF-8");
+			} catch (UnsupportedEncodingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			model.addAttribute("userimage", base64Encoded);
+			model.addAttribute(currentUser);
+			return "dashboard";
+		}
 		User user = userService.findUserById(id);
 		boolean isFriend = peopleIfollow.containsKey(id);
 		System.out.println(isFriend);
@@ -635,5 +674,70 @@ public class UserController {
 		
 	}	
 
+	@RequestMapping(value = "/getTrending", method = RequestMethod.GET)
+	public String getTrending( Model model) {
+		
+		ArrayList<Song> songs = popSongs();
+		ArrayList<User> users = userService.getTrendingUsers();
+		model.addAttribute("users",users);
+		model.addAttribute("songs",songs);
+		return "Trending";
+	}
+	
+	public ArrayList<Song> popSongs(){
+		ArrayList<Rating> list = ratingService.getRatingForAllSongs();
+		
+		HashMap<Long,Integer> numberOfUserRatedThesongsMap = new HashMap<Long,Integer>();
+		HashMap<Long,Integer> sumOfAllRatingsForThesongsMap = new HashMap<Long,Integer>();
+		
+		for(Rating r: list){
+			if(numberOfUserRatedThesongsMap.containsKey(r.getSongId())){
+				numberOfUserRatedThesongsMap.put(r.getSongId(), (numberOfUserRatedThesongsMap.get(r.getSongId())+1));
+				sumOfAllRatingsForThesongsMap.put(r.getSongId(), (sumOfAllRatingsForThesongsMap.get(r.getSongId())+r.getRating()));
+			}
+			else{
+				numberOfUserRatedThesongsMap.put(r.getSongId(), 1);
+				sumOfAllRatingsForThesongsMap.put(r.getSongId(), r.getRating());
+			}
+					
+		}
+		
+		HashMap<Long,Double> finalRatingForSongs = new HashMap<Long,Double>();
+		for(long k : numberOfUserRatedThesongsMap.keySet()){
+			double avgRating = (double)sumOfAllRatingsForThesongsMap.get(k)/numberOfUserRatedThesongsMap.get(k);
+			finalRatingForSongs.put(k, avgRating);
+			System.out.println(k+" : "+avgRating);
+		}
+		
+		ArrayList<Song> popularSongs= new ArrayList<Song>();
+		int i=0;
+		while(i<5 && !finalRatingForSongs.isEmpty()){
+			double maxValueInMap=(Collections.max(finalRatingForSongs.values()));  // This will return max value in the Hashmap
+			
+			Iterator<Map.Entry<Long,Double>> iter = finalRatingForSongs.entrySet().iterator();
+			while (iter.hasNext()) {
+				 Map.Entry<Long,Double> entry = iter.next();
+				 if(i>=5)
+	                	break;
+		        	
+		        	if (entry.getValue()==maxValueInMap) {
+		                System.out.println(entry.getKey());     // Print the key with max value
+		                popularSongs.add(songService.findSongById(entry.getKey()));
+		                i++;
+		                iter.remove();
+		                System.out.println("removed");
+		            }
+				}
+			
+			
+		}
+		
+		System.out.println("Pop songs list : "+popularSongs.size());
+
+		return popularSongs;
+	}
 
 }
+
+
+   

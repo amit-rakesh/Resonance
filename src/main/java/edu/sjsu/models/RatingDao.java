@@ -10,4 +10,7 @@ public interface RatingDao extends CrudRepository<Rating, Long> {
 	
 	@Query(value="SELECT * FROM rating where userid=?1",nativeQuery = true)
     ArrayList<Rating> ratingsGivenByMe(long userid);
+	
+	@Query(value="SELECT * FROM rating ",nativeQuery = true)
+    ArrayList<Rating> getRagingForAllSongs();
 }
