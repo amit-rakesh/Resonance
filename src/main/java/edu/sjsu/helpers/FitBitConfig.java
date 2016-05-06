@@ -20,8 +20,8 @@ public class FitBitConfig {
 	private static final String ACCESS_TOKEN_URL = "https://api.fitbit.com/oauth2/token";
 	private static final String REFRESH_TOKEN_URL = "https://api.fitbit.com/oauth2/token";
 
-	private static final String CLIENT_KEY = "227LXW";
-	private static final String CLIENT_SECRET = "c78815c756aefe00cb7373dea8cfbe74";
+	private static final String CLIENT_KEY = "xxxx";
+	private static final String CLIENT_SECRET = "xxxxxxxxxxxx";
 	
 	private UserFitBitConfig fitbitObj;
 

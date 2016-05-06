@@ -42,12 +42,16 @@ public class FitBitApi {
 		final long ONE_MINUTE_IN_MILLIS=60000;
 		String body = null;
 		SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+		
 		String startTime = sdf.format(new Date());
+		
 		System.out.println(startTime);
 		Calendar date = Calendar.getInstance();
 		long t= date.getTimeInMillis();
 		Date afterAddingFiveMins=new Date(t + (5 * ONE_MINUTE_IN_MILLIS));
+		
 		String endTime = sdf.format(afterAddingFiveMins);
+		
 		System.out.println(endTime);
 		
 		MultiValueMap<String, String> headers = new LinkedMultiValueMap<String, String>();

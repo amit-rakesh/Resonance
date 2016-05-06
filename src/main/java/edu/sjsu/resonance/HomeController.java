@@ -142,7 +142,7 @@ public class HomeController {
 		URI uri = new URI("http://localhost:8080/resonance/callback");
 		
 		redirectAttributes.addAttribute("response_type", "code");
-		redirectAttributes.addAttribute("client_id", "227LXW");
+		redirectAttributes.addAttribute("xxxx", "xxxxx");
 		redirectAttributes.addFlashAttribute("redirect_uri", uri);
 		redirectAttributes.addAttribute("scope", "profile heartrate");
 		redirectAttributes.addAttribute("prompt", "consent");
