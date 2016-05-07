@@ -625,7 +625,7 @@ public class UserController {
 		
 		userService.createEvent(event);
 		
-		return new ResponseEntity<String>("Hello", HttpStatus.CREATED);
+		return new ResponseEntity<String>("http://localhost:8080/resonance/user/getNearEvents", HttpStatus.CREATED);
 		
 		
 	}

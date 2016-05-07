@@ -19,7 +19,9 @@
 
 		<li><a href="<c:url value="/blog/create" /> ">Blog</a></li>
 
-		<li><a href="<c:url value="/user/createEvent" /> ">Create Event</a></li>
+		<!-- <li><a href="<c:url value="/user/createEvent" /> ">Create Event</a></li>
+		 -->
+		
 		<li><a href="<c:url value="/user/getNearEvents" /> ">Events Near you</a></li>
 
 		<li><a href="<c:url value="/user/getTrending" /> ">Trending</a></li>
