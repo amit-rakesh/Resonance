@@ -218,14 +218,18 @@ public class UserController {
 		byte[] userImage = userOb.getUserPicture();
 
 		byte[] encodeBase64 = Base64.encodeBase64(userImage);
+		
+		
 		String base64Encoded = "";
 		if(encodeBase64 != null){
-			try {
-				base64Encoded = new String(encodeBase64, "UTF-8");
-			} catch (UnsupportedEncodingException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+
+		try {
+			base64Encoded = new String(encodeBase64, "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+
+		}
 		}
 		model.addAttribute("userimage", base64Encoded);
 		
@@ -243,13 +247,16 @@ public class UserController {
 
 		byte[] encodeBase64 = Base64.encodeBase64(userImage);
 		String base64Encoded = "";
-		if(encodeBase64 != null){
-			try {
-				base64Encoded = new String(encodeBase64, "UTF-8");
-			} catch (UnsupportedEncodingException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+
+		
+		if(encodeBase64 !=null){
+		try {
+			base64Encoded = new String(encodeBase64, "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+
+		}
 		}
 		model.addAttribute("userimage", base64Encoded);
 		
@@ -436,13 +443,15 @@ public class UserController {
 
 		byte[] encodeBase64 = Base64.encodeBase64(userImage);
 		String base64Encoded = "";
-		if(encodeBase64 != null){
-			try {
-				base64Encoded = new String(encodeBase64, "UTF-8");
-			} catch (UnsupportedEncodingException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+
+		if(encodeBase64 !=null){
+		try {
+			base64Encoded = new String(encodeBase64, "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+
+		}
 		}
 		model.addAttribute("userimage", base64Encoded);
 		model.addAttribute("user", user );
