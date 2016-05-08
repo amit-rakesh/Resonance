@@ -1,18 +1,25 @@
 @CHARSET "ISO-8859-1";
 
+@import
+	url(https://fonts.googleapis.com/css?family=Roboto+Mono:400,300,500,300italic,100)
+	;
+
 html {
 	font-size: 100%;
 }
 
 body {
-	font-family: Verdana;
+	background-image:
+		url("http://wallpaperhd4k.com/wp-content/uploads/2015/10/green-day-group-music-concert.jpg");
+	backgroun-size: 100%;
+	overflow: none;
+	font-family: 'Roboto Mono', helvetica, "open sans";
 }
 
 .body {
 	width: auto;
 	height: auto;
-
-	 padding-top: 70px;
+	padding-top: 70px;
 }
 
 .showImage {
@@ -55,4 +62,20 @@ body {
 	font-family: Montserrat;
 	padding: 0 20px 0 50px;
 	outline: none;
+}
+
+.center {
+	float: none !important;
+	margin-left: auto;
+	margin-right: auto;
+	clear: both;
+}
+
+.outbox {
+	padding: 20px 10px;
+	background-color: rgba(0, 0, 0, 0.65);
+}
+
+.outbox.bright {
+	background-color: rgba(255, 255, 255, 0.65);
 }
