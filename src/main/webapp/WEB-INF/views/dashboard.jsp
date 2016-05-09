@@ -12,23 +12,18 @@
 
 <title>Popup contact form</title>
 
-<%-- <link href="<c:url value="resources/css/elements.css" />"
+<link href="<c:url value="/resources/css/dashboard.css" />"
 	rel="stylesheet">
-<link href="<c:url value = "resources/css/style.css" />"
-	rel="stylesheet">
-<link href="<c:url value="resources/css/bootstrap.css" />"
-	rel="stylesheet">
-<link href="<c:url value="resources/css/bootstrap.min.css" />"
-	rel="stylesheet">
-<link href="<c:url value="resources/css/sidebar.css" />"
-	rel="stylesheet">
- --%>
 </head>
 <!-- Body Starts Here -->
 <body>
 	<div class="container-fluid" id="userprofile">
-
-		<section id="profile" class="center col-sm-6 outbox">
+		<div class="header">
+			<h3 class="text-center text-muted">
+				<strong>User</strong> Profile
+			</h3>
+		</div>
+		<section id="profile" class="center col-sm-6 outbox bright">
 		<div id="actions">
 			<div class="text-right">
 				<a href="<c:url value="/user/editInformation" />" type="button"

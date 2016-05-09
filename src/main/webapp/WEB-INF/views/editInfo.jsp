@@ -10,113 +10,107 @@
 <META http-equiv="Content-Type" content="text/html;charset=UTF-8">
 
 <title>Edit Information</title>
-
-
-<link href="<c:url value="resources/css/elements.css" />"
+<link href="<c:url value="/resources/css/dashboard.css" />"
 	rel="stylesheet">
-<link href="<c:url value = "resources/css/style.css" />"
-	rel="stylesheet">
-<link href="<c:url value="resources/css/bootstrap.css" />"
-	rel="stylesheet">
-<link href="<c:url value="resources/css/bootstrap.min.css" />"
-	rel="stylesheet">
-<link href="<c:url value="resources/css/sidebar.css" />"
-	rel="stylesheet">
-
 <script>
-function Validate()
-{
-var image =document.getElementById("image").value;
-if(image!=''){
-var checkimg = image.toLowerCase();
-if (!checkimg.match(/(\.jpg|\.png|\.JPG|\.PNG|\.jpeg|\.JPEG)$/)){
-alert("Please enter Image File Extensions .jpg,.png,.jpeg");
-document.getElementById("image").focus();
-return false;
-}
-}
-return true;
-} 
+	function Validate() {
+		var image = document.getElementById("image").value;
+		if (image != '') {
+			var checkimg = image.toLowerCase();
+			if (!checkimg.match(/(\.jpg|\.png|\.JPG|\.PNG|\.jpeg|\.JPEG)$/)) {
+				alert("Please enter Image File Extensions .jpg,.png,.jpeg");
+				document.getElementById("image").focus();
+				return false;
+			}
+		}
+		return true;
+	}
 </script>
 </head>
 
 
 <body>
-
-<div class="panel panel-info">
-		<div class="panel-heading">
-			<h3 class="panel-title">Edit Information</h3>
+	<div class="container-fluid">
+		<div class="header">
+			<h3 class="text-center text-muted">
+				<strong>Edit</strong> Information
+			</h3>
 		</div>
-		<div class="panel-body">
-			<div class="row">
-				
-				<form:form action="/resonance/user/edit" id="form" method="post"
-			name="form" modelAttribute="user" enctype="multipart/form-data" onSubmit="return Validate();">
-				<div class=" col-md-9 col-lg-9 col-sm-9">
-				
-					<table class="table table-user-information">
-						<tbody>
-							<tr>
-							
-								<td>UserName</td>
-								<td><form:input path="name" type="text" class="form-control"
-					id="formGroupExampleInput" value="${user.name}" /></td>
-							</tr>
-							<tr>
-								<td>Email</td>
-								<td><form:input path="email" type="text" class="form-control"
-					id="formGroupExampleInput" value="${user.email}" /></td>
-							</tr>
-							<tr>
-								<td>State</td>
-								<td><form:input path="state" type="text" class="form-control"
-					id="formGroupExampleInput" value="${user.state}" /></td>
-							</tr>
-							<tr>
-								<td>Country</td>
-								<td><form:input path="country" type="text" class="form-control"
-					id="formGroupExampleInput" value="${user.country}" /></td>
-							</tr>
-							<tr>
-								<td>Age</td>
-								<td><form:input path="age" type="text" class="form-control"
-					id="formGroupExampleInput" value="${user.age}" /></td>
-							</tr>
-							<tr>
-								<td>Sex</td>
-								<td><form:input path="sex" type="text" class="form-control"
-					id="formGroupExampleInput" value="${user.sex}" /></td>
-							</tr>
-						</tbody>
-					</table>
-					
+		<form:form class="form-horizontal col-sm-6 outbox bright center"
+			action="/resonance/user/edit" id="form" method="post" name="form"
+			modelAttribute="user" enctype="multipart/form-data"
+			onSubmit="return Validate();">
+			<header>
+
+				<div class="col-sm-6 center">
+					<div class="img-wrapper">
+						<img alt="User Pic" src="data:image/jpeg;base64,${userimage}"
+							class="img-responsive" id="userimage" />
+						<div class="clearfix"></div>
+					</div>
+					<input class="filestyle" id="image" name="file" type="file"
+						data-buttonText="Upload Image" data-buttonName="btn-primary"
+						data-iconName="glyphicon glyphicon-camera" />
+					<div class="clearfix"></div>
 				</div>
-				<div class=" col-md-3 col-lg-3 col-sm-3">
-				<table>
-				<tr><td><img alt="User Pic"
-						src="data:image/jpeg;base64,${userimage}"
-						class="img-responsive">
-						</td></tr>
-						<tr><td>
-					<input id="image" name = "file" type="file" />
-					</td></tr>
-					</table>
+			</header>
+
+			<div class="form-content m-t-40">
+				<div class="form-group">
+					<label for="formGroupUsername" class="col-sm-3 control-label">Username:</label>
+					<div class="col-sm-6">
+						<form:input class="form-control" path="name" type="text"
+							id="formGroupUsername" value="${user.name}" />
+					</div>
 				</div>
-				<div class="container-fluid">
-				<div class="row">
-				<div class="col-lg-12 col-md-12 col-sm-12">
-				<button type="submit" value = "upload" class="btn btn-inverse">Submit</button>
-					 
-					<!--  <a href="<c:url value="/user/getDashboard" />" class="btn btn-success" type="submit">Submit</a>
-					 -->
+
+				<div class="form-group">
+					<label for="formGroupEmail" class="col-sm-3 control-label">Email:</label>
+					<div class="col-sm-8">
+						<form:input class="form-control" path="email" type="text"
+							id="formGroupEmail" value="${user.email}" />
 					</div>
+				</div>
+
+				<div class="form-group">
+					<label for="formGroupState" class="col-sm-3 control-label">State:</label>
+					<div class="col-sm-6">
+						<form:input class="form-control" path="state" type="text"
+							id="formGroupState" value="${user.state}" />
 					</div>
+				</div>
+
+				<div class="form-group">
+					<label for="formGroupCountry" class="col-sm-3 control-label">Country:</label>
+					<div class="col-sm-6">
+						<form:input class="form-control" path="country" type="text"
+							id="formGroupCountry" value="${user.country}" />
 					</div>
-				</form:form>
+				</div>
+
+				<div class="form-group">
+					<label for="formGroupSex" class="col-sm-3 control-label">Sex:</label>
+					<div class="col-sm-4">
+						<form:input class="form-control" path="sex" type="text"
+							id="formGroupSex" value="${user.sex}" />
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label for="formGroupAge" class="col-sm-3 control-label">Age:</label>
+					<div class="col-sm-4">
+						<form:input class="form-control" path="age" type="text"
+							id="formGroupAge" value="${user.age}" />
+					</div>
+				</div>
+
+
+				<div id="actions" class="text-right">
+					<button type="submit" value="upload" class="btn btn btn-success">Save</button>
+					<div class="clearfix"></div>
+				</div>
 			</div>
-		</div>
-
-
+		</form:form>
 	</div>
 </body>
 
