@@ -119,7 +119,9 @@ public class UserController {
 		userob.setPassword(null);
 		userob.setToken(null);
 		// return new ResponseEntity<User>(userob, HttpStatus.CREATED);
-		return new ModelAndView("login");
+return new ModelAndView("login");
+		
+		
 	}
 
 	@RequestMapping(value = "/verify/{email}/{token}", method = RequestMethod.GET, produces = "application/json")

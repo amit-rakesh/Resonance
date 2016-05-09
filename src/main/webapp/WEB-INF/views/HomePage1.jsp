@@ -42,8 +42,8 @@
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
                 <li class="active"><a href="<c:url value='HomaPage1.html'/>">Home</a></li>
-                <li class="active"><a href="<c:url value='HomaPage1.html'/>">Sign Up</a></li>
-                <li class="active"><a href="<c:url value='HomaPage1.html'/>">Login</a></li>
+                <li class="active"><a href="<c:url value="/signup" />">Sign Up</a></li>
+                <li class="active"><a href="<c:url value="/login" />">Login</a></li>
                 <li class="active"><a href="<c:url value='HomaPage1.html'/>">Contact</a></li>
             </ul>
         </div>
@@ -182,10 +182,11 @@
     <div class="row modes">
         <div class="col-sm-6 col-md-3">
             <img class="img-circle img-responsive" src="<c:url value='/resources/images/h1.jpg'/>" width="200" height="200">
+            <h3>   Harkirat</h3>
         </div>
         <div class="col-sm-6 col-md-3">
              <img class="img-circle img-responsive" src="<c:url value='/resources/images/a.jpg'/>" width="200" height="200">
-            
+              <h3>   Amit</h3>
         </div>
         
         <div class="clearfix hidden-md hidden-lg"></div>
@@ -193,11 +194,11 @@
         
         <div class="col-sm-6 col-md-3">
              <img class="img-circle img-responsive" src="<c:url value='/resources/images/s.jpg'/>" width="200" height="200">
-          
+              <h3>   Surbhi</h3>
         </div>
         <div class="col-sm-6 col-md-3">
             <img class="img-circle img-responsive" src="<c:url value='/resources/images/r.jpg'/>" width="200" height="200">
-          
+             <h3>   Rajas</h3>
         </div>
             </div>
         </div>

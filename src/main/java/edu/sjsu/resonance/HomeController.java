@@ -82,7 +82,7 @@ public class HomeController {
 		model.addAttribute("serverTime", formattedDate);
 		model.addAttribute("user", new User());
 
-		return "signup";
+		return "signUp1";
 	}
 
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
@@ -97,7 +97,7 @@ public class HomeController {
 		model.addAttribute("serverTime", formattedDate);
 		model.addAttribute("user", new User());
 
-		return "login";
+		return "Login1";
 	}
 	
 	@RequestMapping(value = "/dashboard", method = RequestMethod.GET)
