@@ -59,13 +59,18 @@ function getRating(){
 
 
 	<div class="container-fluid">
-		<div class="col-md-4 col-sm-4 col-xs-4">
-			<button type="button" class="btn btn-info" name="select" id="1"
-				value="1" onclick="getRating()">Latest Song</button>
+		<div class="header">
+			<h3 class="text-center text-muted">
+				<strong>Songs</strong>
+			</h3>
 		</div>
-		<div class="col-md-4 col-sm-4 col-xs-4">
-			<button type="button" class="btn btn-info" name="select" id="2"
-				value="2">My Uploads</button>
+		<div class="text-center">
+			<div class="btn-group" id="filters">
+				<button type="button" class="btn btn-info btn-lg" name="select"
+					id="1" value="1" onclick="getRating()">Latest Song</button>
+				<button type="button" class="btn btn-primary btn-lg" name="select"
+					id="2" value="2">My Uploads</button>
+			</div>
 		</div>
 	</div>
 	<div class="panel panel-info" id="latestsongs" style="display: none;">
@@ -82,24 +87,32 @@ function getRating(){
 								<td>Uploaded By</td>
 								<td>Play Song</td>
 								<td>Rating</td>
-								
+
 							</tr>
 							<c:forEach items="${songs}" var="song" varStatus="i">
 								<tr>
 									<td><c:out value="${song.songTitle}" /></td>
-									<td><a href="<c:url value="/user/otherUser/${song.uploadedByUserId}" /> "><c:out
-												value="${song.uploadedByUserName}" /></a>
-									</td>
+									<td><a
+										href="<c:url value="/user/otherUser/${song.uploadedByUserId}" /> "><c:out
+												value="${song.uploadedByUserName}" /></a></td>
 									<td><audio controls> <source
 											src="<c:url value ="${song.playingUrl}" /> "
 											type="audio/mpeg"></audio></td>
-											<td>
-											<input type = radio id = "${song.songId}1" value="1" name= "${song.songId}" onClick = "submitRating(${song.songId}, 1);">
-											<input type = radio id = "${song.songId}2" value="2" name= "${song.songId}" onClick = "submitRating(${song.songId}, 2);">
-											<input type = radio id = "${song.songId}3" value="3" name= "${song.songId}" onClick = "submitRating(${song.songId}, 3);">
-											<input type = radio id = "${song.songId}4" value="4" name= "${song.songId}" onClick = "submitRating(${song.songId}, 4);">
-											<input type = radio id = "${song.songId}5" value="5" name= "${song.songId}" onClick = "submitRating(${song.songId}, 5);">
-											</td>
+									<td><input type=radio id="${song.songId}1" value="1"
+										name="${song.songId}"
+										onClick="submitRating(${song.songId}, 1);"> <input
+										type=radio id="${song.songId}2" value="2"
+										name="${song.songId}"
+										onClick="submitRating(${song.songId}, 2);"> <input
+										type=radio id="${song.songId}3" value="3"
+										name="${song.songId}"
+										onClick="submitRating(${song.songId}, 3);"> <input
+										type=radio id="${song.songId}4" value="4"
+										name="${song.songId}"
+										onClick="submitRating(${song.songId}, 4);"> <input
+										type=radio id="${song.songId}5" value="5"
+										name="${song.songId}"
+										onClick="submitRating(${song.songId}, 5);"></td>
 								</tr>
 							</c:forEach>
 						</tbody>
@@ -123,7 +136,7 @@ function getRating(){
 							<tr>
 								<td>Song Title</td>
 								<td>Play Song</td>
-								
+
 							</tr>
 							<c:forEach items="${mysongs}" var="song">
 								<tr>
