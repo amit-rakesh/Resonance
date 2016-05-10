@@ -1,26 +1,16 @@
 package edu.sjsu.controllers;
 
+import java.io.BufferedReader;
 import java.io.IOException;
-
+import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
-import java.text.DateFormat;
-
-import org.springframework.http.HttpStatus;
-
-import java.net.*;
-import java.io.*;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Locale;
 import java.util.Map;
-import java.util.Map.Entry;
-import java.net.InetAddress;
-import java.net.NetworkInterface;
-import java.net.SocketException;
-import java.util.Enumeration;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -30,6 +20,7 @@ import javax.validation.Valid;
 import org.apache.commons.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
@@ -49,6 +40,7 @@ import com.amazonaws.util.json.JSONObject;
 
 import edu.sjsu.helpers.BadRequestException;
 import edu.sjsu.helpers.CookieManager;
+import edu.sjsu.helpers.DistanceCalculator;
 import edu.sjsu.helpers.EmailNotification;
 import edu.sjsu.helpers.GetLocation;
 import edu.sjsu.helpers.ServerLocation;
@@ -62,7 +54,6 @@ import edu.sjsu.models.User;
 import edu.sjsu.services.RatingService;
 import edu.sjsu.services.SongService;
 import edu.sjsu.services.UserService;
-import edu.sjsu.helpers.DistanceCalculator;
 
 @Controller
 @ComponentScan
@@ -128,7 +119,9 @@ public class UserController {
 		userob.setPassword(null);
 		userob.setToken(null);
 		// return new ResponseEntity<User>(userob, HttpStatus.CREATED);
-		return new ModelAndView("login");
+return new ModelAndView("login");
+		
+		
 	}
 
 	@RequestMapping(value = "/verify/{email}/{token}", method = RequestMethod.GET, produces = "application/json")

@@ -14,10 +14,6 @@
 
                     <title>Resonance</title>
 
-
-
-                    
-
                     <link rel="stylesheet" href="<c:url value='/resources/css/lay1.css ' />">
                     <link rel="stylesheet" href="<c:url value='/resources/css/lay2.css ' />">
                     <link rel="stylesheet" href="<c:url value='/resources/css/lay3.css ' />">

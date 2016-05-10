@@ -30,7 +30,7 @@
 
 	</ul>
 	<ul class="nav navbar-nav navbar-right">
-		<li><a href="<c:url value="/user/logout" />">Logout</a></li>
+		<li><a class="btn btn-link" href="<c:url value="/user/logout" />">Logout</a></li>
 	</ul>
 </div>
 

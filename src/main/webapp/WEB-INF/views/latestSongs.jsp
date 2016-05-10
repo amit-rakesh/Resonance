@@ -131,7 +131,7 @@ function getRating(){
 		</div>
 		<div class="col-md-4 col-sm-4 col-xs-4">
 			<button type="button" class="btn btn-info" name="select" id="2"
-				value="2" onClick = "getRating()">My Uploads</button>
+				value="2">My Uploads</button>
 		</div>
 		<div class="col-md-4 col-sm-4 col-xs-4">
 			<button type="button" class="btn btn-info" name="select" id="3"
@@ -217,19 +217,19 @@ function getRating(){
 									<span class="star-rating">
 									<input type=radio id="${song.songId}1" value="1"
 										name="${song.songId}"
-										onClick="submitRating(${song.songId}, 1);"> <input
+										onClick="submitRating(${song.songId}, 1);"><i></i> <input
 										type=radio id="${song.songId}2" value="2"
 										name="${song.songId}"
-										onClick="submitRating(${song.songId}, 2);"> <input
+										onClick="submitRating(${song.songId}, 2);"><i></i> <input
 										type=radio id="${song.songId}3" value="3"
 										name="${song.songId}"
-										onClick="submitRating(${song.songId}, 3);"> <input
+										onClick="submitRating(${song.songId}, 3);"><i></i> <input
 										type=radio id="${song.songId}4" value="4"
 										name="${song.songId}"
-										onClick="submitRating(${song.songId}, 4);"> <input
+										onClick="submitRating(${song.songId}, 4);"><i></i> <input
 										type=radio id="${song.songId}5" value="5"
 										name="${song.songId}"
-										onClick="submitRating(${song.songId}, 5);">
+										onClick="submitRating(${song.songId}, 5);"><i></i>
 										</span>
 										</td>
 								</tr>

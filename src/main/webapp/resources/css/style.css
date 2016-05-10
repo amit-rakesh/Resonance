@@ -1,18 +1,25 @@
 @CHARSET "ISO-8859-1";
 
+@import
+	url(https://fonts.googleapis.com/css?family=Roboto+Mono:400,300,500,300italic,100)
+	;
+
 html {
 	font-size: 100%;
 }
 
 body {
-	font-family: Verdana;
+	background-image:
+		url("http://wallpaperhd4k.com/wp-content/uploads/2015/10/green-day-group-music-concert.jpg");
+	backgroun-size: 100%;
+	overflow: none;
+	font-family: 'Roboto Mono', helvetica, "open sans";
 }
 
 .body {
 	width: auto;
 	height: auto;
-
-	 padding-top: 70px;
+	padding-top: 70px;
 }
 
 .showImage {
@@ -55,4 +62,101 @@ body {
 	font-family: Montserrat;
 	padding: 0 20px 0 50px;
 	outline: none;
+}
+
+.center {
+	float: none !important;
+	margin-left: auto;
+	margin-right: auto;
+	clear: both;
+}
+
+.outbox {
+	padding: 20px 10px;
+	background-color: rgba(0, 0, 0, 0.65);
+	border:1px solid #666;
+	box-shadow: 6px 5px 6px 4px #444;
+	-webkit-box-shadow: 6px 5px 6px 4px #444;;
+	-moz-box-shadow: 6px 5px 6px 4px #444;
+}
+
+.bright {
+	background-color: rgba(255, 255, 255, 0.65);
+	border:1px solid #eee;
+	box-shadow: 6px 5px 6px 4px #444;
+	-webkit-box-shadow: 6px 5px 6px 4px #444;;
+	-moz-box-shadow: 6px 5px 6px 4px #444;
+}
+
+.m-b-5{
+	margin-bottom:5px;
+}
+.m-b-10{
+	margin-bottom:10px;
+}
+.m-b-20{
+	margin-bottom:20px;
+}
+
+.m-t-5{
+	margin-top:5px;
+}
+.m-t-10{
+	margin-top:10px;
+}
+.m-t-20{
+	margin-top:20px;
+}
+
+.m-t-40{
+	margin-top:40px;
+}
+
+.m-l-5{
+	margin-left:5px;
+}
+.m-l-10{
+	margin-left:10px;
+}
+.m-l-20{
+	margin-left:20px;
+}
+
+.m-b-5{
+	margin-right:5px;
+}
+.m-b-10{
+	margin-right:10px;
+}
+.m-b-20{
+	margin-right:20px;
+}
+
+.m-a-5{
+	margin:5px;
+}
+.m-a-10{
+	margin:10px;
+}
+.m-a-20{
+	margin:20px;
+}
+form header{
+	border-bottom: 1px solid #aaa;
+	margin-bottom: 40px;
+	padding-top:20px;
+	padding-bottom: 20px;
+}
+form footer {
+	margin-top:40px;
+	border-top: 1px solid #aaa;
+	padding:20px;
+}
+
+.btn-modified-width{
+	width:20% !important;
+}
+
+#searchData{
+	height: 5rem;
 }
