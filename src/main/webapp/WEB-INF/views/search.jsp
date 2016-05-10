@@ -35,7 +35,7 @@
 								+ data,
 						success : function(res) {
 
-							var trhtml = '<tr><th>Song Title</th><th>Play</th></tr>';
+							var trhtml = '<thead><tr><th>Song Title</th><th>Play</th></tr></thead><tbody>';
 
 							for ( var i in res) {
 
@@ -44,8 +44,9 @@
 										+ '</td> <td> <audio controls> <source src="' + res[i].url +'" type="audio/mpeg"> </audio></td>'
 										+ '</tr>';
 							}
-
-							$('#songs').empty().append(trhtml);
+							trhtml += "</tbody>";
+							$('#songDiv').show();
+							$('#songs').html(trhtml).show().end();
 						}
 					});
 
@@ -53,7 +54,7 @@
 
 			document.getElementById('note').style.display = 'none';
 			//document.getElementById('songDiv').style.display = 'none';
-			document.getElementById('userDiv').style.display = 'block';
+			/* document.getElementById('userDiv').style.display = 'block'; */
 			$
 					.ajax({
 						type : "GET",
@@ -61,15 +62,17 @@
 								+ data,
 						success : function(res) {
 
-							var trhtml = '<tr><th>User</th></tr>';
+							var trhtml = '<thead><tr><td>User</td></tr></thead><tbody>';
 
 							for ( var i in res) {
 
 								trhtml += '<tr><td> <a href= "/resonance/user/otherUser/' + res[i].id + ' " > '
 										+ res[i].name + '</a>  </td> </tr>';
 							}
-
-							$('#songs').empty().append(trhtml);
+							
+							trhtml+="</tbody>";
+							$('#songDiv').show();
+							$('#songs').html(trhtml).end();
 						}
 					});
 
@@ -85,27 +88,40 @@
 </head>
 <body>
 
-	<div class="container">
-		<h1>Search</h1>
-		<div class="conatiner">
-			<div class="input-group" style="padding: auto">
-				<span class="input-group-addon" id="basic-addon1">Search</span> <input
-					type="text" class="form-control" id="searchData">
+	<div class="container-fluid">
+		<div class="header">
+			<h3 class="text-center text-muted">
+				<strong>Search</strong> Information
+			</h3>
+		</div>
+
+
+		<div class="col-sm-9 center">
+			<div class="form-inline">
+				<div class="input-group col-sm-8">
+					<div class="btn-group input-group-addon btn-modified-width"
+						data-toggle="buttons" id="basic-aadon1">
+						<label class="btn btn-primary btn-sm"> <input type="radio"
+							name="select" id="1" autocomplete="off"><i
+							class="glyphicon glyphicon-bullhorn"></i>
+						</label> <label class="btn btn-primary btn-sm active checked" checked> <input
+							type="radio" name="select" id="2" autocomplete="off"> <i
+							class="glyphicon glyphicon-user"></i>
+						</label>
+
+					</div>
+					<!-- <span class="input-group-addon" id="basic-addon1">Search</span>  -->
+					<input type="text" class="form-control" id="searchData" />
+
+				</div>
+				<div class="col-sm-4 pull-right">
+					<button type="button" class="btn btn-success btn-lg"
+						onclick="myFunction();">Search</button>
+				</div>
 			</div>
-			<!-- 
-<input type="text" id="searchData"/>
- -->
 			<label id="note"></label>
 
-			<div class="btn-group" data-toggle="buttons"
-				style="padding-top: 10px">
-				<label class="btn btn-primary"> <input type="radio"
-					name="select" id="1" autocomplete="off"> Songs
-				</label> <label class="btn btn-primary"> <input type="radio"
-					name="select" id="2" autocomplete="off"> People
-				</label>
 
-			</div>
 
 			<!-- 
 <input type="radio" name="select" id="1" value="1" >Songs</input>
@@ -116,14 +132,10 @@
 <button onclick="myFunction();">search</button>
 -->
 		</div>
-		<br>
-
-		<button type="button" class="btn btn-success" onclick="myFunction();">Search</button>
-
-		<br> <br> <br>
+		<br> <br> <br> <br>
 
 
-		<div class=" col-md-9 col-lg-9 " id="songDiv">
+		<div class=" col-sm-9 center outbox bright" id="songDiv" style="display:none;">
 			<table class="table table-user-information" id="songs">
 
 			</table>
@@ -131,29 +143,14 @@
 
 
 
-		<div class=" col-md-9 col-lg-9 " id="userDiv">
+		<div class=" col-sm-9 center outbox bright" id="userDiv" style="display:none;">
 			<table class="table table-user-information" id="users">
 
 			</table>
 		</div>
 
 
-		<!-- 
-
-		<div id="songDiv">
-			<table id="songs" width="59%" border="1">
-
-			</table>
-
-		</div>
-
-		<div id="userDiv">
-			<table id="users" width="59%" border="1">
-
-			</table>
-
-		</div>
-	 -->
+		
 	</div>
 </body>
 

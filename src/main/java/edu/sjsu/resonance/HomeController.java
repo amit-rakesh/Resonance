@@ -3,11 +3,8 @@ package edu.sjsu.resonance;
 import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.net.URL;
 import java.text.DateFormat;
-import java.util.Base64;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
@@ -17,29 +14,21 @@ import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.mvc.multiaction.NoSuchRequestHandlingMethodException;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import edu.sjsu.exceptions.ResourceNotFoundException;
 import edu.sjsu.helpers.CookieManager;
 import edu.sjsu.helpers.FitBitApi;
 import edu.sjsu.helpers.FitBitConfig;
 import edu.sjsu.models.Song;
 import edu.sjsu.models.User;
-import edu.sjsu.models.UserFitBitConfig;
 import edu.sjsu.models.UserFitBitConfigDao;
 import edu.sjsu.recommendation.DataWriter;
 
@@ -77,7 +66,8 @@ public class HomeController {
 
 		model.addAttribute("serverTime", formattedDate);
 
-		return "home";
+//		return "home";
+		return "HomePage1";
 	}
 
 	@RequestMapping(value = "/signup", method = RequestMethod.GET)
@@ -92,7 +82,7 @@ public class HomeController {
 		model.addAttribute("serverTime", formattedDate);
 		model.addAttribute("user", new User());
 
-		return "signup";
+		return "signUp1";
 	}
 
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
@@ -107,7 +97,7 @@ public class HomeController {
 		model.addAttribute("serverTime", formattedDate);
 		model.addAttribute("user", new User());
 
-		return "login";
+		return "Login1";
 	}
 	
 	@RequestMapping(value = "/dashboard", method = RequestMethod.GET)
