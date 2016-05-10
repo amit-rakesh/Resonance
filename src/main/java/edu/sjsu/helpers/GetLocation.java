@@ -10,10 +10,9 @@ public class GetLocation {
 
 	public ServerLocation getLocation(String ipAddress) {
 
-		File file = new File("/Users/Surbhi/Documents/Resonance/GeoLiteCity.dat");
-
-		return getLocation(ipAddress, file);
-
+	File file = new File(
+	    "C://Users//rajas//Documents//CMPE295//Resonance//GeoLiteCity.dat");
+	return getLocation(ipAddress, file);
 	}
 
 	public ServerLocation getLocation(String ipAddress, File file) {

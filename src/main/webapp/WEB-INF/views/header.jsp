@@ -16,10 +16,18 @@
 		<li><a href="<c:url value="/song/getUploadSong" />">Upload</a></li>
 		<li><a href="<c:url value="/user/myFriends" /> ">Friends</a></li>
 		<li><a href="<c:url value="/user/search" /> ">Search</a></li>
-		<li><a href="<c:url value="/user/createEvent" /> ">Create Event</a></li>
-		<li><a href="<c:url value="/user/getNearEvents" /> ">Events Near you</a></li>
+
+		
+		<li><a href="<c:url value="/blog/getMyBlogs" /> ">Blog</a></li>
+		<!-- <li><a href="<c:url value="/user/createEvent" /> ">Create Event</a></li>
+		 -->
+
+		<li><a href="<c:url value="/user/getNearEvents" /> ">Events
+				Near you</a></li>
+
 		<li><a href="<c:url value="/user/getTrending" /> ">Trending</a></li>
-	
+
+
 	</ul>
 	<ul class="nav navbar-nav navbar-right">
 		<li><a class="btn btn-link" href="<c:url value="/user/logout" />">Logout</a></li>

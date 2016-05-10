@@ -494,6 +494,7 @@ return new ModelAndView("login");
 				try{
 					o.put("title", songidToSongTitleMap.get(key));
 					o.put("url", songidToSongUrlMap.get(key));
+					o.put("id", key);
 			
 					
 					a.put(o);
@@ -618,7 +619,7 @@ return new ModelAndView("login");
 		
 		userService.createEvent(event);
 		
-		return new ResponseEntity<String>("Hello", HttpStatus.CREATED);
+		return new ResponseEntity<String>("http://localhost:8080/resonance/user/getNearEvents", HttpStatus.CREATED);
 		
 		
 	}
