@@ -38,9 +38,9 @@ public class DataWriter {
 		double relaxingSong = 0;
 		boolean fileWriteDone = false;
 
-		File file = new File("C:/Users/Amit/Desktop/CMPE_Courses/CMPE 295B/Master_Project/Resonance/Data1.csv");
+		File file = new File("C:/Users/rajas/Documents/CMPE295/Resonance/Data1.csv");
 		File completeFile = new File(
-				"C:/Users/Amit/Desktop/CMPE_Courses/CMPE 295B/Master_Project/Resonance/CompleteFitbitData.csv");
+				"C:/Users/rajas/Documents/CMPE295/Resonance/CompleteFitbitData.csv");
 
 		try {
 			file.createNewFile();

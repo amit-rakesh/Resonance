@@ -38,7 +38,12 @@
 			
 			<h4><b><c:out value="${user.name}" /></b></h4>
 			</div>
-			<div class="col-lg-6 col-md-6 col-sm-6">
+			<div class="col-lg-3 col-md-3 col-sm-3">
+			
+			<a href="<c:url value="/blog/getMyBlogs" />" type="button" class="btn btn-success" style="float:right">Blogs</a>
+			
+			</div>
+			<div class="col-lg-3 col-md-3 col-sm-3">
 			
 			<a href="<c:url value="/user/editInformation" />" type="button" class="btn btn-success" style="float:right">EDIT</a>
 			

@@ -501,6 +501,7 @@ public class UserController {
 				try{
 					o.put("title", songidToSongTitleMap.get(key));
 					o.put("url", songidToSongUrlMap.get(key));
+					o.put("id", key);
 			
 					
 					a.put(o);
