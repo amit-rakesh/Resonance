@@ -135,7 +135,7 @@ return new ModelAndView("Login1");
 			userService.create(user);
 			user.setPassword(null);
 			user.setToken(null);
-			return "Email Account verified";
+			return "Login1";
 		} else {
 			throw new BadRequestException("Incorrect user");
 		}

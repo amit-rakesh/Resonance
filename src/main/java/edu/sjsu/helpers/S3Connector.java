@@ -12,22 +12,23 @@ import java.io.File;
 public class S3Connector {
 
 	private static String bucketName = "resonance-295";
-	private static String access_key_id = "";
+	private static String access_key_id = "AKIAIAPF25SRWYMV2SPA";
 
-	private static String secret_access_key = "";
+	private static String secret_access_key = "/VuNgf5XERyN2FfgtjPdSwMxpPM2SM0EWdzWR1eD";
 
-	public String uploadFile(String fileName, String uploadFilePath) {
+	public String uploadFile(String fileName, File uploadFilePath) {
 
 		BasicAWSCredentials awsCreds = new BasicAWSCredentials(access_key_id, secret_access_key);
 		AmazonS3Client s3client = new AmazonS3Client(awsCreds);
 
+		System.out.println("Path : "+uploadFilePath);
 		String url=null;
-		
+		//uploadFilePath ="C://Users//harkirat singh//Desktop//275 report.docx";
 		try {
 			
 			System.out.println("Uploading a new object to S3 from a file\n");
-			File file = new File(uploadFilePath);
-			s3client.putObject(new PutObjectRequest(bucketName, fileName, file));
+			//File file = new File(uploadFilePath);
+			s3client.putObject(new PutObjectRequest(bucketName, fileName, uploadFilePath));
 			url = s3client.getResourceUrl(bucketName, fileName);
 			System.out.println(url);
 		

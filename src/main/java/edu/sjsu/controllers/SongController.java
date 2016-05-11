@@ -1,5 +1,7 @@
 package edu.sjsu.controllers;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -19,7 +21,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import edu.sjsu.helpers.BadRequestException;
@@ -76,7 +80,7 @@ public class SongController {
 	// =================================================
 	@RequestMapping(value = "/upload", method = RequestMethod.POST, produces = "application/json")
 	public ModelAndView createSong(@Valid @ModelAttribute("song") Song song, BindingResult result,
-			HttpServletResponse response) {
+			@RequestParam("file") MultipartFile file, HttpServletResponse response) {
 
 		// System.out.println("UserID : " + song.getUploadedByUserId());
 		System.out.println("Path : " + song.getSongPath());
@@ -84,8 +88,8 @@ public class SongController {
 		if (song.getSongTitle() == null)
 			throw new BadRequestException("Song title required.");
 
-		if (song.getSongPath() == null)
-			throw new BadRequestException("Path is required.");
+	/*	if (song.getSongPath() == null)
+			throw new BadRequestException("Path is required.");*/
 
 		Song songObj = null;
 
@@ -93,14 +97,24 @@ public class SongController {
 		System.out.println(unixTime);
 
 		User currentUser;
-
+		System.out.println("Path : "+file.toString());
 		currentUser = UserCookie.getCurrentUser();
 		long userId = currentUser.getUserid();
 		String userName = currentUser.getName();
 		System.out.println("ID" + currentUser.getUserid());
-
+		File convFile=null;
+		try{
+			 convFile = new File(file.getOriginalFilename());
+			    convFile.createNewFile(); 
+			    FileOutputStream fos = new FileOutputStream(convFile); 
+			    fos.write(file.getBytes());
+			    fos.close();
+		}
+		catch(Exception e){
+			
+		}
 		try {
-			songObj = new Song(song.getSongTitle(), userId, song.getSongPath(), unixTime,userName);
+			songObj = new Song(song.getSongTitle(), userId, convFile.toString(), unixTime,userName);
 			System.out.println("Harkirat : " + song.getSongId());
 			System.out.println("USERID" + song.getUploadedByUserId());
 		} catch (Exception e) {
@@ -110,7 +124,7 @@ public class SongController {
 		System.out.println("Harkirat : " + songObj.getSongPath());
 		songService.create(songObj);
 		String key = songObj.getSongTitle() + songObj.getSongId();
-		String url = s3Connector.uploadFile(key, songObj.getSongPath());
+		String url = s3Connector.uploadFile(key, convFile);
 		songObj.setPlayingUrl(url);
 		songService.create(songObj);
 		return new ModelAndView("uploadSong");

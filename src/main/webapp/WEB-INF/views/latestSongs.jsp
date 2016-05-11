@@ -3,7 +3,7 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
@@ -30,6 +30,7 @@ function submitRating(t, i){
 		   	}
 		});
 }
+
 
 function getRating(){
 	
@@ -58,6 +59,65 @@ function getRating(){
 	</c:forEach>
 
 }
+
+
+
+var startTime;
+var endTime;
+
+function myfunc(id){
+	
+	
+	var d = new Date();
+	 var h = d.getHours();
+	if (h < 10) {
+	        h = "0" + h;
+	    }
+	var m = d.getMinutes();
+	if (m < 10) {
+	        m = "0" + m;
+	    }
+	endTime = h+":"+m;
+	
+	$.ajax({
+		type : "GET",
+		url : "http://localhost:8080/resonance/heartbeat/"+id+"/"+startTime+"/"+endTime,
+		success : function(res) {
+
+			
+		}
+	});
+}
+
+$(document).ready(function(){
+
+
+
+	
+		
+    $("audio").on("play", function() {
+    	var dur = this.duration;
+
+    	var d = new Date();
+    	var h = d.getHours();
+    	if (h < 10) {
+	        h = "0" + h;
+	    }
+    	var m = d.getMinutes();
+    	if (m < 10) {
+	        m = "0" + m;
+	    }
+    	startTime = h+":"+m;
+    	
+        $("audio").not(this).each(function(index, audio) {
+            audio.pause();
+        });
+        
+        
+    });
+    
+ 
+});
 </script>
 </head>
 <body>
@@ -92,7 +152,8 @@ function getRating(){
 						</div>
 						<div class="card-body">
 							<section class="audio-control"> <audio controls
-								class="col-sm-10 center"> <source
+								class="col-sm-10 center"
+								onended="myfunc(${song.songId})"> <source
 								src="<c:url value ="${song.playingUrl}" /> " type="audio/mpeg"></audio>
 							</section>
 							<label>Uploaded By: <a
@@ -124,11 +185,28 @@ function getRating(){
 						<table class="table table-striped table-user-information">
 							<tbody>
 								<tr>
+<<<<<<< HEAD
+									<td><c:out value="${song.songTitle}" /></td>
+									<td><a href="<c:url value="/user/otherUser/${song.uploadedByUserId}" /> "><c:out
+												value="${song.uploadedByUserName}" /></a>
+									</td>
+									<td><audio  controls onended="alert('ended')"> <source
+											src="<c:url value ="${song.playingUrl}" /> "
+											type="audio/mpeg"></audio></td>
+											<td>
+											<input type = radio id = "${song.songId}1" value="1" name= "${song.songId}" onClick = "submitRating(${song.songId}, 1);">
+											<input type = radio id = "${song.songId}2" value="2" name= "${song.songId}" onClick = "submitRating(${song.songId}, 2);">
+											<input type = radio id = "${song.songId}3" value="3" name= "${song.songId}" onClick = "submitRating(${song.songId}, 3);">
+											<input type = radio id = "${song.songId}4" value="4" name= "${song.songId}" onClick = "submitRating(${song.songId}, 4);">
+											<input type = radio id = "${song.songId}5" value="5" name= "${song.songId}" onClick = "submitRating(${song.songId}, 5);">
+											</td>
+=======
 									<td><strong>Song Title</strong></td>
 									<td><strong>Uploaded By</strong></td>
 									<td class="text-center"><strong>Play Song</strong></td>
 									<td class="text-center"><strong>Rating</strong></td>
 
+>>>>>>> master
 								</tr>
 								<c:forEach items="${songs}" var="song" varStatus="i">
 									<tr>
@@ -331,5 +409,5 @@ function getRating(){
 	</div>
 </body>
 <script src="<c:url value="/resources/js/script.js" />"></script>
-<script src="<c:url value="/resources/js/audioTag.js" />"></script>
+
 </html>
