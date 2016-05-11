@@ -75,7 +75,7 @@
 				</div>
 				<div class="col-lg-6 col-md-6 col-sm-6 buttonPosition">
 					<a href="<c:url value="/user/createEvent" />" type="button"
-						class="btn btn-default">Create Event</a>
+						class="btn btn-success">Create Event</a>
 				</div>
 			</div>
 		</div>

@@ -26,7 +26,7 @@ public class RecommendationEngine {
 		DataModel model = null;
 		try {
 			model = new FileDataModel(
-					new File("/Users/Surbhi/Documents/Resonance/Data.csv"));
+					new File("C:/Users/rajas/Documents/CMPE295/Resonance/Data.csv"));
 		} catch (IOException e) {
 			
 			e.printStackTrace();

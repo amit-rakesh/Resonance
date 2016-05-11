@@ -18,7 +18,7 @@
 		<li><a href="<c:url value="/user/search" /> ">Search</a></li>
 
 		
-		<li><a href="<c:url value="/blog/getMyBlogs" /> ">Blog</a></li>
+		<li><a href="<c:url value="/blog" /> ">Blog</a></li>
 		<!-- <li><a href="<c:url value="/user/createEvent" /> ">Create Event</a></li>
 		 -->
 
@@ -30,7 +30,7 @@
 
 	</ul>
 	<ul class="nav navbar-nav navbar-right">
-		<li><a class="btn btn-link" href="<c:url value="/user/logout" />">Logout</a></li>
+		<li><a class="btn" href="<c:url value="/user/logout" />">Logout</a></li>
 	</ul>
 </div>
 

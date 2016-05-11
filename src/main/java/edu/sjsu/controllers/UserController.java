@@ -547,6 +547,9 @@ return new ModelAndView("Login1");
 		
 		User currentUser=cookieManager.getCurrentUser();
 		long currentUserId = currentUser.getUserid();
+		
+		
+		
 		if(id==currentUserId){
 			byte[] userImage = currentUser.getUserPicture();
 
@@ -563,11 +566,24 @@ return new ModelAndView("Login1");
 			return "dashboard";
 		}
 		User user = userService.findUserById(id);
+		/*
+		byte[] otherUserImage = user.getUserPicture();
+		byte[] encodeOtherBase64 = Base64.encodeBase64(otherUserImage);
+		String base64OtherEncoded = "";
+		try{
+			base64OtherEncoded = new String(encodeOtherBase64, "UTF-8");
+		}catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		*/
 		boolean isFriend = peopleIfollow.containsKey(id);
 		System.out.println(isFriend);
 		ArrayList<Song> uploadedByMe = songService.songsUploadedByMe(id); 
 		model.addAttribute("isFriend",isFriend);
 		model.addAttribute(user);
+		//model.addAttribute("otherUserImage",base64OtherEncoded);
 		model.addAttribute("songList",uploadedByMe);
 		return "otherUserProfile";
 

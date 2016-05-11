@@ -33,6 +33,17 @@ public class Blog {
 	@JsonProperty
 	@Column(name = "userid")
 	private Long uploadedByUserId;
+	
+	@Column(name = "username")
+	private String uploadedByUserName;
+
+	public String getUploadedByUserName() {
+		return uploadedByUserName;
+	}
+
+	public void setUploadedByUserName(String uploadedByUserName) {
+		this.uploadedByUserName = uploadedByUserName;
+	}
 
 	@JsonProperty
 	@Column(name = "date")
@@ -52,6 +63,14 @@ public class Blog {
 		this.uploadedByUserId = uploadedByUserId;
 		this.date = date;
 		this.blogContent = blogContent;
+	}
+	public Blog(@JsonProperty String blogTitle, @JsonProperty Long uploadedByUserId, @JsonProperty Date date,
+			@JsonProperty String blogContent,@JsonProperty String uploadedByUserName) {
+		this.blogTitle = blogTitle;
+		this.uploadedByUserId = uploadedByUserId;
+		this.date = date;
+		this.blogContent = blogContent;
+		this.uploadedByUserName=uploadedByUserName;
 	}
 
 	public long getBlogId() {
