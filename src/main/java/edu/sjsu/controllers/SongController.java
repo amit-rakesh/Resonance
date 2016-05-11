@@ -134,6 +134,7 @@ public class SongController {
 
 	
 		ArrayList<Song> recommendedSongs = rSongs.getRecommendedSongs(userOb.getUserid(), 3);
+		
 			
 			for(Song song: recommendedSongs){
 				System.out.println(song.getSongId());
@@ -143,8 +144,6 @@ public class SongController {
 		model.addAttribute("songs", latestsongs );
 		model.addAttribute("mysongs", uploadedByMe );
 		model.addAttribute("recommendedsongs", recommendedSongs);
-		
-		System.out.println("Generate hasmap.....");
 		
 		
 		return "latestSongs";

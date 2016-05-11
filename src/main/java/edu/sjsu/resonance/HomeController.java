@@ -152,7 +152,7 @@ public class HomeController {
 		return "fitbitStart";	
 	}
 	
-	@RequestMapping(value = "/heartbeat/{songid}", method = RequestMethod.GET)
+	@RequestMapping(value = "/heartbeat/{songid}/", method = RequestMethod.GET)
 	@ResponseBody
 	public String getHeartBeatData(@PathVariable("songid") long songid, HttpServletRequest request, HttpServletResponse response){
 		long userId = currentUser.getCurrentUser().getUserid();

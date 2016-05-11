@@ -92,12 +92,12 @@ function getRating(){
 						</div>
 						<div class="card-body">
 							<section class="audio-control"> <audio controls
-								class="col-sm-10 center"> <source
+								class="col-sm-10 center" > <source
 								src="<c:url value ="${song.playingUrl}" /> " type="audio/mpeg"></audio>
 							</section>
 							<label>Uploaded By: <a
 								href="<c:url value="/user/otherUser/${song.uploadedByUserId}" /> "><c:out
-										value="${song.uploadedByUserName}" />${song.uploadedByUserName}</a>
+										value="${song.uploadedByUserName}" /></a>
 							</label>
 						</div>
 						<div class="card-footer">
@@ -265,6 +265,10 @@ function getRating(){
 								class="col-sm-10 center"> <source
 								src="<c:url value ="${song.playingUrl}" /> " type="audio/mpeg"></audio>
 							</section>
+							<label>Uploaded By: <a
+								href="<c:url value="/user/otherUser/${song.uploadedByUserId}" /> "><c:out
+										value="${song.uploadedByUserName}" /></a>
+							</label>
 						</div>
 						<div class="card-footer">
 							rating: <span class="star-rating"> <input type=radio

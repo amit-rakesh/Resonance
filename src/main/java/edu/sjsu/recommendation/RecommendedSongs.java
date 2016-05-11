@@ -16,10 +16,11 @@ public class RecommendedSongs {
 	@Autowired
 	private SongService songService;
 	
-	public ArrayList<Song> songList = new ArrayList<Song>();
+	
 	public List<RecommendedItem> recommendedItem;
 	
 	public ArrayList<Song> getRecommendedSongs(long userid, int numOfRecommendation){
+		ArrayList<Song> songList = new ArrayList<Song>();
 		RecommendationEngine rc = new RecommendationEngine();
 		recommendedItem = rc.getUserBasedRecommendation(userid, numOfRecommendation);
 		for(RecommendedItem ri : recommendedItem){

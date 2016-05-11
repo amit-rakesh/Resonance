@@ -24,7 +24,7 @@ public class ExceptionHandlerController{
 		String error = th.getMessage();
 		model.addAttribute("error", error);
 		model.addAttribute(new User());
-		return "login";
+		return "Login1";
 	}
 	
 	@ExceptionHandler(NoSuchRequestHandlingMethodException.class)
