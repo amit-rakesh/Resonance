@@ -157,6 +157,10 @@ form footer {
 	width:20% !important;
 }
 
+.buttonPosition{
+	margin-bottom: 10px;
+}
+
 #searchData{
 	height: 5rem;
 }

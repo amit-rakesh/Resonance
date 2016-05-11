@@ -182,11 +182,11 @@
     <div class="row modes">
         <div class="col-sm-6 col-md-3">
             <img class="img-circle img-responsive" src="<c:url value='/resources/images/h1.jpg'/>" width="200" height="200">
-            <h3>   Harkirat</h3>
+            <h4 class="namePosition">Harkirat</h4>
         </div>
         <div class="col-sm-6 col-md-3">
              <img class="img-circle img-responsive" src="<c:url value='/resources/images/a.jpg'/>" width="200" height="200">
-              <h3>   Amit</h3>
+              <h4 class="namePosition">Amit</h4>
         </div>
         
         <div class="clearfix hidden-md hidden-lg"></div>
@@ -194,11 +194,11 @@
         
         <div class="col-sm-6 col-md-3">
              <img class="img-circle img-responsive" src="<c:url value='/resources/images/s.jpg'/>" width="200" height="200">
-              <h3>   Surbhi</h3>
+              <h4 class="namePosition">Surbhi</h4>
         </div>
         <div class="col-sm-6 col-md-3">
             <img class="img-circle img-responsive" src="<c:url value='/resources/images/r.jpg'/>" width="200" height="200">
-             <h3>   Rajas</h3>
+             <h4 class="namePosition">Rajas</h4>
         </div>
             </div>
         </div>

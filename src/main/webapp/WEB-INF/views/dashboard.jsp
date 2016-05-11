@@ -17,11 +17,13 @@
 </head>
 <!-- Body Starts Here -->
 <body>
+
 	<div class="container-fluid" id="userprofile">
 		<div class="header">
 			<h3 class="text-center text-muted">
 				<strong>User</strong> Profile
 			</h3>
+
 		</div>
 		<section id="profile" class="center col-sm-6 outbox bright">
 		<div id="actions">

@@ -80,7 +80,8 @@
 			                        	<label class="sr-only" for="form-password">Password</label>
 			                        	<form:input path="password" type="password" name="form-password" placeholder="Password..." class="form-password form-control" id="form-password"/>
 			                        </div>
-			                        <button type="submit" class="btn">Sign in!</button> <br /> <a href="#"><p class="small">Forgot your password?</p></a>
+			                        <button type="submit" class="btn">Sign in!</button> <br /> 
+			                        <span class="sign_up">Don't have an account? <a href="<c:url value='/signup' />" class="sign_up">Sign up here</a></span>
 			                    </form>
 		                    </div>
                         </div>

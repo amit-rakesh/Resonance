@@ -119,7 +119,7 @@ public class UserController {
 		userob.setPassword(null);
 		userob.setToken(null);
 		// return new ResponseEntity<User>(userob, HttpStatus.CREATED);
-return new ModelAndView("login");
+return new ModelAndView("Login1");
 		
 		
 	}
@@ -266,7 +266,7 @@ return new ModelAndView("login");
 		cookie1.setPath("/");
 		cookie1.setMaxAge(0);
 		response.addCookie(cookie1);
-		return "home";
+		return "HomePage1";
 	}
 	
 	//User follow
@@ -494,6 +494,7 @@ return new ModelAndView("login");
 				try{
 					o.put("title", songidToSongTitleMap.get(key));
 					o.put("url", songidToSongUrlMap.get(key));
+					o.put("id", key);
 			
 					
 					a.put(o);
@@ -618,7 +619,7 @@ return new ModelAndView("login");
 		
 		userService.createEvent(event);
 		
-		return new ResponseEntity<String>("Hello", HttpStatus.CREATED);
+		return new ResponseEntity<String>("http://localhost:8080/resonance/user/getNearEvents", HttpStatus.CREATED);
 		
 		
 	}
@@ -672,6 +673,7 @@ return new ModelAndView("login");
 		
 		ArrayList<Song> songs = popSongs();
 		ArrayList<User> users = userService.getTrendingUsers();
+		System.out.println(users.size());
 		model.addAttribute("users",users);
 		model.addAttribute("songs",songs);
 		return "Trending";

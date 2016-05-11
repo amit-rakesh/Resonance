@@ -96,7 +96,7 @@
                                     
                                     <div class="form-group">
 			                        	<label class="sr-only" for="form-password">Re-enter Password</label>
-			                        	<form:input path="password" type="password" name="form-password" placeholder="Re-enter Password..." class="form-password form-control" id="form-password" data-validate="validate(required)"/>
+			                        	<input type="password" name="form-password" placeholder="Re-enter Password..." class="form-password form-control" id="form-password" data-validate="validate(required)"/>
 			                        </div>
                                     
                                     <div class="form-group">
@@ -110,6 +110,7 @@
 			                        </div>
                                     
 			                        <button type="submit" class="btn" onclick="registeruser();">Sign me up!</button>
+			                        <span class="sign_up">Already have a account? <a href="<c:url value="/login" />" class="sign_up">Log in here</a></span>
 			                    </form>
 		                    </div>
                         </div>

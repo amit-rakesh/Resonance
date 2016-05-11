@@ -48,9 +48,9 @@ public class BlogController {
 		return "blog";
 	}
 
-	@RequestMapping(value = "/{userid}", method = RequestMethod.GET)
-	public String getBlogByUser(@PathVariable(value = "userid") long userid, HttpServletRequest request,
-			HttpServletResponse response, Model model) {
+	@RequestMapping(value = "/getMyBlogs", method = RequestMethod.GET)
+	public String getBlogByUser(HttpServletRequest request, HttpServletResponse response, Model model) {
+		Long userid = cookieManger.getCurrentUser().getUserid();
 		ArrayList<Blog> blog = blogService.blogsUploadedByUserId(userid);
 		for(Blog b : blog){
 			System.out.println("" + b.getBlogTitle() + "....." + b.getUploadedByUserId() + "..." + b.getBlogContent()+ "..." + b.getDate()+ "..." + b.getDate().toString());
@@ -78,6 +78,6 @@ public class BlogController {
 		blogOb = new Blog(blog.getBlogTitle(), user.getUserid(), Calendar.getInstance().getTime(), blog.getBlogContent());
 		System.out.println("in create -->" + Calendar.getInstance().getTime() + "..." + Calendar.getInstance().getTime().toString());
 		blogService.create(blogOb);
-		return "redirect:/blog/" + user.getUserid();
+		return "redirect:/blog/getMyBlogs";
 	}
 }
