@@ -11,7 +11,7 @@ public class GetLocation {
 	public ServerLocation getLocation(String ipAddress) {
 
 	File file = new File(
-	    "C://Users//rajas//Documents//CMPE295//Resonance//GeoLiteCity.dat");
+	    "/Users/Surbhi/Documents/Resonance/GeoLiteCity.dat");
 	return getLocation(ipAddress, file);
 	}
 

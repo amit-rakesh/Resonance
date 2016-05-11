@@ -110,6 +110,7 @@
 			                        </div>
                                     
 			                        <button type="submit" class="btn" onclick="registeruser();">Sign me up!</button>
+			                        <span class="sign_up">Already have a account? <a href="<c:url value="/login" />" class="sign_up">Log in here</a></span>
 			                    </form>
 		                    </div>
                         </div>

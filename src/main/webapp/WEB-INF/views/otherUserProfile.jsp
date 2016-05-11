@@ -11,9 +11,6 @@
 <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
 <!-- <script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>  -->
 <style>
-body {
-	background: #fafafa;
-}
 
 .container {
 	margin: 20px;
@@ -129,83 +126,84 @@ button.followButton.unfollow {
 	border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
 }
 </style>
+
+<link rel="stylesheet" href="<c:url value='/resources/css/songs.css' />" />
 <script>
+	$('body').on(
+			'click',
+			'button.followButton',
+			function(e) {
+				//alert(e);
+				var userid = "${user.userid}";
+				//alert(userid);
+				e.preventDefault();
+				$button = $(this);
+				if ($button.hasClass('following')) {
 
-$('body').on('click', 'button.followButton' ,function(e){
-	//alert(e);
-	var userid = "${user.userid}";	
-	//alert(userid);
-    e.preventDefault();
-    $button = $(this);
-    if($button.hasClass('following')){
-        
-        //$.ajax(); Do Unfollow
-        
-        $.ajax({ 
-		   type: "POST",
-		   url: "http://localhost:8080/resonance/user/unfollow/" + userid,
-		   success: function(res){  
-			   		       
-		      //alert("sucess");
-		   	}
-		});
-        
-        
-        $button.removeClass('following');
-        $button.removeClass('unfollow');
-        $button.text('Follow');
-    } else {
-        
-        // $.ajax(); Do Follow
-        $.ajax({ 
-		   type: "POST",
-		   url: "http://localhost:8080/resonance/user/follow/" + userid,
-		   success: function(res){  
-			   		       
-		      //alert("sucess");
-		   	}
-		});
-        
-        $button.addClass('following');
-        $button.text('Following');
-    }
-});
+					//$.ajax(); Do Unfollow
 
-$('body').on('mouseenter', 'button.followButton', function(){
-     $button = $(this);
-    if($button.hasClass('following')){
-        $button.addClass('unfollow');
-        $button.text('Unfollow');
-    }
+					$.ajax({
+						type : "POST",
+						url : "http://localhost:8080/resonance/user/unfollow/"
+								+ userid,
+						success : function(res) {
 
-});
+							//alert("sucess");
+						}
+					});
 
-$('body').on('mouseleave', 'button.followButton', function(){
-     $button = $(this);
-     if($button.hasClass('following')){
-         $button.removeClass('unfollow');
-         $button.text('Following');
-     }
+					$button.removeClass('following');
+					$button.removeClass('unfollow');
+					$button.text('Follow');
+				} else {
 
-});
+					// $.ajax(); Do Follow
+					$.ajax({
+						type : "POST",
+						url : "http://localhost:8080/resonance/user/follow/"
+								+ userid,
+						success : function(res) {
 
+							//alert("sucess");
+						}
+					});
 
-function myFunction(){
-	//alert("Hello");
-	var isFriend = ("${isFriend}");
-	//alert(isFriend);
-	if(isFriend=="true"){
-		//alert("hello");
-		$("button").text('Following');
-		$("button").addClass('following');
-		
+					$button.addClass('following');
+					$button.text('Following');
+				}
+			});
+
+	$('body').on('mouseenter', 'button.followButton', function() {
+		$button = $(this);
+		if ($button.hasClass('following')) {
+			$button.addClass('unfollow');
+			$button.text('Unfollow');
+		}
+
+	});
+
+	$('body').on('mouseleave', 'button.followButton', function() {
+		$button = $(this);
+		if ($button.hasClass('following')) {
+			$button.removeClass('unfollow');
+			$button.text('Following');
+		}
+
+	});
+
+	function myFunction() {
+		//alert("Hello");
+		var isFriend = ("${isFriend}");
+		//alert(isFriend);
+		if (isFriend == "true") {
+			//alert("hello");
+			$("button").text('Following');
+			$("button").addClass('following');
+
+		} else {
+
+		}
 	}
-	else{
-		
-	}
-}
-
-
 </script>
 
 <script src="<c:url value="/resources/js/audioTag.js" />"></script>
@@ -213,43 +211,78 @@ function myFunction(){
 
 <body onload="myFunction()">
 
-	<div class="container-fluid" id="followid">
+	<div class="container-fluid">
 
-		<div class="row">
-			<div class="col-lg-3 col-md-3 col-sm-3">
-				<h4>
+		<div class="row" id="followid">
+			<div class="col-sm-2">
+				<h4 class="text-center" style="color:#fff;">
 					<c:out value="${user.name}" />
-					
-					
 				</h4>
 			</div>
-			<div class="col-lg-3 col-md-3 col-sm-3">
+			<div class="col-sm-3 col-sm-offset-7 text-right">
 				<button class="btn followButton" rel="${user.userid }"
 					id="followBtn">Follow</button>
 			</div>
 		</div>
 	</div>
 
+	<div id="latestsongs">
+		<h3 class="text-center text-muted">
+			<strong>Trending</strong> Songs
+		</h3>
+		<div class="col-sm-12">
+			<c:forEach items="${songList}" var="song">
+				<div class="song-card col-md-4 col-lg-3">
+					<div class="card-header text-center">
+						<strong>${song.songTitle}</strong>
+					</div>
+					<div class="card-body">
+						<section class="audio-control"> <audio controls
+							class="col-sm-10 center"> <source
+							src="<c:url value ="${song.playingUrl}" /> " type="audio/mpeg"></audio>
+						</section>
+						<%-- <label>Uploaded By: <a
+								href="<c:url value="/user/otherUser/${song.uploadedByUserId}" /> "><c:out
+										value="${song.uploadedByUserName}" />${song.uploadedByUserName}</a>
+							</label> --%>
+					</div>
+					<%-- <div class="card-footer">
+							rating: <span class="star-rating"> <input type=radio
+								id="${song.songId}1" value="1" name="${song.songId}"
+								onClick="submitRating(${song.songId}, 1);"><i></i> <input
+								type=radio id="${song.songId}2" value="2" name="${song.songId}"
+								onClick="submitRating(${song.songId}, 2);"><i></i> <input
+								type=radio id="${song.songId}3" value="3" name="${song.songId}"
+								onClick="submitRating(${song.songId}, 3);"><i></i> <input
+								type=radio id="${song.songId}4" value="4" name="${song.songId}"
+								onClick="submitRating(${song.songId}, 4);"><i></i> <input
+								type=radio id="${song.songId}5" value="5" name="${song.songId}"
+								onClick="submitRating(${song.songId}, 5);"><i></i>
+							</span>
+						</div> --%>
+				</div>
+			</c:forEach>
+		</div>
+	</div>
 
-	<div class="panel panel-info">
-		
-		<div class="panel-body">
+
+
+
+
+
+	<!-- Other -->
+	<%-- <div class="panel-body">
 			<div class="row">
-
 				<div class=" col-md-12 col-lg-12 ">
 					<table class="table table-user-information">
 						<tbody>
 							<tr>
 								<td>Song Title</td>
-								
 								<td>Play Song</td>
-
 							</tr>
 							<c:forEach items="${songList}" var="song">
-
 								<tr>
 									<td><c:out value="${song.songTitle}" /></td>
-									
 									<td><audio controls> <source
 											src="<c:url value ="${song.playingUrl}" /> "
 											type="audio/mpeg"></audio></td>
@@ -257,39 +290,8 @@ function myFunction(){
 							</c:forEach>
 						</tbody>
 					</table>
-
-
 				</div>
 			</div>
-		</div>
+		</div> --%>
 
-
-	</div>
-
-
-
-
-<!-- 
-	<table width="59%" border="1">
-
-		<tr>
-			<td>Song Title</td>
-			<td>Uploaded By</td>
-			<td>Play Song</td>
-
-		</tr>
-		<c:forEach items="${songList}" var="song">
-
-			<tr>
-				<td><c:out value="${song.songTitle}" /></td>
-				<td><c:out value="${song.uploadedByUserId}" /></td>
-				<td><audio controls> <source
-						src="<c:url value ="${song.playingUrl}" /> " type="audio/mpeg"></audio>
-				</td>
-			</tr>
-		</c:forEach>
-	</table>
- -->
-
-	<!-- /body>
-</html -->
+</body>

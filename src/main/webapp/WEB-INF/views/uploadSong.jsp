@@ -44,7 +44,7 @@
 				</div>
 			</fieldset>
 			<div id="actions" class="text-center">
-				<button type="submit" class="btn btn-success">Submit</button>
+				<button type="submit" class="btn btn-primary">Submit</button>
 			</div>
 			<footer>
 			<p>

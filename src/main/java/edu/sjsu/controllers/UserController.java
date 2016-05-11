@@ -673,6 +673,7 @@ return new ModelAndView("Login1");
 		
 		ArrayList<Song> songs = popSongs();
 		ArrayList<User> users = userService.getTrendingUsers();
+		System.out.println(users.size());
 		model.addAttribute("users",users);
 		model.addAttribute("songs",songs);
 		return "Trending";

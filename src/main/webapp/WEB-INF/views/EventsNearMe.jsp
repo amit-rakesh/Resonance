@@ -64,39 +64,43 @@
 
 </head>
 <body>
-	<div class="panel panel-info">
-		<div class="panel-heading">
-			<div class="container-fluid">
-				<div class="row">
-					<div class="col-lg-6 col-md-6 col-sm-6">
-						<h3 class="panel-title">Events within 50 mile:</h3>
-					</div>
-					<div class="col-lg-6 col-md-6 col-sm-6">
-						<a href="<c:url value="/user/createEvent" />" type="button"
-							class="btn btn-success" style="float: right">create event</a>
-					</div>
+	<div class="outbox bright">
+<div class="">
+		<div class="container-fluid" style="padding:auto">
+			<div class="row">
+				<div class="col-lg-6 col-md-6 col-sm-6">
+					<h2 class="panel-title">
+						<strong>Events within 50 mile radius:</strong>
+					</h2>
+				</div>
+				<div class="col-lg-6 col-md-6 col-sm-6 buttonPosition">
+					<a href="<c:url value="/user/createEvent" />" type="button"
+						class="btn btn-default">Create Event</a>
 				</div>
 			</div>
 		</div>
-		<div class="panel-body">
+</div>
+		<div class="container-fluid">
 			<div class="row">
-				<div class="col-sm-3 col-md-3 col-lg-3">
+				<div class="col-sm-3 col-md-3 col-lg-3"
+					style="height: 100%; overflow: scroll;">
 					<table class="table table-user-information">
 						<tbody>
 							<c:forEach items="${events}" var="event">
 								<tr>
 									<td>${event.eventTitle}</td>
+									<td>${event.address}</td>
 								</tr>
 							</c:forEach>
 						</tbody>
 					</table>
 				</div>
 				<div class="col-sm-9 col-md-9 col-lg-9">
-					<div id="dvMap" style="height: 100%; width: 100%;"></div>
+					<div id="dvMap" style="height: 80%; width: 100%;"></div>
 				</div>
-
 			</div>
 		</div>
+
 	</div>
 
 </body>
