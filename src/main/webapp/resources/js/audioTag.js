@@ -1,8 +1,12 @@
 $(document).ready(function(){
 	
+	var startTime;
 
 		
     $("audio").on("play", function() {
+    	
+    	var d = new Date();
+    	alert(d.getDate());
         $("audio").not(this).each(function(index, audio) {
             audio.pause();
         });

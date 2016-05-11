@@ -119,7 +119,7 @@ public class UserController {
 		userob.setPassword(null);
 		userob.setToken(null);
 		// return new ResponseEntity<User>(userob, HttpStatus.CREATED);
-return new ModelAndView("login");
+return new ModelAndView("Login1");
 		
 		
 	}
@@ -266,7 +266,7 @@ return new ModelAndView("login");
 		cookie1.setPath("/");
 		cookie1.setMaxAge(0);
 		response.addCookie(cookie1);
-		return "home";
+		return "HomePage1";
 	}
 	
 	//User follow
