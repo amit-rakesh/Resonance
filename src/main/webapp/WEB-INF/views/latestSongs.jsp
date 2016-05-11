@@ -8,7 +8,12 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>PlayLists</title>
-<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+
+<link rel="stylesheet" href="<c:url value='/resources/css/songs.css' />" />
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+
+
 
 
 
@@ -54,39 +59,133 @@ function getRating(){
 	</c:forEach>
 
 }
+
+
+
+var startTime;
+var endTime;
+
+function myfunc(id){
+	
+	
+	var d = new Date();
+	 var h = d.getHours();
+	if (h < 10) {
+	        h = "0" + h;
+	    }
+	var m = d.getMinutes();
+	if (m < 10) {
+	        m = "0" + m;
+	    }
+	endTime = h+":"+m;
+	
+	$.ajax({
+		type : "GET",
+		url : "http://localhost:8080/resonance/heartbeat/"+id+"/"+startTime+"/"+endTime,
+		success : function(res) {
+
+			
+		}
+	});
+}
+
+$(document).ready(function(){
+
+
+
+	
+		
+    $("audio").on("play", function() {
+    	var dur = this.duration;
+
+    	var d = new Date();
+    	var h = d.getHours();
+    	if (h < 10) {
+	        h = "0" + h;
+	    }
+    	var m = d.getMinutes();
+    	if (m < 10) {
+	        m = "0" + m;
+	    }
+    	startTime = h+":"+m;
+    	
+        $("audio").not(this).each(function(index, audio) {
+            audio.pause();
+        });
+        
+        
+    });
+    
+ 
+});
 </script>
 </head>
 <body>
 
 
 	<div class="container-fluid">
-		<div class="col-md-4 col-sm-4 col-xs-4">
-			<button type="button" class="btn btn-info" name="select" id="1"
-				value="1" onclick="getRating()">Latest Song</button>
+
+		<div class="header">
+			<div class="text-center">
+				<div class="btn-group" id="filters">
+					<button type="button" class="btn btn-info btn-lg" name="select"
+						id="1" value="1" onclick="getRating()">Latest Song</button>
+
+
+					<button type="button" class="btn btn-success btn-lg" name="select"
+						id="3" value="3">Recommendation</button>
+
+					<button type="button" class="btn btn-warning btn-lg" name="select"
+						id="2" value="2">My Uploads</button>
+				</div>
+			</div>
 		</div>
-		<div class="col-md-4 col-sm-4 col-xs-4">
-			<button type="button" class="btn btn-info" name="select" id="2"
-				value="2">My Uploads</button>
-		</div>
-	</div>
-	<div class="panel panel-info" id="latestsongs" style="display: none;">
-		<div class="panel-heading">
-			<h3 class="panel-title">Latest Songs</h3>
-		</div>
-		<div class="panel-body">
-			<div class="row">
-				<div class=" col-md-12 col-lg-12 ">
-					<table class="table table-user-information">
-						<tbody>
-							<tr>
-								<td>Song Title</td>
-								<td>Uploaded By</td>
-								<td>Play Song</td>
-								<td>Rating</td>
-								
-							</tr>
-							<c:forEach items="${songs}" var="song" varStatus="i">
+		<div id="latestsongs" style="display: block;">
+			<h3 class="text-center text-muted">
+				<strong>Latest</strong> Songs
+			</h3>
+			<div class="col-sm-12">
+				<c:forEach items="${songs}" var="song" varStatus="i">
+					<div class="song-card col-md-4 col-lg-3">
+						<div class="card-header text-center">
+							<strong>${song.songTitle}</strong>
+						</div>
+						<div class="card-body">
+							<section class="audio-control"> <audio controls
+								class="col-sm-10 center"
+								onended="myfunc(${song.songId})"> <source
+								src="<c:url value ="${song.playingUrl}" /> " type="audio/mpeg"></audio>
+							</section>
+							<label>Uploaded By: <a
+								href="<c:url value="/user/otherUser/${song.uploadedByUserId}" /> "><c:out
+										value="${song.uploadedByUserName}" />${song.uploadedByUserName}</a>
+							</label>
+						</div>
+						<div class="card-footer">
+							rating: <span class="star-rating"> <input type=radio
+								id="${song.songId}1" value="1" name="${song.songId}"
+								onClick="submitRating(${song.songId}, 1);"><i></i> <input
+								type=radio id="${song.songId}2" value="2" name="${song.songId}"
+								onClick="submitRating(${song.songId}, 2);"><i></i> <input
+								type=radio id="${song.songId}3" value="3" name="${song.songId}"
+								onClick="submitRating(${song.songId}, 3);"><i></i> <input
+								type=radio id="${song.songId}4" value="4" name="${song.songId}"
+								onClick="submitRating(${song.songId}, 4);"><i></i> <input
+								type=radio id="${song.songId}5" value="5" name="${song.songId}"
+								onClick="submitRating(${song.songId}, 5);"><i></i>
+							</span>
+						</div>
+					</div>
+				</c:forEach>
+			</div>
+
+			<%-- <div class="col-sm-10 outbox bright center">
+				<div class="row">
+					<div class="col-sm-12">
+						<table class="table table-striped table-user-information">
+							<tbody>
 								<tr>
+<<<<<<< HEAD
 									<td><c:out value="${song.songTitle}" /></td>
 									<td><a href="<c:url value="/user/otherUser/${song.uploadedByUserId}" /> "><c:out
 												value="${song.uploadedByUserName}" /></a>
@@ -101,47 +200,214 @@ function getRating(){
 											<input type = radio id = "${song.songId}4" value="4" name= "${song.songId}" onClick = "submitRating(${song.songId}, 4);">
 											<input type = radio id = "${song.songId}5" value="5" name= "${song.songId}" onClick = "submitRating(${song.songId}, 5);">
 											</td>
+=======
+									<td><strong>Song Title</strong></td>
+									<td><strong>Uploaded By</strong></td>
+									<td class="text-center"><strong>Play Song</strong></td>
+									<td class="text-center"><strong>Rating</strong></td>
+
+>>>>>>> master
 								</tr>
-							</c:forEach>
-						</tbody>
-					</table>
+								<c:forEach items="${songs}" var="song" varStatus="i">
+									<tr>
+										<td><c:out value="${song.songTitle}" /></td>
+										<td><a
+											href="<c:url value="/user/otherUser/${song.uploadedByUserId}" /> "><c:out
+													value="${song.uploadedByUserName}" /></a></td>
+										<td><audio controls> <source
+												src="<c:url value ="${song.playingUrl}" /> "
+												type="audio/mpeg"></audio></td>
+
+										<td><span class="star-rating"> <input type=radio
+												id="${song.songId}1" value="1" name="${song.songId}"
+												onClick="submitRating(${song.songId}, 1);"><i></i> <input
+												type=radio id="${song.songId}2" value="2"
+												name="${song.songId}"
+												onClick="submitRating(${song.songId}, 2);"><i></i> <input
+												type=radio id="${song.songId}3" value="3"
+												name="${song.songId}"
+												onClick="submitRating(${song.songId}, 3);"><i></i> <input
+												type=radio id="${song.songId}4" value="4"
+												name="${song.songId}"
+												onClick="submitRating(${song.songId}, 4);"><i></i> <input
+												type=radio id="${song.songId}5" value="5"
+												name="${song.songId}"
+												onClick="submitRating(${song.songId}, 5);"><i></i>
+										</span></td>
+									</tr>
+								</c:forEach>
+							</tbody>
+						</table>
+					</div>
 				</div>
 			</div>
 		</div>
-	</div>
-
-
-
-	<div class="panel panel-info" id="uploadedByMe" style="display: none;">
-		<div class="panel-heading">
-			<h3 class="panel-title">My Uploads</h3>
+ --%>
 		</div>
-		<div class="panel-body">
-			<div class="row">
-				<div class=" col-md-12 col-lg-12 ">
-					<table class="table table-user-information">
-						<tbody>
-							<tr>
-								<td>Song Title</td>
-								<td>Play Song</td>
-								
-							</tr>
-							<c:forEach items="${mysongs}" var="song">
+
+		<div id="uploadedByMe" style="display: none;">
+			<h3 class="text-center text-muted">
+				<strong>My</strong> Uploads
+			</h3>
+
+
+			<div class="col-sm-12">
+				<c:forEach items="${mysongs}" var="song">
+					<div class="song-card col-md-4 col-lg-3">
+						<div class="card-header text-center">
+							<strong>${song.songTitle}</strong>
+						</div>
+						<div class="card-body">
+							<section class="audio-control"> <audio controls
+								class="col-sm-10 center"> <source
+								src="<c:url value ="${song.playingUrl}" /> " type="audio/mpeg"></audio>
+							</section>
+						</div>
+						<div class="card-footer">
+							rating: <span class="star-rating"> <input type=radio
+								id="${song.songId}1" value="1" name="${song.songId}"
+								onClick="submitRating(${song.songId}, 1);"><i></i> <input
+								type=radio id="${song.songId}2" value="2" name="${song.songId}"
+								onClick="submitRating(${song.songId}, 2);"><i></i> <input
+								type=radio id="${song.songId}3" value="3" name="${song.songId}"
+								onClick="submitRating(${song.songId}, 3);"><i></i> <input
+								type=radio id="${song.songId}4" value="4" name="${song.songId}"
+								onClick="submitRating(${song.songId}, 4);"><i></i> <input
+								type=radio id="${song.songId}5" value="5" name="${song.songId}"
+								onClick="submitRating(${song.songId}, 5);"><i></i>
+							</span>
+						</div>
+					</div>
+				</c:forEach>
+			</div>
+
+		</div>
+		<%-- <div class="outbox bright center col-sm-10">
+					<div class="row">
+						<div class=" col-sm-12">
+							<table class="table table-user-information">
+								<tbody>
+									<tr>
+										<td>Song Title</td>
+										<td>Play Song</td>
+										<td>Rating</td>
+									</tr>
+									<c:forEach items="${mysongs}" var="song">
+										<tr>
+											<td><c:out value="${song.songTitle}" /></td>
+											<td><audio controls> <source
+													src="<c:url value ="${song.playingUrl}" /> "
+													type="audio/mpeg"></audio></td>
+											<td><span class="star-rating"> <input type=radio
+													id="${song.songId}1" value="1" name="${song.songId}"
+													onClick="submitRating(${song.songId}, 1);"><i></i>
+													<input type=radio id="${song.songId}2" value="2"
+													name="${song.songId}"
+													onClick="submitRating(${song.songId}, 2);"><i></i>
+													<input type=radio id="${song.songId}3" value="3"
+													name="${song.songId}"
+													onClick="submitRating(${song.songId}, 3);"><i></i>
+													<input type=radio id="${song.songId}4" value="4"
+													name="${song.songId}"
+													onClick="submitRating(${song.songId}, 4);"><i></i>
+													<input type=radio id="${song.songId}5" value="5"
+													name="${song.songId}"
+													onClick="submitRating(${song.songId}, 5);"><i></i>
+											</span></td>
+										</tr>
+									</c:forEach>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div> --%>
+
+
+
+
+		<div id="recommendedsongs" style="display: none;">
+			<h3 class="text-center text-muted">
+				<strong>Recommended</strong> Songs
+			</h3>
+
+
+			<div class="col-sm-12">
+				<c:forEach items="${recommendedsongs}" var="song">
+					<div class="song-card col-md-4 col-lg-3">
+					
+						<div class="card-header text-center">
+							<strong>${song.songTitle}</strong>
+						</div>
+						<div class="card-body">
+							<section class="audio-control"> <audio controls
+								class="col-sm-10 center"> <source
+								src="<c:url value ="${song.playingUrl}" /> " type="audio/mpeg"></audio>
+							</section>
+						</div>
+						<div class="card-footer">
+							rating: <span class="star-rating"> <input type=radio
+								id="${song.songId}1" value="1" name="${song.songId}"
+								onClick="submitRating(${song.songId}, 1);"><i></i> <input
+								type=radio id="${song.songId}2" value="2" name="${song.songId}"
+								onClick="submitRating(${song.songId}, 2);"><i></i> <input
+								type=radio id="${song.songId}3" value="3" name="${song.songId}"
+								onClick="submitRating(${song.songId}, 3);"><i></i> <input
+								type=radio id="${song.songId}4" value="4" name="${song.songId}"
+								onClick="submitRating(${song.songId}, 4);"><i></i> <input
+								type=radio id="${song.songId}5" value="5" name="${song.songId}"
+								onClick="submitRating(${song.songId}, 5);"><i></i>
+							</span>
+						</div>
+						
+					</div>
+					</c:forEach>
+				
+			</div>
+		</div>
+		<%-- <div class="panel-body">
+				<div class="row">
+					<div class=" col-md-12 col-lg-12 ">
+						<table class="table table-user-information">
+							<tbody>
 								<tr>
-									<td><c:out value="${song.songTitle}" /></td>
-									<td><audio controls> <source
-											src="<c:url value ="${song.playingUrl}" /> "
-											type="audio/mpeg"></audio></td>
+									<td>Song Title</td>
+									<td>Play Song</td>
+									<td>Rating</td>
 								</tr>
-							</c:forEach>
-						</tbody>
-					</table>
+								<c:forEach items="${recommendedsongs}" var="song">
+									<tr>
+										<td><c:out value="${song.songTitle}" /></td>
+										<td><audio controls> <source
+												src="<c:url value ="${song.playingUrl}" /> "
+												type="audio/mpeg"></audio></td>
+										<td><span class="star-rating"> <input type=radio
+												id="${song.songId}1" value="1" name="${song.songId}"
+												onClick="submitRating(${song.songId}, 1);"> <i></i><input
+												type=radio id="${song.songId}2" value="2"
+												name="${song.songId}"
+												onClick="submitRating(${song.songId}, 2);"><i></i> <input
+												type=radio id="${song.songId}3" value="3"
+												name="${song.songId}"
+												onClick="submitRating(${song.songId}, 3);"><i></i> <input
+												type=radio id="${song.songId}4" value="4"
+												name="${song.songId}"
+												onClick="submitRating(${song.songId}, 4);"><i></i> <input
+												type=radio id="${song.songId}5" value="5"
+												name="${song.songId}"
+												onClick="submitRating(${song.songId}, 5);"><i></i>
+										</span></td>
+									</tr>
+								</c:forEach>
+							</tbody>
+						</table>
+					</div>
 				</div>
 			</div>
 		</div>
-	</div>
 
+	</div> --%>
+	</div>
 </body>
 <script src="<c:url value="/resources/js/script.js" />"></script>
-<script src="<c:url value="/resources/js/audioTag.js" />"></script>
+
 </html>

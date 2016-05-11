@@ -55,6 +55,21 @@
 		<put-attribute name="body"
 			value="/WEB-INF/views/editInfo.jsp" />
 	</definition>
+	<definition name="blog" extends="base">
+		<put-attribute name="title" value="blog" />
+		<put-attribute name="body"
+			value="/WEB-INF/views/blog.jsp" />
+	</definition>
+	<definition name="Blogs" extends="base">
+		<put-attribute name="title" value="Blogs" />
+		<put-attribute name="body"
+			value="/WEB-INF/views/Blogs.jsp" />
+	</definition>
+	<definition name="uploadBlog" extends="base">
+		<put-attribute name="title" value="uploadBlog" />
+		<put-attribute name="body"
+			value="/WEB-INF/views/uploadBlog.jsp" />
+	</definition>
 	
 	<definition name="createEvent" extends="base">
 		<put-attribute name="title" value="createEvent" />

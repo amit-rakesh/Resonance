@@ -8,7 +8,7 @@ $(document).ready(function(){
 		
     $("audio").on("play", function() {
     	var dur = this.duration;
-    	alert(dur);
+    	
     	var d = new Date();
     	var h = d.getHours();
     	if (h < 10) {
@@ -19,7 +19,7 @@ $(document).ready(function(){
 	        m = "0" + m;
 	    }
     	startTime = h+":"+m;
-    	alert(startTime);
+    	
         $("audio").not(this).each(function(index, audio) {
             audio.pause();
         });
@@ -43,14 +43,7 @@ $(document).ready(function(){
 	 	
  	 alert(endTime);
  
- 		$.ajax({
-    		type : "GET",
-    		url : "http://localhost:8080/resonance/heartbeat/"+songid+"/"+startTime+"/"+dur,
-    		success : function(res) {
-
-    			
-    		}
-    	});
+ 		
  	
  	 
     });*/

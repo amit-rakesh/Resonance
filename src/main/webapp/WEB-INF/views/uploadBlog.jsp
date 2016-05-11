@@ -15,7 +15,7 @@
 		<form:input type="text" path="blogTitle" id="title"
 			class="form-control" placeholder="Title"
 			 /> <p>
-		<form:textarea rows="25" cols="80"  path="blogContent" id="blogContent"
+		<form:textarea rows="10" cols="60"  path="blogContent" id="blogContent"
 			class="form-control" placeholder="Write Your Blog Here...."
 			 /> <p>
 		<button type="submit" ">upload</button>

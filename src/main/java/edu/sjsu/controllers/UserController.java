@@ -135,7 +135,7 @@ return new ModelAndView("Login1");
 			userService.create(user);
 			user.setPassword(null);
 			user.setToken(null);
-			return "Email Account verified";
+			return "Login1";
 		} else {
 			throw new BadRequestException("Incorrect user");
 		}
@@ -494,6 +494,7 @@ return new ModelAndView("Login1");
 				try{
 					o.put("title", songidToSongTitleMap.get(key));
 					o.put("url", songidToSongUrlMap.get(key));
+					o.put("id", key);
 			
 					
 					a.put(o);
@@ -618,7 +619,7 @@ return new ModelAndView("Login1");
 		
 		userService.createEvent(event);
 		
-		return new ResponseEntity<String>("Hello", HttpStatus.CREATED);
+		return new ResponseEntity<String>("http://localhost:8080/resonance/user/getNearEvents", HttpStatus.CREATED);
 		
 		
 	}
@@ -672,6 +673,7 @@ return new ModelAndView("Login1");
 		
 		ArrayList<Song> songs = popSongs();
 		ArrayList<User> users = userService.getTrendingUsers();
+		System.out.println(users.size());
 		model.addAttribute("users",users);
 		model.addAttribute("songs",songs);
 		return "Trending";

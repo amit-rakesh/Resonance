@@ -38,9 +38,11 @@ public class DataWriter {
 		double relaxingSong = 0;
 		boolean fileWriteDone = false;
 
+
 		File file = new File("H:/harkirat/Study/sem4/Project-3-31/Resonance-1/Data1.csv");
 		File completeFile = new File(
 				"H:/harkirat/Study/sem4/Project-3-31/Resonance-1/CompleteFitbitData.csv");
+
 
 		try {
 			file.createNewFile();
