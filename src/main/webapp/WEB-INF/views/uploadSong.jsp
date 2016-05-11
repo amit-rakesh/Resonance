@@ -25,7 +25,9 @@
 		<!-- <div class="uploadSongForm"> -->
 		<form:form class="form-horizontal outbox bright center col-sm-6"
 			action="/resonance/song/upload" id="form" method="post" name="form"
-			modelAttribute="song">
+
+			modelAttribute="song" enctype="multipart/form-data">
+
 			<fieldset class="form-group">
 				<!-- <label for="formGroupExampleInput" class="control label col-sm-3">Song
 					Title</label> -->
@@ -38,7 +40,9 @@
 			<fieldset class="form-group">
 				<!-- <label for="formGroupExampleInput2">File </label> -->
 				<div class="col-sm-7 col-sm-offset-3">
-					<form:input class="filestyle" name="file" path="songPath" type="file"
+
+					<input class="filestyle"  type="file" name="file"
+
 						data-buttonText="Upload Song" data-buttonName="btn-warning"
 						data-iconName="glyphicon glyphicon-headphones" />
 				</div>

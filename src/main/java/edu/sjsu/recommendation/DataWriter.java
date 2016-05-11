@@ -38,6 +38,7 @@ public class DataWriter {
 		double relaxingSong = 0;
 		boolean fileWriteDone = false;
 
+
 		File file = new File("C:/Users/rajas/Documents/CMPE295/Resonance/Data1.csv");
 		File completeFile = new File(
 				"C:/Users/rajas/Documents/CMPE295/Resonance/CompleteFitbitData.csv");
