@@ -20,44 +20,37 @@
 
 </head>
 <body>
-	<div class="panel panel-info">
-		<div class="panel-heading">
-			<h3 class="panel-title">Edit Information</h3>
-		</div>
-		<div class="panel-body">
+	<div class="outbox bright">
+		<div class="container">
 			<div class="row">
 				<form id="MyForm" name="MyForm" action="form.html">
 					<div class=" col-md-6 col-lg-6 col-sm-6">
-						<table class="table table-user-information">
-							<tbody>
-								<tr>
-									<td><label for="Title"> Title</label> <input id="Name"
-										name="Name" type="text" /></td>
-								</tr>
-								<tr>
-									<td><label for="FullAddress"> Address</label> <textarea
-											id="FullAddress" name="FullAddress" cols="40" rows="5"
-											class="fulladdressvalidator"></textarea></td>
-								</tr>
-								<tr>
-									<td><input id="Submit" name="Submit"
-										value="Validate address" type="button" /></td>
-								</tr>
-							</tbody>
-						</table>
-
-						<button type="submit" class="btn btn-inverse"
-							onclick="doMystuff();">Submit</button>
-
+						<fieldset class="form-group">
+							<label for="Title"> Title</label> <input class = "form-control" id="Name" name="Name"
+								type="text" />
+						</fieldset>
+						<fieldset class="form-group">
+							<label for="FullAddress"> Address</label>
+							<textarea id="FullAddress" name="FullAddress" rows="5"
+								class="form-control"></textarea>
+						</fieldset>
+						<fieldset class="form-group">
+							<input id="Submit" name="Submit" value="Validate address"
+								type="button" />
+						</fieldset>
+						<fieldset class="form-group">
+							<button type="submit" class="btn btn-inverse"
+								onclick="doMystuff();">Submit</button>
+						</fieldset>
 					</div>
 				</form>
-
 				<div class=" col-md-6 col-lg-6 col-sm-6">
 					<div id="map_canvas" style="height: 100%; width: 100%;"></div>
 				</div>
 			</div>
 		</div>
 	</div>
+
 
 	<label id="note"></label>
 
@@ -90,10 +83,10 @@
 							$("#FullAddress").data("SubmitForm", true);
 							return false;
 						}
-						alert('Form Valid!  Submit!');
+						//alert('Form Valid!  Submit!');
 						//return true;   // Uncomment to submit the form.
 						isValid = true;
-						alert(isValid);
+						//alert(isValid);
 						return false; // Supress the form submission for test purpose.
 
 					}
@@ -245,9 +238,10 @@
 																	.stringify(jsonObj),
 													success : function(res) {
 
-														alert("success");
-														
-														window.open(res, "_self");
+														//alert("success");
+
+														window.open(res,
+																"_self");
 														document
 																.getElementById("note").innerHTML = "Event created";
 													}

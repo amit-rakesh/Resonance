@@ -14,46 +14,55 @@
 	<div class="conatiner">
 
 		<div class="row">
-			<div class="panel panel-info">
-				<div class=" col-md-6 col-lg-6 col-sm-6">
-					<div class="panel-heading">
-						<h3 class="panel-title">Followers</h3>
+			<div class="">
+				<div class="col-sm-6">
+					<div class="header">
+
+						<h3 class="text-center text-muted">
+							<strong>Followers</strong>
+						</h3>
 					</div>
-					<table class="table table-user-information">
-						<tbody>
-							<c:forEach items="${users}" var="user">
+					<div class="col-sm-6 center outbox bright center">
+						<table class="table table-user-information">
+							<tbody>
+								<c:forEach items="${users}" var="user">
 
-								<tr>
-									<td><a
-										href="<c:url value="/user/otherUser/${user.userid}" /> "><c:out
-												value="${user.name}" /></a></td>
+									<tr>
+										<td><a
+											href="<c:url value="/user/otherUser/${user.userid}" /> "><c:out
+													value="${user.name}" /></a></td>
 
-								</tr>
-							</c:forEach>
+									</tr>
+								</c:forEach>
 
-						</tbody>
-					</table>
+							</tbody>
+						</table>
+					</div>
 				</div>
 
-				<div class="col-md-6 col-lg-6 col-sm-6">
-					<div class="panel-heading">
-						<h3 class="panel-title">Following</h3>
+				<div class="col-sm-6">
+					<div class="header">
 
+						<h3 class="text-center text-muted">
+							<strong>Following</strong>
+						</h3>
 					</div>
-					<table class="table table-user-information">
-						<tbody>
-							<c:forEach items="${usersIFollow}" var="user">
+					<div class="col-sm-6 center outbox bright center">
+						<table class="table table-user-information">
+							<tbody>
+								<c:forEach items="${usersIFollow}" var="user">
 
-								<tr>
-									<td><a
-										href="<c:url value="/user/otherUser/${user.userid}" /> "><c:out
-												value="${user.name}" /></a></td>
+									<tr>
+										<td><a
+											href="<c:url value="/user/otherUser/${user.userid}" /> "><c:out
+													value="${user.name}" /></a></td>
 
-								</tr>
-							</c:forEach>
-						</tbody>
+									</tr>
+								</c:forEach>
+							</tbody>
 
-					</table>
+						</table>
+					</div>
 
 				</div>
 			</div>
