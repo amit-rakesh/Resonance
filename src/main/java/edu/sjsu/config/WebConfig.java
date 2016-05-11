@@ -72,7 +72,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 
 		//registry.addInterceptor(loginInterceptor).addPathPatterns("/song/*");
 		registry.addInterceptor(loginInterceptor).addPathPatterns("/image");
-		registry.addInterceptor(loginInterceptor).addPathPatterns("/user/**").excludePathPatterns("/user/login");
+		//registry.addInterceptor(loginInterceptor).addPathPatterns("/user/**").excludePathPatterns("/user/login");
 
 
 	}
