@@ -3,7 +3,7 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
@@ -25,6 +25,7 @@ function submitRating(t, i){
 		   	}
 		});
 }
+
 
 function getRating(){
 	
@@ -90,7 +91,7 @@ function getRating(){
 									<td><a href="<c:url value="/user/otherUser/${song.uploadedByUserId}" /> "><c:out
 												value="${song.uploadedByUserName}" /></a>
 									</td>
-									<td><audio controls> <source
+									<td><audio  controls onended="alert('ended')"> <source
 											src="<c:url value ="${song.playingUrl}" /> "
 											type="audio/mpeg"></audio></td>
 											<td>
