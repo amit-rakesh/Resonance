@@ -16,14 +16,12 @@
 
 <script type="text/javascript">
 	function submitRating(t, i) {
-		alert(t);
-		alert(i);
 		$.ajax({
 			type : "POST",
 			url : "http://localhost:8080/resonance/song/rating/" + t + "/" + i,
 			success : function(res) {
 
-				alert(res);
+				
 			}
 		});
 	}
@@ -92,7 +90,7 @@
 							</section>
 							<label>Uploaded By: <a
 								href="<c:url value="/user/otherUser/${song.uploadedByUserId}" /> "><c:out
-										value="${song.uploadedByUserName}" />${song.uploadedByUserName}</a>
+										value="${song.uploadedByUserName}" /></a>
 							</label>
 						</div>
 						<div class="card-footer">
@@ -197,7 +195,7 @@
 				</div>
 			</div>
 
-	
+	</div>
 </body>
 
 <script src="<c:url value="/resources/js/script.js" />"></script>

@@ -39,10 +39,9 @@ public class DataWriter {
 		boolean fileWriteDone = false;
 
 
-		File file = new File("H:/harkirat/Study/sem4/Project-3-31/Resonance-1/Data1.csv");
+		File file = new File("C:/Users/rajas/Documents/CMPE295/Resonance/Data1.csv");
 		File completeFile = new File(
-				"H:/harkirat/Study/sem4/Project-3-31/Resonance-1/CompleteFitbitData.csv");
-
+				"C:/Users/rajas/Documents/CMPE295/Resonance/CompleteFitbitData.csv");
 
 		try {
 			file.createNewFile();
