@@ -1,12 +1,52 @@
 $(document).ready(function(){
 	
+	var startTime;
+	var endTime;
 
+
+	
 		
     $("audio").on("play", function() {
+    	var dur = this.duration;
+    	
+    	var d = new Date();
+    	var h = d.getHours();
+    	if (h < 10) {
+	        h = "0" + h;
+	    }
+    	var m = d.getMinutes();
+    	if (m < 10) {
+	        m = "0" + m;
+	    }
+    	startTime = h+":"+m;
+    	
         $("audio").not(this).each(function(index, audio) {
             audio.pause();
         });
+        
+        
     });
+    
+  
+/* $("audio").on("ended", function() {
+    	
+	 var d = new Date();
+		 var h = d.getHours();
+	 	if (h < 10) {
+		        h = "0" + h;
+		    }
+	 	var m = d.getMinutes();
+	 	if (m < 10) {
+		        m = "0" + m;
+		    }
+	 	endTime = h+":"+m;
+	 	
+ 	 alert(endTime);
+ 
+ 		
+ 	
+ 	 
+    });*/
     
     jQuery.createEventCapturing = (function () {
     	  var special = jQuery.event.special;
@@ -46,4 +86,5 @@ $(document).ready(function(){
         });
     });
 });
+
 

@@ -152,9 +152,13 @@ public class HomeController {
 		return "fitbitStart";	
 	}
 	
-	@RequestMapping(value = "/heartbeat/{songid}/", method = RequestMethod.GET)
+
+	@RequestMapping(value = "/heartbeat/{songid}/{startTime}/{endTime}", method = RequestMethod.GET)
 	@ResponseBody
-	public String getHeartBeatData(@PathVariable("songid") long songid, HttpServletRequest request, HttpServletResponse response){
+	public String getHeartBeatData(@PathVariable("songid") long songid,@PathVariable("startTime") String startTime, @PathVariable("endTime") String endTime, HttpServletRequest request, HttpServletResponse response){
+		
+		System.out.println("Start :"+startTime);
+		System.out.println("End :"+endTime);
 		long userId = currentUser.getCurrentUser().getUserid();
 		boolean fileWriteDone = false;
 		String body = fitbitApi.getHeartBeat();
