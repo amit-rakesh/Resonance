@@ -23,9 +23,17 @@ public class RecommendedSongs {
 		ArrayList<Song> songList = new ArrayList<Song>();
 		RecommendationEngine rc = new RecommendationEngine();
 		recommendedItem = rc.getUserBasedRecommendation(userid, numOfRecommendation);
+		if(recommendedItem != null){
 		for(RecommendedItem ri : recommendedItem){
 			long songId = ri.getItemID();
 			Song tempSong = songService.findSongById(songId);
+			System.out.println(tempSong.getSongTitle());
+			songList.add(tempSong);
+		}
+		}
+		
+		else{
+			Song tempSong = songService.findSongById(23);
 			System.out.println(tempSong.getSongTitle());
 			songList.add(tempSong);
 		}

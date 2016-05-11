@@ -32,6 +32,7 @@ import edu.sjsu.helpers.S3Connector;
 import edu.sjsu.models.Rating;
 import edu.sjsu.models.Song;
 import edu.sjsu.models.User;
+import edu.sjsu.recommendation.DataWriter;
 import edu.sjsu.recommendation.RecommendedSongs;
 import edu.sjsu.services.RatingService;
 import edu.sjsu.services.SongService;
@@ -149,9 +150,9 @@ public class SongController {
 	
 		ArrayList<Song> recommendedSongs = rSongs.getRecommendedSongs(userOb.getUserid(), 3);
 		
-			
+		System.out.println("recommended array list empty? :" + recommendedSongs.isEmpty());
 			for(Song song: recommendedSongs){
-				System.out.println(song.getSongId());
+				System.out.println("recommended Song Id Song Controller: "+song.getSongId());
 			}
 		ArrayList<Song> uploadedByMe = songService.songsUploadedByMe(userOb.getUserid());
 		System.out.println(uploadedByMe.size());
@@ -177,6 +178,9 @@ public class SongController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
+		new DataWriter().writeRatingData(songId, currentUser.getUserid(), rating);
+		
 		return "Success";
 	}
 

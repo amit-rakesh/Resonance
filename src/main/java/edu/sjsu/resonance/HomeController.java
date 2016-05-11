@@ -132,7 +132,7 @@ public class HomeController {
 		URI uri = new URI("http://localhost:8080/resonance/callback");
 		
 		redirectAttributes.addAttribute("response_type", "code");
-		redirectAttributes.addAttribute("xxxx", "xxxxx");
+		redirectAttributes.addAttribute("client_id", "227LXW");
 		redirectAttributes.addFlashAttribute("redirect_uri", uri);
 		redirectAttributes.addAttribute("scope", "profile heartrate");
 		redirectAttributes.addAttribute("prompt", "consent");
@@ -161,7 +161,7 @@ public class HomeController {
 		System.out.println("End :"+endTime);
 		long userId = currentUser.getCurrentUser().getUserid();
 		boolean fileWriteDone = false;
-		String body = fitbitApi.getHeartBeat();
+		String body = fitbitApi.getHeartBeat(startTime, endTime);
 		if(body !=null){
 			DataWriter writer = new DataWriter();
 			fileWriteDone =	writer.processHeartBeatData(userId, songid, body);

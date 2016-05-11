@@ -50,9 +50,7 @@ public class DataWriter {
 			if (endHeartBeat < startHeartBeat) {
 				long diff = startHeartBeat - endHeartBeat;
 				System.out.println("diff: " + diff + " endHeartBeat: " + endHeartBeat + "..." + "start Heartbeat: " + startHeartBeat);
-				String output = userId + "," + songId;
-				writer.write(output);
-				writer.write("\n");
+				relaxingSong = 1.0;
 
 				/******
 				 * Right now not using for fitbit recommendation because it
@@ -67,6 +65,10 @@ public class DataWriter {
 			} else {
 				relaxingSong = 0;
 			}
+			
+			String output = userId + "," + songId + "," + relaxingSong;
+			writer.write(output);
+			writer.write("\n");
 
 			writer.flush();
 			writer.close();
@@ -94,5 +96,22 @@ public class DataWriter {
 
 		return fileWriteDone;
 
+	}
+	
+	public void writeRatingData(long songId, long userId, int rating){
+File ratingFile = new File("C:/Users/Amit/Desktop/CMPE_Courses/CMPE 295B/Master_Project/Resonance/RatingData.csv");
+		
+		try{
+			
+			ratingFile.createNewFile();
+			FileWriter ratingWriter = new FileWriter(ratingFile, true);
+			String ratingOutput = "" + userId + "," + songId + "," + rating;
+			ratingWriter.write(ratingOutput);
+			ratingWriter.write("\n");
+			ratingWriter.flush();
+			ratingWriter.close();
+		}catch(IOException e){
+			e.printStackTrace();
+		}
 	}
 }

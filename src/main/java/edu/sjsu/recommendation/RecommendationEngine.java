@@ -52,8 +52,10 @@ public class RecommendationEngine {
 			
 			e.printStackTrace();
 		}
+		if(recommendations!=null){
 		for (RecommendedItem recommendation : recommendations) {
 			System.out.println(recommendation);
+		}
 		}
 
 		return recommendations;
