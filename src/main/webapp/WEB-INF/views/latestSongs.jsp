@@ -264,20 +264,7 @@ $(document).ready(function(){
 								src="<c:url value ="${song.playingUrl}" /> " type="audio/mpeg"></audio>
 							</section>
 						</div>
-						<div class="card-footer">
-							rating: <span class="star-rating"> <input type=radio
-								id="${song.songId}1" value="1" name="${song.songId}"
-								onClick="submitRating(${song.songId}, 1);"><i></i> <input
-								type=radio id="${song.songId}2" value="2" name="${song.songId}"
-								onClick="submitRating(${song.songId}, 2);"><i></i> <input
-								type=radio id="${song.songId}3" value="3" name="${song.songId}"
-								onClick="submitRating(${song.songId}, 3);"><i></i> <input
-								type=radio id="${song.songId}4" value="4" name="${song.songId}"
-								onClick="submitRating(${song.songId}, 4);"><i></i> <input
-								type=radio id="${song.songId}5" value="5" name="${song.songId}"
-								onClick="submitRating(${song.songId}, 5);"><i></i>
-							</span>
-						</div>
+						
 					</div>
 				</c:forEach>
 			</div>

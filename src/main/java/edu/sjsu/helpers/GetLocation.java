@@ -12,7 +12,7 @@ public class GetLocation {
 
 
 	File file = new File(
-	    "C:/Users/Amit/Desktop/CMPE_Courses/CMPE 295B/Master_Project/Resonance/GeoLiteCity.dat");
+	    "H:/harkirat/Study/sem4/Project-3-31/Resonance-1/GeoLiteCity.dat");
 	return getLocation(ipAddress, file);
 
 	}

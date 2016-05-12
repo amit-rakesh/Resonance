@@ -140,7 +140,7 @@ public class SongController {
 	// =================================================
 	// Get Latest 10 songs
 	// =================================================
-	@RequestMapping(value = "/get10LatestSongs", method = RequestMethod.GET)
+	@RequestMapping(value = "/getLatestSongs", method = RequestMethod.GET)
 	public String get10LatestSongs(Model model) {
 
 		User userOb = cookieManager.getCurrentUser();
