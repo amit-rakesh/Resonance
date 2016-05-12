@@ -7,59 +7,52 @@
 
 
 
-<div class="panel panel-info">
-	<div class="panel-heading">
+<div class="outbox bright">
 
-		<div class="container-fluid">
-			<div class="row">
-				<div class="col-lg-6 col-md-6 col-sm-6">
-					<h4>
-						<b>Blogs</b>
-					</h4>
-				</div>
-				<div class="col-lg-6 col-md-6 col-sm-6">
-					<a href="<c:url value = "/blog/create" />" type="button"
-						class="btn btn-success" style="float: right">Create Blogs</a>
-				</div>
-			</div>
-		</div>
-
-	</div>
-	<div class="panel-body">
+	<div class="container-fluid">
 		<div class="row">
-
-			<div class=" col-md-12 col-lg-12 col-sm-12 ">
-				<table class="table table-user-information">
-					<tbody>
-						<tr>
-							<th>Blog Title</th>
-							<th>Uploaded By User</th>
-							<th>Blog Content</th>
-							<th>Written on</th>
-						</tr>
-						<c:forEach items="${blog}" var="blog">
-
-
-							<tr>
-								<td><c:out value="${blog.blogTitle}" /></td>
-								<td><c:out value="${blog.uploadedByUserId}" /></td>
-								<td><c:out value="${blog.blogContent}"></c:out></td>
-								<td><c:out value="${blog.date}"></c:out></td>
-							</tr>
-						</c:forEach>
-
-					</tbody>
-				</table>
-
-
+			<div class="col-lg-6 col-md-6 col-sm-6">
+				<h4>
+					<b>Blogs</b>
+				</h4>
+			</div>
+			<div class="col-lg-6 col-md-6 col-sm-6">
+				<a href="<c:url value = "/blog/create" />" type="button"
+					class="btn btn-success" style="float: right">Create Blogs</a>
 			</div>
 		</div>
 	</div>
 
 
+	<div>
+		<div class="container">
+			<c:forEach items="${blog}" var="blog">
+				<div class="row">
+
+					<div class="col-md-12 col-sm-9">
+						<h3>
+							<c:out value="${blog.blogTitle}" />
+						</h3>
+						by
+						<h4>
+							<a
+								href="<c:url value="/user/otherUser/${blog.uploadedByUserId}" /> ">
+								<c:out value="${blog.uploadedByUserName}" />
+							</a>
+						</h4>
+						<div class="row">
+							<div class="col-xs-12 col-md-12 col-lg-12">
+								<p>
+									<strong><c:out value="${blog.blogContent}"></c:out></strong>
+								</p>
+							</div>
+						</div>
+						<br>
+					</div>
+				</div>
+				<hr>
+			</c:forEach>
+		</div>
+	</div>
 </div>
-
-
-
-
 

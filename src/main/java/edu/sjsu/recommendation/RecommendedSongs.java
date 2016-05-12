@@ -16,15 +16,24 @@ public class RecommendedSongs {
 	@Autowired
 	private SongService songService;
 	
-	public ArrayList<Song> songList = new ArrayList<Song>();
+	
 	public List<RecommendedItem> recommendedItem;
 	
 	public ArrayList<Song> getRecommendedSongs(long userid, int numOfRecommendation){
+		ArrayList<Song> songList = new ArrayList<Song>();
 		RecommendationEngine rc = new RecommendationEngine();
 		recommendedItem = rc.getUserBasedRecommendation(userid, numOfRecommendation);
+		if(recommendedItem != null){
 		for(RecommendedItem ri : recommendedItem){
 			long songId = ri.getItemID();
 			Song tempSong = songService.findSongById(songId);
+			System.out.println(tempSong.getSongTitle());
+			songList.add(tempSong);
+		}
+		}
+		
+		else{
+			Song tempSong = songService.findSongById(23);
 			System.out.println(tempSong.getSongTitle());
 			songList.add(tempSong);
 		}
