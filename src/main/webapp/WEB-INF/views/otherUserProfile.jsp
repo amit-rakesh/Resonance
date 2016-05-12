@@ -211,24 +211,71 @@ button.followButton.unfollow {
 
 <body onload="myFunction()">
 
-	<div class="container-fluid">
 
-		<div class="row" id="followid">
-			<div class="col-sm-2">
-				<h4 class="text-center" style="color:#fff;">
-					<c:out value="${user.name}" />
-				</h4>
-			</div>
-			<div class="col-sm-3 col-sm-offset-7 text-right">
+
+	<div class="container-fluid" id="userprofile">
+		<div class="header">
+			<h3 class="text-center text-muted">
+				<strong>User</strong> Profile
+			</h3>
+
+		</div>
+		<section id="profile" class="center col-sm-6 outbox bright">
+		<div id="actions">
+			<div class="text-right">
 				<button class="btn followButton" rel="${user.userid }"
 					id="followBtn">Follow</button>
 			</div>
 		</div>
+		<div class="clearfix"></div>
+		<div class="text-center center col-sm-6 well well-small">
+			<div class="clearfix"></div>
+			<div class="text-center lead">
+				<c:out value="${user.name}" />
+			</div>
+
+		</div>
+		<div id="description" class="col-sm-6 center">
+
+			<div class="row">
+				<label for="email" class="col-sm-4">Email</label>
+				<div id="email" class="col-sm-8">
+					<c:out value="${user.email}" />
+				</div>
+			</div>
+			<div class="row">
+				<label for="state" class="col-sm-4">State</label>
+				<div id="state" class="col-sm-8">
+					<c:out value="${user.state}" />
+				</div>
+			</div>
+			<div class="row">
+				<label for="sex" class="col-sm-4">Sex</label>
+				<div id="sex" class="col-sm-8">
+					<c:out value="${user.sex}" />
+				</div>
+			</div>
+			<div class="row">
+				<label for="age" class="col-sm-4">Age</label>
+				<div id="age" class="col-sm-8">
+					<c:out value="${user.age}" />
+				</div>
+			</div>
+			<div class="clearfix"></div>
+		</div>
+
+
+
+
+		<div class="clearfix"></div>
+		</section>
 	</div>
+
+
 
 	<div id="latestsongs">
 		<h3 class="text-center text-muted">
-			<strong>Trending</strong> Songs
+			<strong>Songs</strong>
 		</h3>
 		<div class="col-sm-12">
 			<c:forEach items="${songList}" var="song">
@@ -241,12 +288,8 @@ button.followButton.unfollow {
 							class="col-sm-10 center"> <source
 							src="<c:url value ="${song.playingUrl}" /> " type="audio/mpeg"></audio>
 						</section>
-						<%-- <label>Uploaded By: <a
-								href="<c:url value="/user/otherUser/${song.uploadedByUserId}" /> "><c:out
-										value="${song.uploadedByUserName}" />${song.uploadedByUserName}</a>
-							</label> --%>
-					</div>
-					<%-- <div class="card-footer">
+										</div>
+					 <div class="card-footer">
 							rating: <span class="star-rating"> <input type=radio
 								id="${song.songId}1" value="1" name="${song.songId}"
 								onClick="submitRating(${song.songId}, 1);"><i></i> <input
@@ -259,12 +302,11 @@ button.followButton.unfollow {
 								type=radio id="${song.songId}5" value="5" name="${song.songId}"
 								onClick="submitRating(${song.songId}, 5);"><i></i>
 							</span>
-						</div> --%>
+						</div>
 				</div>
 			</c:forEach>
 		</div>
 	</div>
-
 
 
 

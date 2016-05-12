@@ -12,9 +12,9 @@ import java.io.File;
 public class S3Connector {
 
 	private static String bucketName = "resonance-295";
-	private static String access_key_id = "AKIAIAPF25SRWYMV2SPA";
+	private static String access_key_id = "";
 
-	private static String secret_access_key = "/VuNgf5XERyN2FfgtjPdSwMxpPM2SM0EWdzWR1eD";
+	private static String secret_access_key = "";
 
 	public String uploadFile(String fileName, File uploadFilePath) {
 

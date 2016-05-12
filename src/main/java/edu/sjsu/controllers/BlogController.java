@@ -44,7 +44,8 @@ public class BlogController {
 	public String getBlog(@ModelAttribute("blog") Blog blog, BindingResult result, Model model,
 			HttpServletRequest request, HttpServletResponse response) {
 		ArrayList<Blog> latestBlog = blogService.getLatestBlogs();
-		model.addAttribute(latestBlog);
+		System.out.println(latestBlog.size());
+		model.addAttribute("blog",latestBlog);
 		return "blog";
 	}
 
@@ -75,7 +76,7 @@ public class BlogController {
 		//long unixTime = System.currentTimeMillis() / 1000L;
 		//System.out.println(unixTime);
 		Blog blogOb;
-		blogOb = new Blog(blog.getBlogTitle(), user.getUserid(), Calendar.getInstance().getTime(), blog.getBlogContent());
+		blogOb = new Blog(blog.getBlogTitle(), user.getUserid(), Calendar.getInstance().getTime(), blog.getBlogContent(),user.getName());
 		System.out.println("in create -->" + Calendar.getInstance().getTime() + "..." + Calendar.getInstance().getTime().toString());
 		blogService.create(blogOb);
 		return "redirect:/blog/getMyBlogs";
