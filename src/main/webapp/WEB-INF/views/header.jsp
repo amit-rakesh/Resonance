@@ -12,7 +12,7 @@
 
 		<li><a href="<c:url value="/user/getDashboard" />">User
 				Profile</a></li>
-		<li><a href="<c:url value="/song/get10LatestSongs" />">Songs</a></li>
+		<li><a href="<c:url value="/song/getLatestSongs" />">Songs</a></li>
 		<li><a href="<c:url value="/song/getUploadSong" />">Upload</a></li>
 		<li><a href="<c:url value="/user/myFriends" /> ">Friends</a></li>
 		<li><a href="<c:url value="/user/search" /> ">Search</a></li>
