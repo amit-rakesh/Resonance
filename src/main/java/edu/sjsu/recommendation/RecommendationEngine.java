@@ -27,7 +27,9 @@ public class RecommendationEngine {
 		try {
 			model = new FileDataModel(
 
-					new File("C:/Users/rajas/Documents/CMPE295/Resonance/Data.csv"));
+
+					new File("C:/Users/Amit/Desktop/CMPE_Courses/CMPE 295B/Master_Project/Resonance/Data.csv"));
+
 
 		} catch (IOException e) {
 			
@@ -52,8 +54,10 @@ public class RecommendationEngine {
 			
 			e.printStackTrace();
 		}
+		if(recommendations!=null){
 		for (RecommendedItem recommendation : recommendations) {
 			System.out.println(recommendation);
+		}
 		}
 
 		return recommendations;
@@ -63,7 +67,7 @@ public class RecommendationEngine {
 		List<RecommendedItem> recommendations = null;
 		try {
 			//enterData();
-			FileSystemResource resource = new FileSystemResource("C:/Users/rajas/Documents/CMPE295/Resonance/Data1.csv");
+			FileSystemResource resource = new FileSystemResource("C:/Users/Amit/Desktop/CMPE_Courses/CMPE 295B/Master_Project/Resonance/Data1.csv");
 			DataModel model = new GenericBooleanPrefDataModel( GenericBooleanPrefDataModel.toDataMap(new FileDataModel(resource.getFile())));
 			
 			UserSimilarity similarity = new TanimotoCoefficientSimilarity(model);

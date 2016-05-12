@@ -38,21 +38,21 @@ public class FitBitApi {
 
 	RestTemplate rest = new RestTemplate();
 
-	public String getHeartBeat() {
+	public String getHeartBeat(String startSongTime, String endSongTime) {
 		final long ONE_MINUTE_IN_MILLIS=60000;
 		String body = null;
 		SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
 		
 		String startTime = sdf.format(new Date());
 		
-		System.out.println(startTime);
+		System.out.println(startSongTime);
 		Calendar date = Calendar.getInstance();
 		long t= date.getTimeInMillis();
 		Date afterAddingFiveMins=new Date(t + (5 * ONE_MINUTE_IN_MILLIS));
 		
 		String endTime = sdf.format(afterAddingFiveMins);
 		
-		System.out.println(endTime);
+		System.out.println(endSongTime);
 		
 		MultiValueMap<String, String> headers = new LinkedMultiValueMap<String, String>();
 		headers.add("Authorization", "Bearer " + fitbitUserConfig.getUserAccessToken());
@@ -60,7 +60,7 @@ public class FitBitApi {
 		ResponseEntity<String> entity = null;
 		try {
 			entity = rest.exchange(
-					"https://api.fitbit.com/1/user/-/activities/heart/date/today/1d/1min/time/" + "00:45" + "/" + "00:50"+ ".json",
+					"https://api.fitbit.com/1/user/-/activities/heart/date/today/1d/1min/time/" + "16:00" + "/" + "16:05" + ".json",
 					HttpMethod.GET, requestEntity, String.class);
 			
 		} catch (HttpClientErrorException ce) {
@@ -84,7 +84,7 @@ public class FitBitApi {
 						System.out.println("error type : " + errorType);
 						if (errorType.equals("expired_token")) {
 							fitbitUserConfig.refreshAccessToken();
-							getHeartBeat();
+							getHeartBeat(startSongTime, endSongTime);
 						}
 					}
 				}
